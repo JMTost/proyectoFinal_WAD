@@ -24,7 +24,7 @@ public class DireccionCursoDTO {
          sb.append("ID direccion curso: ").append(getEntidad().getIdDir()).append("\n");
          sb.append("ID curso: ").append(getEntidad().getIdCurso()).append("\n");
          sb.append("ID profesor: ").append(getEntidad().getIdProfesor()).append("\n");
-         sb.append("Nombre plataforma: ").append(getEntidad().getNombrePlataforma()).append("\n");
+         sb.append("Nombre plataforma: ").append(getEntidad().getNombrePlat()).append("\n");
          sb.append("Link llamada: ").append(getEntidad().getLinkLlamada()).append("\n");
          sb.append("Contraseña llamada: ").append(getEntidad().getPassLlamada()).append("\n");
          return sb.toString();

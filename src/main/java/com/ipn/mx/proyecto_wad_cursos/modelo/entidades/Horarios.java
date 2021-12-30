@@ -19,7 +19,6 @@ public class Horarios implements Serializable {
     private int idHorario;
     private String idCurso;
     private int idProfesor;
-    private String dias;
     private String hora;
     private boolean disponible;
     private String nombrePlataforma;
