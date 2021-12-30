@@ -5,7 +5,7 @@
  */
 package com.ipn.mx.proyecto_wad_cursos.modelo.DAO;
 
-import com.ipn.mx.proyecto_wad_cursos.modelo.DTO.DireccionCursoDTO;
+import com.ipn.mx.proyecto_wad_cursos.modelo.DTO.InscripcionCursoDTO;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -23,11 +23,11 @@ import java.util.logging.Logger;
 public class DireccionCursoDAO {
 
     /*Scripts para las operaciones de CRUD*/
-    private static final String SQL_INSERT = "call spInsertaDirCur(?,?,?,?,?,?)";
-    private static final String SQL_UPDATE = "call spActDirCur(?,?,?,?,?,?)";
-    private static final String SQL_DELETE = "call spEliminarDirCurso(?)";
-    private static final String SQL_READ = "select * from seleccionaUnDirCurso(?)";
-    private static final String SQL_READ_ALLS = "select * from seleccionadirCurso()";
+    private static final String SQL_INSERT = "call spInsertaInscripcionCurso(?,?)";
+    private static final String SQL_UPDATE = "";
+    private static final String SQL_DELETE = "call spEliminarInscripcion(?,?)";
+    private static final String SQL_READ = "select * from seleccionaUnaInscripcion(?,?)";
+    private static final String SQL_READ_ALLS = "select * from seleccionaInscripcionCurso()";
 
     private Connection conexion;
 
@@ -47,17 +47,13 @@ public class DireccionCursoDAO {
         return conexion;
     }
 
-    public void create(DireccionCursoDTO dto) throws SQLException {
+    public void create(InscripcionCursoDTO dto) throws SQLException {
         conectar();
         CallableStatement ps = null;
         try {
             ps = conexion.prepareCall(SQL_INSERT);
-            ps.setInt(1, dto.getEntidad().getIdDir());
-            ps.setString(2, dto.getEntidad().getIdCurso());
-            ps.setInt(3, dto.getEntidad().getIdProfesor());
-            ps.setString(4, dto.getEntidad().getnombrePlat());
-            ps.setString(5, dto.getEntidad().getLinkLlamada());
-            ps.setString(6, dto.getEntidad().getPassLlamada());
+            ps.setString(1, dto.getEntidad().getIdCurso());
+            ps.setInt(2, dto.getEntidad().getIdEstudiante());
             ps.executeUpdate();
         } finally {
             if (ps != null) {
@@ -69,34 +65,17 @@ public class DireccionCursoDAO {
         }
     }
 
-    public void update(DireccionCursoDTO dto) throws SQLException {
-        conectar();
-        CallableStatement ps = null;
-        try {
-            ps = conexion.prepareCall(SQL_UPDATE);
-            ps.setInt(1, dto.getEntidad().getIdDir());
-            ps.setString(2, dto.getEntidad().getIdCurso());
-            ps.setInt(3, dto.getEntidad().getIdProfesor());
-            ps.setString(4, dto.getEntidad().getnombrePlat());
-            ps.setString(5, dto.getEntidad().getLinkLlamada());
-            ps.setString(6, dto.getEntidad().getPassLlamada());
-            ps.executeUpdate();
-        } finally {
-            if (ps != null) {
-                ps.close();
-            }
-            if (conexion != null) {
-                conexion.close();
-            }
-        }
+    public void update() throws SQLException {
+        
     }
 
-    public void delete(DireccionCursoDTO dto) throws SQLException {
+    public void delete(InstruccionCursoDTO dto) throws SQLException {
         conectar();
         CallableStatement ps = null;
         try {
             ps = conexion.prepareCall(SQL_DELETE);
-            ps.setInt(1, dto.getEntidad().getIdDir());
+            ps.setString(1, dto.getEntidad().getIdCurso());
+            ps.setInt(2, dto.getEntidad().getIdEstudiante());
             ps.executeUpdate();
         } finally {
             if (ps != null) {
@@ -108,13 +87,14 @@ public class DireccionCursoDAO {
         }
     }
 
-    public DireccionCursoDTO read(DireccionCursoDTO dto) throws SQLException {
+    public InscripcionCursoDTO read(InscripcionCursoDTO dto) throws SQLException {
         conectar();
         CallableStatement ps = null;
         ResultSet rs = null;
         try {
             ps = conexion.prepareCall(SQL_READ);
-            ps.setInt(1, dto.getEntidad().getIdDir());
+            ps.setString(1, dto.getEntidad().getIdCurso());
+            ps.setInt(2, dto.getEntidad().getIdEstudiante());
             rs = ps.executeQuery();
             List resultados = obtenerResultados(rs);
             if (resultados.size() > 0) {
@@ -165,13 +145,9 @@ public class DireccionCursoDAO {
     private List obtenerResultados(ResultSet rs) throws SQLException{
         List resultados = new ArrayList();
         while(rs.next()){
-            DireccionCursoDTO dto = new DireccionCursoDTO();
-            dto.getEntidad().setIdDir(rs.getInt("idDir"));
+            InscripcionDTO dto = new InscripcionCursoDTO();
             dto.getEntidad().setIdCurso(rs.getString("idCurso"));
-            dto.getEntidad().setIdProfesor(rs.getInt("idProfesor"));
-            dto.getEntidad().setNombrePlat(rs.getString("NombrePlat"));
-            dto.getEntidad().setLinkLlamada(rs.getString("LinkLlamada"));
-            dto.getEntidad().setPassLlamada(rs.getString("PassLlamada"));;
+            dto.getEntidad().setIdEstudiante(rs.getInt("idEstudiante"));
             resultados.add(dto);
         }
         return resultados;
