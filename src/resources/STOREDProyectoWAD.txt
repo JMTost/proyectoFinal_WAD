@@ -1,0 +1,155 @@
+SELECCIONAMOS TODOS LOS REGISTROS
+-------------------------------------------------------------------
+--admin
+
+CREATE OR REPLACE FUNCTION seleccionaAdmins() RETURNS Table(
+	idAdmin varchar,
+	passAdmin varchar
+)AS
+$$ SELECT * FROM admin;
+$$ LANGUAGE sql
+select seleccionaAdmins();
+
+--CalificacionesFinales
+
+CREATE OR REPLACE FUNCTION seleccionaCalFinales() RETURNS Table(
+	idCalFinal int,
+	idEstudiante int,
+	idCurso varchar,
+	calf int
+)AS
+$$ SELECT * FROM calificacionesfinales;
+$$ LANGUAGE sql
+select seleccionaCalFinal();
+
+--CalificacionesParciales
+
+CREATE OR REPLACE FUNCTION seleccionaCalParciales() RETURNS Table(
+	llave_califi int,
+	descripcion varchar
+)AS
+$$ SELECT * FROM calificacionesparciales;
+$$ LANGUAGE sql
+select seleccionaCalParciales();
+---------------------------------------------------------------------
+
+
+
+SELECCIONAMOS UN REGISTRO
+---------------------------------------------------------------------
+--admin
+
+CREATE OR REPLACE FUNCTION buscaUnAdmin(in id varchar) RETURNS Table(
+	idAdmin varchar,
+	passAdmin varchar
+)AS
+$$ SELECT * FROM admin WHERE idAdmin = id;
+$$ LANGUAGE sql
+select buscaUnAdmin();
+
+--CalificacionesFinales
+
+CREATE OR REPLACE FUNCTION seleccionaCalFinal(in id int) RETURNS Table(
+	idCalFinal int,
+	idEstudiante int,
+	idCurso varchar,
+	calf int
+)AS
+$$ SELECT * FROM calificacionesfinales WHERE idCalFinal = id;
+$$ LANGUAGE sql
+select calificacionesfinales();
+
+--CalificacionesParciales
+
+
+CREATE OR REPLACE FUNCTION seleccionaCalPar(in id int) RETURNS Table(
+	llave_califi int,
+	descripcion varchar
+)AS
+$$ SELECT * FROM calificacionesparciales WHERE llave_califi = id;
+$$ LANGUAGE sql
+select seleccionaCalPar();
+---------------------------------------------------------------------
+
+
+INSERTAMOS UN REGISTRO
+---------------------------------------------------------------------
+--admin
+
+CREATE OR REPLACE PROCEDURE spInsertaAdmin(
+	in id varchar, in passAdmin varchar) language sql as $$
+	insert into Admin(idAdmin, passAdmin)VALUES(id, passAdmin);
+$$
+call spInsertaAdmin();
+
+--CalificacionesFinales
+
+CREATE OR REPLACE PROCEDURE spInsertaCalFinal( 
+	in idEstudiante int, in idCurso varchar, in calF int) language sql as $$
+	insert into calificacionesFinales(idEstudiante, idCurso, calF) VALUES
+	(idEstudiante, idCurso, calF);
+$$
+call spInsertaCalFinal();
+
+--CalificacionesParciales
+
+
+CREATE OR REPLACE PROCEDURE spInsertaCalParcial(in desc varchar) language sql as $$
+	insert into calificacionesParciales(descripcion) VALUES (desc);
+$$
+call spInsertaCalParcial();
+---------------------------------------------------------------------
+
+
+ACTUALIZAMOS REGISTRO
+---------------------------------------------------------------------
+--admin
+
+CREATE OR REPLACE PROCEDURE spActualizarAdmin(
+	in idA varchar, in pass varchar) language sql as $$
+	update Admin set passAdmin = pass WHERE idAdmin = idA;
+$$
+call spActualizarAdmin('jm33', 'pruebaActual1');
+
+--CalificacionesFinales
+
+CREATE OR REPLACE PROCEDURE spActualizarCalFinal(in id int, 
+	in idEstudiante int, in idCurso varchar, in calF int) language sql as $$
+	update calificacionesFinales set idEstudiante = idEstudiante, idCurso = idCurso, calF = calF WHERE idCalFinal = id;
+$$
+call spActualizarCalFinal();
+--CalificacionesParciales
+
+
+CREATE OR REPLACE PROCEDURE spActualizarCalParcial(in id int, in desc varchar) language sql as $$
+	update calificacionesParciales set descripcion=desc WHERE llave_Califi = id;
+$$
+call spActualizarCalParcial();
+---------------------------------------------------------------------
+
+
+ELIMINAMOS REGISTRO
+---------------------------------------------------------------------
+--admin
+
+CREATE OR REPLACE PROCEDURE spEliminarAdmin(
+	in id varchar)language sql as $$
+	delete from Admin Where idAdmin = id;
+$$
+call spEliminarAdmin();
+
+--CalificacionesFinales
+
+CREATE OR REPLACE PROCEDURE spEliminarCalFinal(in id int) language sql as $$
+	delete from calificacionesFinales Where idCalFinal = id;
+$$
+call spEliminarCalFinal();
+
+--CalificacionesParciales
+
+
+CREATE OR REPLACE PROCEDURE spEliminarCalParcial(in id int) language sql as $$
+	delete from calificacionesParciales where llave_califi = id;
+$$
+call spEliminarCalParcial();
+---------------------------------------------------------------------
