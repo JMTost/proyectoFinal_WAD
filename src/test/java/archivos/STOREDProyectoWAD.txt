@@ -153,3 +153,158 @@ CREATE OR REPLACE PROCEDURE spEliminarCalParcial(in id int) language sql as $$
 $$
 call spEliminarCalParcial();
 ---------------------------------------------------------------------
+
+SELECCIONAMOS TODOS LOS REGISTROS
+-------------------------------------------------------------------
+--horarios
+
+CREATE OR REPLACE FUNCTION seleccionaHorarios() RETURNS Table(
+	idHorario int,
+    	idCurso varchar,
+    	idProfesor int,
+    	hora varchar,
+    	disponible boolean,
+    	nombrePlataforma varchar
+)AS
+$$ SELECT * FROM horarios;
+$$ LANGUAGE sql
+
+
+--DireccionCurso
+
+CREATE OR REPLACE FUNCTION seleccionadirCurso() RETURNS Table(
+	iddir int,
+    	idcurso varchar,
+	idprofesor int,
+    	nombreplat varchar,
+    	linkllamada varchar,
+    	passllamada varchar
+)AS
+$$ SELECT * FROM direccionCurso;
+$$ LANGUAGE sql
+
+
+--InscripcionCurso
+
+CREATE OR REPLACE FUNCTION seleccionaInscripcionCurso() RETURNS Table(
+	idcurso varchar,
+    	idestudiante int
+)AS
+$$ SELECT * FROM inscripcionCurso;
+$$ LANGUAGE sql
+
+---------------------------------------------------------------------
+
+
+
+SELECCIONAMOS UN REGISTRO
+---------------------------------------------------------------------
+--admin
+
+CREATE OR REPLACE FUNCTION buscaUnHorario(in id int) RETURNS Table(
+	idHorario int,
+    	idCurso varchar,
+    	idProfesor int,
+    	hora varchar,
+    	disponible boolean,
+    	nombrePlataforma varchar
+)AS
+$$ SELECT * FROM horarios WHERE idHorario = id;
+$$ LANGUAGE sql
+select buscaUnAdmin();
+
+--DireccionCurso
+
+CREATE OR REPLACE FUNCTION seleccionaUnDirCurso(in id int) RETURNS Table(
+	iddir int,
+    	idcurso varchar,
+	idprofesor int,
+    	nombreplat varchar,
+    	linkllamada varchar,
+    	passllamada varchar
+)AS
+$$ SELECT * FROM direccioncurso WHERE iddir = id;
+$$ LANGUAGE sql
+
+
+--InscripcionCurso
+
+
+CREATE OR REPLACE FUNCTION seleccionaUnaInscripcion(in idc varchar, in ide int) RETURNS Table(
+	idcurso varchar,
+    	idestudiante int
+)AS
+$$ SELECT * FROM inscripcionCurso WHERE ide = idestudiante AND idc = idcurso;
+$$ LANGUAGE sql
+
+---------------------------------------------------------------------
+
+
+INSERTAMOS UN REGISTRO
+---------------------------------------------------------------------
+--Horario
+
+CREATE OR REPLACE PROCEDURE spInsertaHorario(
+	in idH int, in idC varchar, in idP int, in Horario varchar, in dis boolean, in nombrePlat varchar) language sql as $$
+	insert into Horarios(idHorario, idCurso, idProfesor, hora, disponible, nombrePlataforma)VALUES(idH, idC, idP, Horario, dis, nombrePlat);
+$$
+
+
+--DireccionCurso
+
+CREATE OR REPLACE PROCEDURE spInsertaDirCur( 
+	in idd int, in idc varchar, in idp int, in nomplat varchar, in link varchar, in pass varchar) language sql as $$
+	insert into direccionCurso(iddir, idcurso, idprofesor, nombreplat, linkllamada, passllamada) VALUES
+	(idd, idc, idp, nomplat, link, pass);
+$$
+
+--CalificacionesParciales
+
+
+CREATE OR REPLACE PROCEDURE spInsertaInscripcionCurso(in idc varchar, in ide int) language sql as $$
+	insert into InscripcionCurso(idcurso, idestudiante) VALUES (idc, ide);
+$$
+
+---------------------------------------------------------------------
+
+
+ACTUALIZAMOS REGISTRO
+---------------------------------------------------------------------
+--admin
+
+CREATE OR REPLACE PROCEDURE spActHorario(
+	in idH int, in idC varchar, in idP int, in Horario varchar, in dis boolean, in nombrePlat varchar) language sql as $$
+	update Horarios set idCurso = idC, idProfesor = IdP, hora = Horario, disponible = dis, nombrePlataforma = nombrePlat WHERE idHorario = idH;
+$$
+
+
+--DireccionCurso
+
+CREATE OR REPLACE PROCEDURE spActDirCur( 
+	in idd int, in idc varchar, in idp int, in nomplat varchar, in link varchar, in pass varchar) language sql as $$
+	update direccionCurso set idcurso = idc, idprofesor = idp, nombreplat = nomplat, linkllamada = link, passllamada = pass WHERE iddir = idd;
+$$
+
+
+ELIMINAMOS REGISTRO
+---------------------------------------------------------------------
+--admin
+
+CREATE OR REPLACE PROCEDURE spEliminarHorario(
+	in idH int)language sql as $$
+	delete from Horarios Where idHorario = id;
+$$
+
+--DireccionCurso
+
+CREATE OR REPLACE PROCEDURE spEliminarDirCurso(in id int) language sql as $$
+	delete from direccionCurso Where iddir = id;
+$$
+
+--CalificacionesParciales
+
+CREATE OR REPLACE PROCEDURE spEliminarInscripcion(in idc varchar, in ide int) language sql as $$
+	delete from InscripcionCurso where idEstudiante = ide AND idCurso = idc;
+$$
+call spEliminarCalParcial();
+---------------------------------------------------------------------
