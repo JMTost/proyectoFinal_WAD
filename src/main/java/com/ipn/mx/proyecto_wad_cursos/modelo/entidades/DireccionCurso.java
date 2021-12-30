@@ -19,7 +19,7 @@ public class DireccionCurso implements Serializable{
     private int idDir;
     private String idCurso;
     private int idProfesor;
-    private String nombrePlat;
+    private String nombrePlataforma;
     private String linkLlamada;
     private String passLlamada;
 }
