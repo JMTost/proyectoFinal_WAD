@@ -31,24 +31,10 @@ public class CalificacionesFinalDAO {
     private Connection conexion;
     
     //METODO DE CONEXION
-    /*public Connection conectar(){
-        String user = "postgres";
-        String pass = "123";
-        String url = "jdbc:postgresql://localhost:5432/proyectoWAD";
-        String pgDriver = "org.postgresql.Driver";
-        try {
-            Class.forName(pgDriver);
-            conexion = DriverManager.getConnection(url, user, pass);
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-
-        return conexion;
-    }*/
     private void conectar() {
         String user = "bfeszlnsmgkltd";
         String pwd = "f82a60dc9910e10bd1f80f0584e0be408579ac03fbe0f636d3b9a31b661108a0";
-        String url = "postgres://bfeszlnsmgkltd:f82a60dc9910e10bd1f80f0584e0be408579ac03fbe0f636d3b9a31b661108a0@ec2-34-236-87-247.compute-1.amazonaws.com:5432/d8kdjahdr678r6";//sslmoderequire
+        String url = "jdbc:postgresql://ec2-34-236-87-247.compute-1.amazonaws.com:5432/d8kdjahdr678r6";//sslmoderequire
         String pgDriver = "org.postgresql.Driver";
         try {
             //registra el driver de java para el manejador de base de datos
