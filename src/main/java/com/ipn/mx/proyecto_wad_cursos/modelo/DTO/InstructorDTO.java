@@ -36,4 +36,4 @@ public class InstructorDTO {
          sb.append("Delegación: ").append(getEntidad().getDelegacion()).append("\n");
          return sb.toString();
      }
-}
+    }
