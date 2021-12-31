@@ -28,4 +28,4 @@ public class CursoDTO {
          sb.append("Descripcion: ").append(getEntidad().getDescripcion()).append("\n");       
          return sb.toString();
      }
-    }
+}

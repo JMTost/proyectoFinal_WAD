@@ -32,7 +32,7 @@ public class InscripcionCursoDAO {
     private Connection conexion;
 
     //METODO DE CONEXION
-    public Connection conectar() {
+    /*public Connection conectar() {
         String user = "postgres";
         String pass = "123";
         String url = "jdbc:postgresql://localhost:5432/proyectoWAD";
@@ -45,6 +45,20 @@ public class InscripcionCursoDAO {
         }
 
         return conexion;
+    }*/
+    private void conectar() {
+        String user = "bfeszlnsmgkltd";
+        String pwd = "f82a60dc9910e10bd1f80f0584e0be408579ac03fbe0f636d3b9a31b661108a0";
+        String url = "postgres://bfeszlnsmgkltd:f82a60dc9910e10bd1f80f0584e0be408579ac03fbe0f636d3b9a31b661108a0@ec2-34-236-87-247.compute-1.amazonaws.com:5432/d8kdjahdr678r6";//sslmoderequire
+        String pgDriver = "org.postgresql.Driver";
+        try {
+            //registra el driver de java para el manejador de base de datos
+            Class.forName(pgDriver);
+            conexion = DriverManager.getConnection(url, user, pwd);
+            //debería de ser dos excepciones, class not found exception y sql exception, por no colocar de forma correcta los datos para la conexion a la base 
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void create(InscripcionCursoDTO dto) throws SQLException {
