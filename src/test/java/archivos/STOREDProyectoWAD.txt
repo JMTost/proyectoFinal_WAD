@@ -308,3 +308,215 @@ CREATE OR REPLACE PROCEDURE spEliminarInscripcion(in idc varchar, in ide int) la
 $$
 call spEliminarCalParcial();
 ---------------------------------------------------------------------
+
+
+-------Insertar Instructor-----
+CREATE OR REPLACE PROCEDURE spInsertarInstructor(
+    	in correoI varchar,
+    	in passI varchar,
+	in nombreI varchar,
+	in apPatI varchar,
+	in apMatI varchar,
+	in calleI varchar,
+	in numExtI int,
+	in codPostI int,
+	in delegacionI varchar,
+	in telefonoI varchar
+) language sql as $$
+insert into Instructor(correo, contraseña, nombre, apPat, apMat, calle, numext, codPost, delegacion, telefono )VALUES(correoI, passI, nombreI, apPatI, apMatI, calleI, numextI, codPostI, delegacionI, telefonoI );
+$$
+-------------------------------
+
+-------Actualizar Instructor---
+CREATE OR REPLACE PROCEDURE spActualizarIntructor(
+	in idprofesorI int,
+    	in correoI varchar,
+    	in passI varchar,
+	in nombreI varchar,
+	in apPatI varchar,
+	in apMatI varchar,
+	in calleI varchar,
+	in numExtI int,
+	in codPostI int,
+	in delegacionI varchar,
+	in telefonoI varchar
+)language sql as $$
+update Instructor set correo = correoI, contraseña = passI, nombre = nombreI, apPat = apPatI, apMat = apMatI, calle = calleI, numext = numExtI, codPost = codPostI, delegacion = delegacionI, telefono = telefonoI WHERE idprofesor = idprofesorI;
+$$
+-------------------------------
+-------Eliminar Instructor-----
+CREATE OR REPLACE PROCEDURE spEliminarInstructor(
+	in idprofe int)language sql as $$
+	delete from Instructor where idprofesor = idprofe;
+$$
+
+-------------------------------
+-------LeerUn Instructor-------
+CREATE OR REPLACE FUNCTION LeerInstructor(in idProfe int) RETURNS Table(
+	idprofesor int,
+    	correo varchar,
+    	pass varchar,
+	nombre varchar,
+	apPat varchar,
+	apMat varchar,
+	calle varchar,
+	numExt int,
+	codPost int,
+	delegacion varchar,
+	telefono varchar
+)AS
+$$ SELECT * FROM Instructor WHERE idprofesor = idProfe;
+$$ LANGUAGE sql
+-------------------------------
+-------LeerTodos Instructor-----
+CREATE OR REPLACE FUNCTION seleccionaTodosIntructor() RETURNS Table(
+	idprofesor int,
+    	correo varchar,
+    	pass varchar,
+	nombre varchar,
+	apPat varchar,
+	apMat varchar,
+	calle varchar,
+	numExt int,
+	codPost int,
+	delegacion varchar,
+	telefono varchar
+)AS
+$$ SELECT * FROM Instructor;
+$$ LANGUAGE sql
+
+-------------------------------
+
+===============================================================================================================
+
+-------Insertar Estudiante-----
+CREATE OR REPLACE PROCEDURE spInsertarEstudiante(
+	in nombre varchar, 
+	in apPat varchar,
+	in apMat varchar,
+	in telefono varchar,
+	in correo varchar,
+	in passwor varchar,
+	in fecha date
+) language sql as $$
+insert into Estudiante(nombre, apPatE, apMatE, telefono, correo, passEstudiante, fechaNacimiento)VALUES( nombre, apPat, apMat, telefono, correo, passwor, fecha);
+$$
+
+-------------------------------
+
+-------Actualizar Estudiante---
+CREATE OR REPLACE PROCEDURE spActualizarEstudiante(
+	in idEstu int, 
+	in nombre varchar, 
+	in apPat varchar,
+	in apMat varchar,
+	in telefono varchar,
+	in correo varchar,
+	in passwor varchar,
+	in fecha date
+)language sql as $$
+update Estudiante set nombre = nombre, appate = apPat, apmate = apMat, telefono = telefono, correo = correo,
+passestudiante = passwor, fechanacimiento = fecha WHERE idEstudiante = idEstu;
+$$
+-------------------------------
+
+-------Eliminar Estudiante-----
+CREATE OR REPLACE PROCEDURE spEliminarEstudiante(
+	in idEstu int)language sql as $$
+	delete from Estudiante where idestudiante = idEstu;
+$$
+-------------------------------
+
+-------LeerUno Estudiante------
+CREATE OR REPLACE FUNCTION LeerEstudiante(in idEstu int) RETURNS Table(
+	idEstudiante int, 
+	nombre varchar, 
+	apPatE varchar,
+	apMatE varchar,
+	telefono varchar,
+	correo varchar,
+	passestudiante varchar,
+	fechanacimiento date
+)AS
+$$ SELECT * FROM Estudiante WHERE idestudiante = idEstu;
+$$ LANGUAGE sql
+
+-------------------------------
+
+-------LeerTodos Estudiante----
+CREATE OR REPLACE FUNCTION seleccionaEstudiantes() RETURNS Table(
+	idEstudiante int, 
+	nombre varchar, 
+	apPatE varchar,
+	apMatE varchar,
+	telefono varchar,
+	correo varchar,
+	passestudiante varchar,
+	fechanacimiento date
+)AS
+$$ SELECT * FROM Estudiante;
+$$ LANGUAGE sql
+-------------------------------
+
+===============================================================================================================
+
+-------Insertar Curso----------
+
+CREATE OR REPLACE PROCEDURE spInsertarCurso (
+	in idCurso varchar, in Nombre varchar, in idProfe int, in descri varchar) language sql as $$ insert 	into Curso(idcurso, nombrecurso, idprofesor, descripcion) VALUES (idCurso, Nombre, idProfe, descri);
+$$
+
+-------------------------------
+
+-------Actualizar Curso--------
+
+CREATE OR REPLACE PROCEDURE spActualizarCurso(
+	in idCur varchar, in Nombre varchar, in idProfe int, in descri varchar) language sql as $$
+	update Curso set  nombrecurso = Nombre, idprofesor = idProfe, descripcion = descri WHERE idcurso = idCur;
+$$
+
+-------------------------------
+
+-------Eliminar Curso----------
+
+CREATE OR REPLACE PROCEDURE spEliminarCurso(
+	in idCur varchar)language sql as $$
+	delete from Curso Where idcurso = idCur;
+$$
+
+-------------------------------
+
+-------Leer Un Curso-----------
+CREATE OR REPLACE FUNCTION seleccionaCurso(in idCur varchar) RETURNS Table(
+	idCurso varchar,
+    	nombreCurso varchar,
+    	idProfesor int,
+    	descripcion varchar
+)AS
+$$ SELECT * FROM Curso WHERE idCurso = idCur;
+$$ LANGUAGE sql
+select buscaUnAdmin();
+
+-------------------------------
+
+-------Leer Todos Curso--------
+CREATE OR REPLACE FUNCTION seleccionaTodosCurso() RETURNS Table(
+	idcurso varchar,
+    	nombrecurso varchar,
+    	descripcion varchar,
+	idprofesor int
+)AS
+$$ SELECT * FROM Curso;
+$$ LANGUAGE sql
+-------------------------------
+
+-------Leer Todos Curso x Instructor --------
+CREATE OR REPLACE FUNCTION seleccionaCursosProfe( in idProfe ) RETURNS Table(
+	idcurso varchar,
+    	nombrecurso varchar,
+    	descripcion varchar,
+	idprofesor int,
+)AS
+$$ SELECT * FROM Curso WHERE idprofesor = idProfe;
+$$ LANGUAGE sql
+-------------------------------

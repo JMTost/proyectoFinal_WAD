@@ -5,7 +5,7 @@
  */
 package com.ipn.mx.proyecto_wad_cursos.modelo.DAO;
 
-import com.ipn.mx.proyecto_wad_cursos.modelo.DTO.InscripcionCursoDTO;
+import com.ipn.mx.proyecto_wad_cursos.modelo.DTO.InstructorDTO;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -18,17 +18,16 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author JMTN
+ * @author FACTORING
  */
-public class InscripcionCursoDAO {
+public class InstructorDAO {
+    private static final String SQL_INSERT = "call spInsertarInstructor(?,?,?,?,?,?,?,?,?,?)";
+    private static final String SQL_UPDATE = "call spActualizarIntructor(?,?,?,?,?,?,?,?,?,?,?)";
+    private static final String SQL_DELETE = "call spEliminarInstructor(?)";
+    private static final String SQL_READ = "select * from LeerInstructor(?)";
+    private static final String SQL_READ_ALLS = "select * from seleccionaTodosIntructor()";
 
-    /*Scripts para las operaciones de CRUD*/
-    private static final String SQL_INSERT = "call spInsertaInscripcionCurso(?,?)";
-    private static final String SQL_UPDATE = "";
-    private static final String SQL_DELETE = "call spEliminarInscripcion(?,?)";
-    private static final String SQL_READ = "select * from seleccionaUnaInscripcion(?,?)";
-    private static final String SQL_READ_ALLS = "select * from seleccionaInscripcionCurso()";
-
+    
     private Connection conexion;
 
     //METODO DE CONEXION
@@ -43,7 +42,6 @@ public class InscripcionCursoDAO {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
         return conexion;
     }*/
     private void conectar() {
@@ -60,14 +58,50 @@ public class InscripcionCursoDAO {
             e.printStackTrace();
         }
     }
-
-    public void create(InscripcionCursoDTO dto) throws SQLException {
+    
+    
+    public void create(InstructorDTO dto) throws SQLException {
         conectar();
         CallableStatement ps = null;
         try {
             ps = conexion.prepareCall(SQL_INSERT);
-            ps.setString(1, dto.getEntidad().getIdCurso());
-            ps.setInt(2, dto.getEntidad().getIdEstudiante());
+            ps.setString(1, dto.getEntidad().getCorreo());
+            ps.setString(2, dto.getEntidad().getPass());
+            ps.setString(3, dto.getEntidad().getNombre());
+            ps.setString(4, dto.getEntidad().getApPat());
+            ps.setString(5, dto.getEntidad().getApMat());
+            ps.setString(6, dto.getEntidad().getCalle());
+            ps.setInt(7, dto.getEntidad().getNumExt());
+            ps.setInt(8, dto.getEntidad().getCodPost());
+            ps.setString(9, dto.getEntidad().getDelegacion());
+            ps.setString(10, dto.getEntidad().getTelefono());
+            ps.executeUpdate();
+        } finally {
+            if (ps != null) {
+                ps.close();
+            }
+            if (conexion != null) {
+                conexion.close();
+            }
+        }
+    }
+        
+    public void update(InstructorDTO dto) throws SQLException {
+        conectar();
+        CallableStatement ps = null;
+        try {
+            ps = conexion.prepareCall(SQL_UPDATE);
+            ps.setInt(1, dto.getEntidad().getIdProfesor());
+            ps.setString(2, dto.getEntidad().getCorreo());
+            ps.setString(3, dto.getEntidad().getPass());
+            ps.setString(4, dto.getEntidad().getNombre());
+            ps.setString(5, dto.getEntidad().getApPat());
+            ps.setString(6, dto.getEntidad().getApMat());
+            ps.setString(7, dto.getEntidad().getCalle());
+            ps.setInt(8, dto.getEntidad().getNumExt());
+            ps.setInt(9, dto.getEntidad().getCodPost());
+            ps.setString(10, dto.getEntidad().getDelegacion());
+            ps.setString(11, dto.getEntidad().getTelefono());
             ps.executeUpdate();
         } finally {
             if (ps != null) {
@@ -79,17 +113,12 @@ public class InscripcionCursoDAO {
         }
     }
 
-    public void update() throws SQLException {
-        
-    }
-
-    public void delete(InscripcionCursoDTO dto) throws SQLException {
+    public void delete(InstructorDTO dto) throws SQLException {
         conectar();
         CallableStatement ps = null;
         try {
             ps = conexion.prepareCall(SQL_DELETE);
-            ps.setString(1, dto.getEntidad().getIdCurso());
-            ps.setInt(2, dto.getEntidad().getIdEstudiante());
+            ps.setInt(1, dto.getEntidad().getIdProfesor());
             ps.executeUpdate();
         } finally {
             if (ps != null) {
@@ -101,18 +130,17 @@ public class InscripcionCursoDAO {
         }
     }
 
-    public InscripcionCursoDTO read(InscripcionCursoDTO dto) throws SQLException {
+    public InstructorDTO read(InstructorDTO dto) throws SQLException {
         conectar();
         CallableStatement ps = null;
         ResultSet rs = null;
         try {
             ps = conexion.prepareCall(SQL_READ);
-            ps.setString(1, dto.getEntidad().getIdCurso());
-            ps.setInt(2, dto.getEntidad().getIdEstudiante());
+            ps.setInt(1, dto.getEntidad().getIdProfesor());
             rs = ps.executeQuery();
             List resultados = obtenerResultados(rs);
             if (resultados.size() > 0) {
-                return (InscripcionCursoDTO) resultados.get(0);
+                return (InstructorDTO) resultados.get(0);
             } else {
                 return null;
             }
@@ -127,7 +155,6 @@ public class InscripcionCursoDAO {
                 conexion.close();
             }
         }
-
     }
     
     public List readAll() throws SQLException{
@@ -159,17 +186,26 @@ public class InscripcionCursoDAO {
     private List obtenerResultados(ResultSet rs) throws SQLException{
         List resultados = new ArrayList();
         while(rs.next()){
-            InscripcionCursoDTO dto = new InscripcionCursoDTO();
-            dto.getEntidad().setIdCurso(rs.getString("idCurso"));
-            dto.getEntidad().setIdEstudiante(rs.getInt("idEstudiante"));
+            InstructorDTO dto = new InstructorDTO();           
+            dto.getEntidad().setIdProfesor(rs.getInt("idProfesor"));
+            dto.getEntidad().setCorreo(rs.getString("correo"));
+            dto.getEntidad().setPass(rs.getString("pass"));
+            dto.getEntidad().setNombre(rs.getString("nombre"));
+            dto.getEntidad().setApPat("apPat");
+            dto.getEntidad().setApMat(rs.getString("apMat"));
+            dto.getEntidad().setCalle(rs.getString("calle"));
+            dto.getEntidad().setNumExt(rs.getInt("numExt"));
+            dto.getEntidad().setCodPost(rs.getInt("codPost"));
+            dto.getEntidad().setDelegacion(rs.getString("delegacion"));
+            dto.getEntidad().setTelefono(rs.getString("telefono"));          
             resultados.add(dto);
         }
         return resultados;
     }
     
     public static void main(String[] args) {
-        InscripcionCursoDAO dao = new InscripcionCursoDAO();
-        InscripcionCursoDTO dto = new InscripcionCursoDTO();
+        InstructorDAO dao = new InstructorDAO();
+        InstructorDTO dto = new InstructorDTO();
         try {
             System.out.println(dao.readAll());
         } catch (SQLException ex) {

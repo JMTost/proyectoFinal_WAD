@@ -26,4 +26,5 @@ public class Instructor implements Serializable{
     private int codPost;
     private String delegacion;
     private String telefono;
+    private String correo;
 }
