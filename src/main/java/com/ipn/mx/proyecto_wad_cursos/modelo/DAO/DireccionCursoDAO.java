@@ -55,7 +55,7 @@ public class DireccionCursoDAO {
             ps.setInt(1, dto.getEntidad().getIdDir());
             ps.setString(2, dto.getEntidad().getIdCurso());
             ps.setInt(3, dto.getEntidad().getIdProfesor());
-            ps.setString(4, dto.getEntidad().getnombrePlat());
+            ps.setString(4, dto.getEntidad().getNombrePlat());
             ps.setString(5, dto.getEntidad().getLinkLlamada());
             ps.setString(6, dto.getEntidad().getPassLlamada());
             ps.executeUpdate();
@@ -77,7 +77,7 @@ public class DireccionCursoDAO {
             ps.setInt(1, dto.getEntidad().getIdDir());
             ps.setString(2, dto.getEntidad().getIdCurso());
             ps.setInt(3, dto.getEntidad().getIdProfesor());
-            ps.setString(4, dto.getEntidad().getnombrePlat());
+            ps.setString(4, dto.getEntidad().getNombrePlat());
             ps.setString(5, dto.getEntidad().getLinkLlamada());
             ps.setString(6, dto.getEntidad().getPassLlamada());
             ps.executeUpdate();
@@ -118,7 +118,7 @@ public class DireccionCursoDAO {
             rs = ps.executeQuery();
             List resultados = obtenerResultados(rs);
             if (resultados.size() > 0) {
-                return (HorariosDTO) resultados.get(0);
+                return (DireccionCursoDTO) resultados.get(0);
             } else {
                 return null;
             }
@@ -177,13 +177,13 @@ public class DireccionCursoDAO {
         return resultados;
     }
     
-    /*public static void main(String[] args) {
-        AdminDAO dao = new AdminDAO();
-        AdminDTO dto = new AdminDTO();
+    public static void main(String[] args) {
+        DireccionCursoDAO dao = new DireccionCursoDAO();
+        DireccionCursoDTO dto = new DireccionCursoDTO();
         try {
             System.out.println(dao.readAll());
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }*/
+    }
 }

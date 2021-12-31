@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  *
  * @author JMTN
  */
-public class DireccionCursoDAO {
+public class InscripcionCursoDAO {
 
     /*Scripts para las operaciones de CRUD*/
     private static final String SQL_INSERT = "call spInsertaInscripcionCurso(?,?)";
@@ -69,7 +69,7 @@ public class DireccionCursoDAO {
         
     }
 
-    public void delete(InstruccionCursoDTO dto) throws SQLException {
+    public void delete(InscripcionCursoDTO dto) throws SQLException {
         conectar();
         CallableStatement ps = null;
         try {
@@ -98,7 +98,7 @@ public class DireccionCursoDAO {
             rs = ps.executeQuery();
             List resultados = obtenerResultados(rs);
             if (resultados.size() > 0) {
-                return (HorariosDTO) resultados.get(0);
+                return (InscripcionCursoDTO) resultados.get(0);
             } else {
                 return null;
             }
@@ -145,7 +145,7 @@ public class DireccionCursoDAO {
     private List obtenerResultados(ResultSet rs) throws SQLException{
         List resultados = new ArrayList();
         while(rs.next()){
-            InscripcionDTO dto = new InscripcionCursoDTO();
+            InscripcionCursoDTO dto = new InscripcionCursoDTO();
             dto.getEntidad().setIdCurso(rs.getString("idCurso"));
             dto.getEntidad().setIdEstudiante(rs.getInt("idEstudiante"));
             resultados.add(dto);

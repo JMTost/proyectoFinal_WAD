@@ -56,7 +56,7 @@ public class HorariosDAO {
             ps.setString(2, dto.getEntidad().getIdCurso());
             ps.setInt(3, dto.getEntidad().getIdProfesor());
             ps.setString(4, dto.getEntidad().getHora());
-            ps.setBoolean(5, dto.getEntidad().getDisponible());
+            ps.setBoolean(5, dto.getEntidad().isDisponible());
             ps.setString(6, dto.getEntidad().getNombrePlataforma());
             ps.executeUpdate();
         } finally {
@@ -78,7 +78,7 @@ public class HorariosDAO {
             ps.setString(2, dto.getEntidad().getIdCurso());
             ps.setInt(3, dto.getEntidad().getIdProfesor());
             ps.setString(4, dto.getEntidad().getHora());
-            ps.setBoolean(5, dto.getEntidad().getDisponible());
+            ps.setBoolean(5, dto.getEntidad().isDisponible());
             ps.setString(6, dto.getEntidad().getNombrePlataforma());
             ps.executeUpdate();
         } finally {
@@ -135,8 +135,8 @@ public class HorariosDAO {
         }
 
     }
-    
-    public List readAll() throws SQLException{
+
+    public List readAll() throws SQLException {
         conectar();
         CallableStatement ps = null;
         ResultSet rs = null;
@@ -161,10 +161,10 @@ public class HorariosDAO {
             }
         }
     }
-    
-    private List obtenerResultados(ResultSet rs) throws SQLException{
+
+    private List obtenerResultados(ResultSet rs) throws SQLException {
         List resultados = new ArrayList();
-        while(rs.next()){
+        while (rs.next()) {
             HorariosDTO dto = new HorariosDTO();
             dto.getEntidad().setIdHorario(rs.getInt("idHorario"));
             dto.getEntidad().setIdCurso(rs.getString("idCurso"));
@@ -176,14 +176,14 @@ public class HorariosDAO {
         }
         return resultados;
     }
-    
-    /*public static void main(String[] args) {
-        AdminDAO dao = new AdminDAO();
-        AdminDTO dto = new AdminDTO();
+
+    public static void main(String[] args) {
+        HorariosDAO dao = new HorariosDAO();
+        HorariosDTO dto = new HorariosDTO();
         try {
             System.out.println(dao.readAll());
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }*/
+    }
 }

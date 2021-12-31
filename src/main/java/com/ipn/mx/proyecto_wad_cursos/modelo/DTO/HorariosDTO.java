@@ -25,8 +25,8 @@ public class HorariosDTO {
          sb.append("ID curso: ").append(getEntidad().getIdCurso()).append("\n");
          sb.append("ID profesor: ").append(getEntidad().getIdProfesor()).append("\n");
          
-         sb.append("Horas : ").append(getEntidad().getHoras()).append("\n");
-         sb.append("Disponible: ").append(getEntidad().getDisponible()).append("\n");
+         sb.append("Horas : ").append(getEntidad().getHora()).append("\n");
+         sb.append("Disponible: ").append(getEntidad().isDisponible()).append("\n");
          sb.append("Nombre plataforma: ").append(getEntidad().getNombrePlataforma()).append("\n");
          return sb.toString();
      }
