@@ -309,6 +309,7 @@ $$
 call spEliminarCalParcial();
 ---------------------------------------------------------------------
 
+==============================================================================================================================
 
 -------Insertar Instructor-----
 CREATE OR REPLACE PROCEDURE spInsertarInstructor(
@@ -511,7 +512,7 @@ $$ LANGUAGE sql
 -------------------------------
 
 -------Leer Todos Curso x Instructor --------
-CREATE OR REPLACE FUNCTION seleccionaCursosProfe( in idProfe ) RETURNS Table(
+CREATE OR REPLACE FUNCTION seleccionaCursosProfe( in idProfe int ) RETURNS Table(
 	idcurso varchar,
     	nombrecurso varchar,
     	descripcion varchar,
