@@ -17,6 +17,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Instructor implements Serializable{
     private int idProfesor;
+    private String correo;
     private String pass;
     private String nombre;
     private String apPat;
