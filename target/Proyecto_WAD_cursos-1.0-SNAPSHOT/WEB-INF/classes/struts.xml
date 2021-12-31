@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+                        "http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+    <package name="default" namespace="/" extends="struts-default">
+        <action name="factorial" class="com.ipn.mx.actions.FactorialAction">
+            <result name="success">
+                /factorial.jsp
+            </result>
+        </action>
+        <!--ACCIONES PARA LAS CATEGORIAS -->
+        <action name="listarCategorias" method="listarCategorias" class="com.ipn.mx.actions.CategoriaAction">
+            <result name="success">
+                /categoria/listaCategoria.jsp
+            </result>
+        </action>
+        
+        <action name="agregarCategoria" method="agregarCategoria" class="com.ipn.mx.actions.CategoriaAction">
+            <result name="success">
+                /categoria/categoria.jsp
+            </result>
+        </action>
+        
+        <action name="almacenarCategoria" method="almacenarCategoria" class="com.ipn.mx.actions.CategoriaAction">
+            <result name="success" type="redirect">
+                listarCategorias
+            </result>
+        </action>
+        
+        <action name="eliminarCategoria" method="eliminarCategoria" class="com.ipn.mx.actions.CategoriaAction">
+            <result name="success" type="redirect">
+                listarCategorias
+            </result>
+        </action>
+        
+        <action name="actualizarCategoria" method="actualizarCategoria" class="com.ipn.mx.actions.CategoriaAction">
+            <result name="success">
+                /categoria/categoria.jsp
+            </result>
+        </action>
+        <!--ACCIONES PARA LOS PRODUCTOS-->
+        <action name="listarProductos" method="listarProductos" class="com.ipn.mx.actions.ProductoAction">
+            <result name="success">
+                /producto/listaProducto.jsp
+            </result>
+        </action>
+        
+        <action name="agregarProducto" method="agregarProducto" class="com.ipn.mx.actions.ProductoAction">
+            <result name="success">
+                /producto/producto.jsp
+            </result>
+        </action>
+        
+        <action name="almacenarProducto" method="almacenarProducto" class="com.ipn.mx.actions.ProductoAction">
+            <result name="success" type="redirect">
+                listarProductos
+            </result>
+        </action>
+        
+        <action name="eliminarProducto" method="eliminarProducto" class="com.ipn.mx.actions.ProductoAction">
+            <result name="success" type="redirect">
+                listarProductos
+            </result>
+        </action>
+        
+        <action name="actualizarProducto" method="actualizarProducto" class="com.ipn.mx.actions.ProductoAction">
+            <result name="success">
+                /producto/producto.jsp
+            </result>
+        </action>
+    </package>
+</struts>

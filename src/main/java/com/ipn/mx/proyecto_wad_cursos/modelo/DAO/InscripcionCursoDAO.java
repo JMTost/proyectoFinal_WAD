@@ -153,13 +153,13 @@ public class InscripcionCursoDAO {
         return resultados;
     }
     
-    /*public static void main(String[] args) {
-        AdminDAO dao = new AdminDAO();
-        AdminDTO dto = new AdminDTO();
+    public static void main(String[] args) {
+        InscripcionCursoDAO dao = new InscripcionCursoDAO();
+        InscripcionCursoDTO dto = new InscripcionCursoDTO();
         try {
             System.out.println(dao.readAll());
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }*/
+    }
 }
