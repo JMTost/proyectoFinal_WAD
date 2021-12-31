@@ -23,7 +23,7 @@ import java.util.logging.Logger;
 public class AdminDAO {
 
     /*Scripts para las operaciones de CRUD*/
-    private static final String SQL_INSERT = "call spInsertAdmin(?,?)";
+    private static final String SQL_INSERT = "call spInsertaAdmin(?,?)";
     private static final String SQL_UPDATE = "call spActualizarAdmin(?,?)";
     private static final String SQL_DELETE = "call spEliminarAdmin(?)";
     private static final String SQL_READ = "select * from buscaUnAdmin(?)";
@@ -168,8 +168,8 @@ public class AdminDAO {
     public static void main(String[] args) {
         AdminDAO dao = new AdminDAO();
         AdminDTO dto = new AdminDTO();
-        dto.getEntidad().setIdAdmin("prueba");
-        dto.getEntidad().setPassAdmin("prueba");
+        dto.getEntidad().setIdAdmin("JTS");
+        dto.getEntidad().setPassAdmin("JSL_q12@");
         try {
             //System.out.println(dao.readAll());
 
