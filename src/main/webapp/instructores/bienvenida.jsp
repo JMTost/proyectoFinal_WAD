@@ -56,7 +56,7 @@
                 </div>
             </div>
             
-            <a href="./../InstructorServlet?accion=nuevoInstr&modificar=0" class="btn btn-outline-secondary">Prueba</a>
+            <a href="./../InstructorServlet?accion=listaDeInstructores" class="btn btn-outline-secondary">Prueba</a>
 
 
         </div>

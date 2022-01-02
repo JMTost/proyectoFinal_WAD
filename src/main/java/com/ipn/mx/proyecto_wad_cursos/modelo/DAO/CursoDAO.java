@@ -32,10 +32,10 @@ public class CursoDAO {
     private Connection conexion;
 
     //METODO DE CONEXION
-    private void conectar() {
-        String user = "bfeszlnsmgkltd";
-        String pwd = "f82a60dc9910e10bd1f80f0584e0be408579ac03fbe0f636d3b9a31b661108a0";
-        String url = "jdbc:postgresql://ec2-34-236-87-247.compute-1.amazonaws.com:5432/d8kdjahdr678r6";//sslmoderequire
+    public Connection conectar() {
+        String user = "wzevyustxebjfm";
+        String pwd = "755144f18dd17ccee8d8d61aaadc9a1dcfc70d3e72871c7020e44ba2bb4c39fa";
+        String url = "jdbc:postgresql://ec2-3-212-172-25.compute-1.amazonaws.com:5432/de7kvstj6o0h5d";//sslmoderequire
         String pgDriver = "org.postgresql.Driver";
         try {
             //registra el driver de java para el manejador de base de datos
@@ -45,6 +45,7 @@ public class CursoDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return conexion;
     }
     
     public void create(CursoDTO dto) throws SQLException {
