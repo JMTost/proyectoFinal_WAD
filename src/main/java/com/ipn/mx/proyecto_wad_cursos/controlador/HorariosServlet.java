@@ -145,7 +145,7 @@ public class HorariosServlet extends HttpServlet {
     }
 
     private void agregarHorarios(HttpServletRequest request, HttpServletResponse response) {
-        RequestDispatcher vista = request.getRequestDispatcher("/horarios/nuevohorario.jsp");
+        RequestDispatcher vista = request.getRequestDispatcher("/horarios/horariosFormulario.jsp");
         try {
             request.setAttribute("modificar", 0);
             vista.forward(request, response);
@@ -188,8 +188,8 @@ public class HorariosServlet extends HttpServlet {
         HorariosDAO dao = new InstructorDAO();
         HorariosDTO dto = new InstructorDTO();
         if (Integer.parseInt(request.getParameter("modificar")) == 0) {
-            dto.getEntidad().setIdCurso(request.getParameter("IdCurso"));
-            dto.getEntidad().setIdProfesor(Integer.parseInt(request.getParameter("IdProfesor")));
+            dto.getEntidad().setIdCurso(request.getParameter("idCurso"));
+            dto.getEntidad().setIdProfesor(Integer.parseInt(request.getParameter("idProfesor")));
             dto.getEntidad().setHora(request.getParameter("txtHora"));
             dto.getEntidad().setDisponible(true);
             dto.getEntidad().setNombrePlataforma(request.getParameter("txtNombrePlataforma"));
@@ -200,9 +200,9 @@ public class HorariosServlet extends HttpServlet {
                 Logger.getLogger(InstructorServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
-            dto.getEntidad().setIdHorario(Integer.parseInt(request.getParameter("IdHorario")));
-            dto.getEntidad().setIdCurso(request.getParameter("IdCurso"));
-            dto.getEntidad().setIdProfesor(Integer.parseInt(request.getParameter("IdProfesor")));
+            dto.getEntidad().setIdHorario(Integer.parseInt(request.getParameter("idHorario")));
+            dto.getEntidad().setIdCurso(request.getParameter("idCurso"));
+            dto.getEntidad().setIdProfesor(Integer.parseInt(request.getParameter("idProfesor")));
             dto.getEntidad().setHora(request.getParameter("txtHora"));
             dto.getEntidad().setDisponible(Boolean.parseBoolean(request.getParameter("txtDisponible")));
             dto.getEntidad().setNombrePlataforma(request.getParameter("txtNombrePlataforma"));
