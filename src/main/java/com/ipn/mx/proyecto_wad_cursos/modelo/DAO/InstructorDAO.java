@@ -31,7 +31,7 @@ public class InstructorDAO {
     private Connection conexion;
 
     //METODO DE CONEXION
-    private void conectar() {
+    public Connection conectar() {
         String user = "bfeszlnsmgkltd";
         String pwd = "f82a60dc9910e10bd1f80f0584e0be408579ac03fbe0f636d3b9a31b661108a0";
         String url = "jdbc:postgresql://ec2-34-236-87-247.compute-1.amazonaws.com:5432/d8kdjahdr678r6";//sslmoderequire
@@ -44,6 +44,7 @@ public class InstructorDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        return conexion;
     }
     
     

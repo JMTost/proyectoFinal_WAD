@@ -3,6 +3,11 @@
                         "http://struts.apache.org/dtds/struts-2.5.dtd">
 <struts>
     <package name="default" namespace="/" extends="struts-default">
-        
+        <!--Acciones para los instructores-->
+        <action name="listarInstructores" method="listarInstructores" class="com.ipn.mx.proyecto_wad_cursos.actions.InstructorAction">
+            <result name="success">
+                ./profesores/listaprofe.jsp
+            </result>
+        </action>
     </package>
 </struts>

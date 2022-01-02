@@ -9,6 +9,7 @@ C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\
 C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\entidades\CalificacionesParciales.java
 C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\entidades\Curso.java
 C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\DTO\InscripcionCursoDTO.java
+C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\utilerias\EnviarMail.java
 C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\entidades\DireccionCurso.java
 C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\DAO\AdminDAO.java
 C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\DAO\CalificacionesPacrialesDAO.java
@@ -25,3 +26,4 @@ C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\
 C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\entidades\Estudiante.java
 C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\entidades\InscripcionCurso.java
 C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\DTO\InstructorDTO.java
+C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\controlador\InstructorServlet.java

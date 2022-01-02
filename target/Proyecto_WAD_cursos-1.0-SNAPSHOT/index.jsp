@@ -40,6 +40,9 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="">Inicio de sesion</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="./instructores/bienvenida.jsp">Index instructor</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -57,6 +60,7 @@
             </center>
             
             <p>Cursos</p>
+            
         </div>
     </body>
 </html>
