@@ -139,7 +139,7 @@ public class HorariosServlet extends HttpServlet {
             RequestDispatcher rd = request.getRequestDispatcher("/horarios/listahorarios.jsp");
             rd.forward(request, response);
         } catch (SQLException | ServletException | IOException ex) {
-            Logger.getLogger(InstructorServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HorariosServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -150,9 +150,9 @@ public class HorariosServlet extends HttpServlet {
             request.setAttribute("modificar", 0);
             vista.forward(request, response);
         } catch (ServletException ex) {
-            Logger.getLogger(InstructorServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HorariosServlet.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            Logger.getLogger(InstructorServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HorariosServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -165,7 +165,7 @@ public class HorariosServlet extends HttpServlet {
             dao.delete(dto);
             listaDeHorarios(request, response);
         } catch (SQLException ex) {
-            Logger.getLogger(InstructorServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HorariosServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -180,13 +180,13 @@ public class HorariosServlet extends HttpServlet {
             request.setAttribute("modificar", 1);
             vista.forward(request, response);
         } catch (SQLException | ServletException | IOException ex) {
-            Logger.getLogger(InstructorServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HorariosServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     private void almacenarHorarios(HttpServletRequest request, HttpServletResponse response) {
-        HorariosDAO dao = new InstructorDAO();
-        HorariosDTO dto = new InstructorDTO();
+        HorariosDAO dao = new HorariosDAO();
+        HorariosDTO dto = new HorariosDTO();
         if (Integer.parseInt(request.getParameter("modificar")) == 0) {
             dto.getEntidad().setIdCurso(request.getParameter("idCurso"));
             dto.getEntidad().setIdProfesor(Integer.parseInt(request.getParameter("idProfesor")));
@@ -197,7 +197,7 @@ public class HorariosServlet extends HttpServlet {
                 dao.create(dto);
                 listaDeHorarios(request, response);
             } catch (SQLException ex) {
-                Logger.getLogger(InstructorServlet.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(HorariosServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
         } else {
             dto.getEntidad().setIdHorario(Integer.parseInt(request.getParameter("idHorario")));
@@ -210,12 +210,12 @@ public class HorariosServlet extends HttpServlet {
                 dao.update(dto);
                 listaDeHorarios(request, response);
             } catch (SQLException ex) {
-                Logger.getLogger(InstructorServlet.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(HorariosServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }
 
-    private void mostrarInstructor(HttpServletRequest request, HttpServletResponse response) {
+    private void mostrarHora(HttpServletRequest request, HttpServletResponse response) {
         HorariosDAO dao = new HorariosDAO();
         HorariosDTO dto = new HorariosDTO();
         dto.getEntidad().setIdHorario(Integer.parseInt("txtIdHorario"));
@@ -225,7 +225,7 @@ public class HorariosServlet extends HttpServlet {
             request.setAttribute("horario", dto);
             vista.forward(request, response);
         } catch (SQLException | ServletException | IOException ex) {
-            Logger.getLogger(InstructorServlet.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(HorariosServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 /*
