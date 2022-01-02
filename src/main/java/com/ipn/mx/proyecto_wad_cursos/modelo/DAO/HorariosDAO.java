@@ -27,7 +27,7 @@ public class HorariosDAO {
     private static final String SQL_UPDATE = "call spActHorario(?,?,?,?,?,?)";
     private static final String SQL_DELETE = "call spEliminarHorario(?)";
     private static final String SQL_READ = "select * from buscaUnHorario(?)";
-    private static final String SQL_READ_ALLS = "select * from seleccionaHorarios()";
+    private static final String SQL_READ_ALLS = "select * from seleccionaHorarios(?,?)";
 
     private Connection conexion;
 
