@@ -381,16 +381,6 @@ public class AdminServlet extends HttpServlet {
         }
 
     }
-    
-    private void mostrarBienvenida(HttpServletRequest request, HttpServletResponse response) {
-        RequestDispatcher vista = request.getRequestDispatcher("/admins/bienvenida.jsp");
-        
-        try {
-            vista.forward(request, response);
-        } catch (ServletException | IOException ex) {
-            Logger.getLogger(SesionesServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
 
     private void agregarInstructor(HttpServletRequest request, HttpServletResponse response) {
         RequestDispatcher vista = request.getRequestDispatcher("/admins/profesoresFormulario.jsp");
