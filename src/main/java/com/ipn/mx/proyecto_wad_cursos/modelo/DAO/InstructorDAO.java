@@ -26,7 +26,8 @@ public class InstructorDAO {
     private static final String SQL_DELETE = "call spEliminarInstructor(?)";
     private static final String SQL_READ = "select * from LeerInstructor(?)";
     private static final String SQL_READ_ALLS = "select * from seleccionaTodosIntructor()";
-
+    private static final String SQL_EXIST = "select 1 from instructor where correo = ? ";
+    private static final String SQL_VALIDATE = "select 1 from instructor where correo = ? and contraseña = ? ";
     
     private Connection conexion;
 
@@ -191,11 +192,60 @@ public class InstructorDAO {
         return resultados;
     }
     
+   public boolean exist(InstructorDTO dto) throws SQLException {
+        conectar();
+        CallableStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = conexion.prepareCall(SQL_EXIST);
+            ps.setString(1, dto.getEntidad().getCorreo());
+            rs = ps.executeQuery();
+            return  rs.next();
+            
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conexion != null) {
+                conexion.close();
+            }
+        }
+    }
+    
+    public boolean validate(InstructorDTO dto) throws SQLException {
+        conectar();
+        CallableStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = conexion.prepareCall(SQL_VALIDATE);
+            ps.setString(1, dto.getEntidad().getCorreo());
+            ps.setString(2, dto.getEntidad().getPass());
+            rs = ps.executeQuery();
+            return  rs.next();
+            
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conexion != null) {
+                conexion.close();
+            }
+        }
+    }
+    
     public static void main(String[] args) {
         InstructorDAO dao = new InstructorDAO();
         InstructorDTO dto = new InstructorDTO();
+        dto.getEntidad().setIdProfesor(1);
+        dto.getEntidad().setCorreo("cofahe1640@ehstock.com2");
         try {
-            System.out.println(dao.readAll());
+            boolean var = dao.exist(dto);           
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
