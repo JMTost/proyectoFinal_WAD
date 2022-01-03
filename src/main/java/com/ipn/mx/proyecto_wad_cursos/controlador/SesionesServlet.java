@@ -153,6 +153,7 @@ public class SesionesServlet extends HttpServlet {
        dto.getEntidad().setCorreo(request.getParameter("txtCorreoAlumno"));
        try {
             if (dao.validate(dto)) {
+                dto = dao.readXCorreo(dto);
                 request.getSession().setAttribute("dto", dto);
                 request.getSession().setAttribute("type", "estudiante");
                 request.setAttribute("mensaje", "Creación de instructor, ¡Exitosa!");
@@ -171,14 +172,20 @@ public class SesionesServlet extends HttpServlet {
     private void inicioSesionProfesor(HttpServletRequest request, HttpServletResponse response) {
         InstructorDAO dao = new InstructorDAO();
         InstructorDTO dto = new InstructorDTO();
+        InstructorDTO dto1 = new InstructorDTO();
         dto.getEntidad().setPass(request.getParameter("txtPassInstructor"));
         dto.getEntidad().setCorreo(request.getParameter("txtCorreoInstructor"));
         try {
             if (dao.validate(dto)) {
-                request.getSession().setAttribute("dto", dto);
+                RequestDispatcher vista = request.getRequestDispatcher("InstructorServlet?accion=mostrarBienvenida");
+                dto1 = dao.readXCorreo(dto);
+                System.out.println(dto1);
+                request.getSession().setAttribute("dto1", dto1);
                 request.getSession().setAttribute("type", "profesor");
                 request.setAttribute("mensaje", "Creación de instructor, ¡Exitosa!");
-                response.sendRedirect(request.getContextPath() + "/instructores/bienvenida.jsp");
+                //response.sendRedirect(request.getContextPath() + "/instructores/bienvenida.jsp");
+                //response.sendRedirect("InstructorServlet?accion=mostrarBienvenida");
+                vista.forward(request, response);
             } else {
                 
                 RequestDispatcher vista = request.getRequestDispatcher("/signin/login.jsp");

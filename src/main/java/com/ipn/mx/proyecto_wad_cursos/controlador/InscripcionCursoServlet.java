@@ -67,7 +67,7 @@ public class InscripcionCursoServlet extends HttpServlet {
                         } else {
                             */
                             if (accion.equals("guardarHora")) {
-                                almacenarInscripcionCurso(request, response);
+                                agregarInscripcionCurso(request, response);
                             } 
                             
                         }
@@ -132,13 +132,14 @@ public class InscripcionCursoServlet extends HttpServlet {
     }
 
     private void agregarInscripcionCurso(HttpServletRequest request, HttpServletResponse response) {
-        InscripcionCursoDAO dao = new DescripcionCursoDAO();
+        InscripcionCursoDAO dao = new InscripcionCursoDAO();
+        InscripcionCursoDTO dto = new InscripcionCursoDTO();
+        dto.getEntidad().setIdCurso(request.getParameter("idCurso"));
+        dto.getEntidad().setIdEstudiante(Integer.parseInt(request.getParameter("IdEstudiante")));
         try {
-            dao.create(request.getParameter("idCurso"), request.getParameter("IdEstudiante"));
+            dao.create(dto);
             listaDeInscripcionCurso(request,response);
-        } catch (ServletException ex) {
-            Logger.getLogger(InscripcionCursoServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        } catch (SQLException ex) {
             Logger.getLogger(InscripcionCursoServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 

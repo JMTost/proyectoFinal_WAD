@@ -162,7 +162,16 @@ public class InstructorServlet extends HttpServlet {
     private void mostrarBienvenida(HttpServletRequest request, HttpServletResponse response) {
         RequestDispatcher vista = request.getRequestDispatcher("/instructores/bienvenida.jsp");
         
+        
         try {
+            //InstructorDTO dto = new InstructorDTO();
+            
+            InstructorDTO dto = (InstructorDTO)request.getSession().getAttribute("dto1");
+            System.out.println(dto);
+            request.setAttribute("ID",dto.getEntidad().getIdProfesor());
+            request.setAttribute("Nombre",dto.getEntidad().getNombre());
+            request.setAttribute("Paterno",dto.getEntidad().getApPat());
+           
             vista.forward(request, response);
         } catch (ServletException | IOException ex) {
             Logger.getLogger(SesionesServlet.class.getName()).log(Level.SEVERE, null, ex);

@@ -25,6 +25,7 @@ public class InstructorDAO {
     private static final String SQL_UPDATE = "call spActualizarIntructor(?,?,?,?,?,?,?,?,?,?,?)";
     private static final String SQL_DELETE = "call spEliminarInstructor(?)";
     private static final String SQL_READ = "select * from LeerInstructor(?)";
+    private static final String SQL_READ_CORREO = "select * from instructor where correo = ?";
     private static final String SQL_READ_ALLS = "select * from seleccionaTodosIntructor()";
     private static final String SQL_EXIST = "select 1 from instructor where correo = ? ";
     private static final String SQL_VALIDATE = "select 1 from instructor where correo = ? and contraseña = ? ";
@@ -146,6 +147,33 @@ public class InstructorDAO {
         }
     }
     
+    public InstructorDTO readXCorreo(InstructorDTO dto) throws SQLException {
+        conectar();
+        CallableStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = conexion.prepareCall(SQL_READ_CORREO);
+            ps.setString(1, dto.getEntidad().getCorreo());
+            rs = ps.executeQuery();
+            List resultados = obtenerResultados(rs);
+            if (resultados.size() > 0) {
+                return (InstructorDTO) resultados.get(0);
+            } else {
+                return null;
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conexion != null) {
+                conexion.close();
+            }
+        }
+    }
+    
     public List readAll() throws SQLException{
         conectar();
         CallableStatement ps = null;
@@ -178,9 +206,9 @@ public class InstructorDAO {
             InstructorDTO dto = new InstructorDTO();           
             dto.getEntidad().setIdProfesor(rs.getInt("idProfesor"));
             dto.getEntidad().setCorreo(rs.getString("correo"));
-            dto.getEntidad().setPass(rs.getString("pass"));
+            dto.getEntidad().setPass(rs.getString("contraseña"));
             dto.getEntidad().setNombre(rs.getString("nombre"));
-            dto.getEntidad().setApPat("apPat");
+            dto.getEntidad().setApPat(rs.getString("apPat"));
             dto.getEntidad().setApMat(rs.getString("apMat"));
             dto.getEntidad().setCalle(rs.getString("calle"));
             dto.getEntidad().setNumExt(rs.getInt("numExt"));

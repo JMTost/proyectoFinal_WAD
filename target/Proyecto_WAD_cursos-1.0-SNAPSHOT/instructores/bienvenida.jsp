@@ -3,7 +3,7 @@
     Created on : 1 ene 2022, 16:30:14
     Author     : JMTN
 --%>
-
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -42,7 +42,7 @@
                         </ul>
                     </div>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">                        
-                        <button class="btn btn-danger" type="btn " href="./../SesionesServlet?accion=cerrarSesion">Cerrar Sesión</button>
+                        <button class="btn btn-danger" type="btn " href="SesionesServlet?accion=cerrarSesion">Cerrar Sesión</button>
                     </div>
                 </div>
             </nav>
@@ -62,6 +62,12 @@
                     <div class="mb-3"></div>
                     <p>Si desea realizar una modificación de sus datos, favor de realizar un correo a <a class="link-dark" href="mailto:max.55@live.com.mx">max.55@live.com.mx</a>, el cual es el administrador del sistema, en el asunto deberá colocar <span class="" style="text-decoration: underline;">"modificación de datos - Instructor"</span> listando que datos desea modificar y sobre todo mandando su correo en el cual ingresa al sistema.</p>
                     <p>Gracias pro su comprensión</p>
+                    <p>
+                        <c:out value="${Nombre}"/>
+                        <c:out value="${Paterno}"/>
+                        
+                        <c:out value="${ID}"/>
+                    </p>
                 </div>
             </div>
             <!--

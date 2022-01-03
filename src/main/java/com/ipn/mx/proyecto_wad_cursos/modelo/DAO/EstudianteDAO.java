@@ -25,6 +25,7 @@ public class EstudianteDAO {
     private static final String SQL_UPDATE = "call spActualizarEstudiante(?,?,?,?,?,?,?,?)";
     private static final String SQL_DELETE = "call spEliminarEstudiante(?)";
     private static final String SQL_READ = "select * from LeerEstudiante(?)";
+    private static final String SQL_READ_CORREO = "select * from estudiante where correo = ?";
     private static final String SQL_READ_ALLS = "select * from seleccionaEstudiantes()";
     private static final String SQL_EXIST = "select 1 from estudiante where correo = ? ";
     private static final String SQL_VALIDATE = "select 1 from estudiante where correo = ? and passestudiante = ? ";
@@ -119,6 +120,34 @@ public class EstudianteDAO {
         try {
             ps = conexion.prepareCall(SQL_READ);
             ps.setInt(1, dto.getEntidad().getIdEstudiante());
+            rs = ps.executeQuery();
+            List resultados = obtenerResultados(rs);
+            if (resultados.size() > 0) {
+                return (EstudianteDTO) resultados.get(0);
+            } else {
+                return null;
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conexion != null) {
+                conexion.close();
+            }
+        }
+
+    }
+    
+    public EstudianteDTO readXCorreo(EstudianteDTO dto) throws SQLException {
+        conectar();
+        CallableStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = conexion.prepareCall(SQL_READ_CORREO);
+            ps.setString(1, dto.getEntidad().getCorreo());
             rs = ps.executeQuery();
             List resultados = obtenerResultados(rs);
             if (resultados.size() > 0) {
