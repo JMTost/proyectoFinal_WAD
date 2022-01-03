@@ -5,8 +5,12 @@
  */
 package com.ipn.mx.proyecto_wad_cursos.controlador;
 
+import com.ipn.mx.proyecto_wad_cursos.modelo.DAO.CursoDAO;
 import com.ipn.mx.proyecto_wad_cursos.modelo.DAO.EstudianteDAO;
+import com.ipn.mx.proyecto_wad_cursos.modelo.DAO.InscripcionCursoDAO;
+import com.ipn.mx.proyecto_wad_cursos.modelo.DTO.CursoDTO;
 import com.ipn.mx.proyecto_wad_cursos.modelo.DTO.EstudianteDTO;
+import com.ipn.mx.proyecto_wad_cursos.modelo.DTO.InscripcionCursoDTO;
 import com.ipn.mx.utilerias.EnviarMail;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -66,10 +70,28 @@ public class EstudianteServlet extends HttpServlet {
                                     } else {
                                         if (accion.equals("mostrarGraficaEstudiante")) {
                                             mostrarGraficaEstudiante(request, response);
-                                        }else{
+                                        } else {
                                             if (accion.equals("mostrarBienvenida")) {
-                                            mostrarBienvenida(request, response);
-                                        }
+                                                mostrarBienvenida(request, response);
+                                            } else {
+                                                if (accion.equals("inscribirseCurso")) {
+                                                    //creaar metodo de inscribirse
+                                                    inscribirseAcurso(request, response);
+                                                }else{
+                                                    if(accion.equals("listaDeCursos")){
+                                                        //crear metodo de listas de cursos
+                                                        listaDeCursosEstudiante(request, response);
+                                                    }else{
+                                                        if(accion.equals("guardarInsripcion")){
+                                                            almacenarInscripcionEstudiante(request, response);
+                                                        }else{
+                                                            if(accion.equals("eliminarInscripcion")){
+                                                                eliminarInscripcionEstudiante(request, response);
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
                                         }
                                     }
                                 }
@@ -133,16 +155,16 @@ public class EstudianteServlet extends HttpServlet {
             Logger.getLogger(EstudianteServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     private void mostrarBienvenida(HttpServletRequest request, HttpServletResponse response) {
         RequestDispatcher vista = request.getRequestDispatcher("/estudiante/dashboardEstudiante.jsp");
-        try {                      
-            EstudianteDTO dto = (EstudianteDTO)request.getSession().getAttribute("dto1");
-            
-            request.setAttribute("ID",dto.getEntidad().getIdEstudiante());
-            request.setAttribute("Nombre",dto.getEntidad().getNombre());
-            request.setAttribute("Paterno",dto.getEntidad().getApPatE());
-           
+        try {
+            EstudianteDTO dto = (EstudianteDTO) request.getSession().getAttribute("dto1");
+
+            request.setAttribute("ID", dto.getEntidad().getIdEstudiante());
+            request.setAttribute("Nombre", dto.getEntidad().getNombre());
+            request.setAttribute("Paterno", dto.getEntidad().getApPatE());
+
             vista.forward(request, response);
         } catch (ServletException | IOException ex) {
             Logger.getLogger(SesionesServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -203,14 +225,14 @@ public class EstudianteServlet extends HttpServlet {
             dto.getEntidad().setFechaNacimiento(request.getParameter("txtFechaEstudiante"));
             try {
                 dao.create(dto);
-                mail.enviarCorreo(dto.getEntidad().getCorreo(), "Registro de creación satisfactorio", "Nuevo estudiante creado con exito.correo: "+dto.getEntidad().getCorreo()+"\t contraseña: "+dto.getEntidad().getPassEstudiante());
-                mail.enviarCorreo("max.55@live.com.mx", "Creación de nuevo estudiante - aviso sistema", "Creación de nuevo estudiante correo: "+dto.getEntidad().getCorreo()+"\t contraseña: "+dto.getEntidad().getPassEstudiante()+"\t nombre: "+dto.getEntidad().getNombre()+" "+dto.getEntidad().getApPatE()+" "+dto.getEntidad().getApMatE());
+                mail.enviarCorreo(dto.getEntidad().getCorreo(), "Registro de creación satisfactorio", "Nuevo estudiante creado con exito.correo: " + dto.getEntidad().getCorreo() + "\t contraseña: " + dto.getEntidad().getPassEstudiante());
+                mail.enviarCorreo("max.55@live.com.mx", "Creación de nuevo estudiante - aviso sistema", "Creación de nuevo estudiante correo: " + dto.getEntidad().getCorreo() + "\t contraseña: " + dto.getEntidad().getPassEstudiante() + "\t nombre: " + dto.getEntidad().getNombre() + " " + dto.getEntidad().getApPatE() + " " + dto.getEntidad().getApMatE());
                 request.setAttribute("mensaje", "Creación de estudiante, ¡Exitoso!");
                 listaDeEstudiantes(request, response);
             } catch (SQLException ex) {
                 Logger.getLogger(EstudianteServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }else{
+        } else {
             dto.getEntidad().setNombre(request.getParameter("txtNombreEstudiante"));
             dto.getEntidad().setApPatE(request.getParameter("txtApPatEstudiante"));
             dto.getEntidad().setApMatE(request.getParameter("txtApMatEstudiante"));
@@ -221,8 +243,8 @@ public class EstudianteServlet extends HttpServlet {
             dto.getEntidad().setIdEstudiante(Integer.parseInt(request.getParameter("txtIdEstudiante")));
             try {
                 dao.update(dto);
-                mail.enviarCorreo(dto.getEntidad().getCorreo(), "Actualización de creación satisfactorio", "Actualización de estudiante con exito.correo: "+dto.getEntidad().getCorreo()+"\t contraseña: "+dto.getEntidad().getPassEstudiante());
-                mail.enviarCorreo("max.55@live.com.mx", "Actualización de estudiante - aviso sistema", "Actualización de estudiante correo: "+dto.getEntidad().getCorreo()+"\t contraseña: "+dto.getEntidad().getPassEstudiante()+"\t nombre: "+dto.getEntidad().getNombre()+" "+dto.getEntidad().getApPatE()+" "+dto.getEntidad().getApMatE());
+                mail.enviarCorreo(dto.getEntidad().getCorreo(), "Actualización de creación satisfactorio", "Actualización de estudiante con exito.correo: " + dto.getEntidad().getCorreo() + "\t contraseña: " + dto.getEntidad().getPassEstudiante());
+                mail.enviarCorreo("max.55@live.com.mx", "Actualización de estudiante - aviso sistema", "Actualización de estudiante correo: " + dto.getEntidad().getCorreo() + "\t contraseña: " + dto.getEntidad().getPassEstudiante() + "\t nombre: " + dto.getEntidad().getNombre() + " " + dto.getEntidad().getApPatE() + " " + dto.getEntidad().getApMatE());
                 request.setAttribute("mensaje", "Actualización del estudiante, ¡Exitosa!");
                 listaDeEstudiantes(request, response);
             } catch (SQLException ex) {
@@ -251,6 +273,78 @@ public class EstudianteServlet extends HttpServlet {
 
     private void mostrarGraficaEstudiante(HttpServletRequest request, HttpServletResponse response) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void inscribirseAcurso(HttpServletRequest request, HttpServletResponse response) {
+        RequestDispatcher vista = request.getRequestDispatcher("/estudiante/inscripcionCursoFormulario.jsp");
+        try {
+            request.setAttribute("modificar", 0);
+            vista.forward(request, response);
+        } catch (ServletException | IOException ex) {
+            Logger.getLogger(EstudianteServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void listaDeCursosEstudiante(HttpServletRequest request, HttpServletResponse response) {
+        InscripcionCursoDAO dao = new InscripcionCursoDAO();
+        InscripcionCursoDTO dto = new InscripcionCursoDTO();
+        Collection lista;
+        try {
+            dto.getEntidad().setIdEstudiante(Integer.parseInt(request.getParameter("id")));
+            lista = dao.readAlInscripcionporEstudiante(dto);
+            request.setAttribute("listaCursos", lista);
+            RequestDispatcher rd = request.getRequestDispatcher("/estudiante/listaCursos.jsp");
+            rd.forward(request, response);
+        } catch (SQLException | ServletException | IOException ex) {
+            Logger.getLogger(EstudianteServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void almacenarInscripcionEstudiante(HttpServletRequest request, HttpServletResponse response) {
+        InscripcionCursoDAO dao = new InscripcionCursoDAO();
+        InscripcionCursoDTO dto = new InscripcionCursoDTO();
+        EstudianteDTO estDTO = new EstudianteDTO();
+        EstudianteDAO estDAO = new EstudianteDAO();
+        CursoDAO cursoDao = new CursoDAO();
+        CursoDTO cursoDto = new CursoDTO();
+        EnviarMail mail = new EnviarMail();
+        dto.getEntidad().setIdCurso(request.getParameter("idCurso"));
+        dto.getEntidad().setIdEstudiante(Integer.parseInt(request.getParameter("IdEstudiante")));
+        if(Integer.parseInt(request.getParameter("modificar"))==0){
+            dto.getEntidad().setIdCurso(request.getParameter("txtIdCurso"));
+            dto.getEntidad().setIdEstudiante(Integer.parseInt(request.getParameter("txtIdEstudiante")));
+            estDTO.getEntidad().setIdEstudiante(dto.getEntidad().getIdEstudiante());
+            cursoDto.getEntidad().setIdCurso(dto.getEntidad().getIdCurso());
+            try {
+                dao.create(dto);
+                estDTO = estDAO.read(estDTO);
+                cursoDto = cursoDao.read(cursoDto);
+                //confirmación de creación
+                mail.enviarCorreo(estDTO.getEntidad().getCorreo(), "Creación de inscripción", "Se ha realizado la inscripción de forma correcta al curso: "+dto.getEntidad().getIdCurso()+", con nombre: "+cursoDto.getEntidad().getNombreCurso());
+                mail.enviarCorreo("max.55@live.com.mx", "Creación de inserción de inscripción a curso - aviso sistema", "Se ha realizado la inserción de la inscripción de curso, el estudiante con id: "+estDTO.getEntidad().getIdEstudiante()+", al curso: "+dto.getEntidad().getIdCurso());
+                request.setAttribute("mensaje", "Creación de inscripción a curso, ¡Exitosa!");
+                mostrarBienvenida(request, response);
+            } catch (SQLException ex) {
+                Logger.getLogger(EstudianteServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    private void eliminarInscripcionEstudiante(HttpServletRequest request, HttpServletResponse response) {
+        InscripcionCursoDAO dao = new InscripcionCursoDAO();
+        InscripcionCursoDTO dto = new InscripcionCursoDTO();
+        EstudianteDTO estDTO = new EstudianteDTO();
+        EstudianteDAO estDAO = new EstudianteDAO();
+        CursoDAO cursoDao = new CursoDAO();
+        CursoDTO cursoDto = new CursoDTO();
+        EnviarMail mail = new EnviarMail();
+        dto.getEntidad().setIdCurso(request.getParameter("id"));
+        try {
+            dao.delete(dto);
+            listaDeCursosEstudiante(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(EstudianteServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

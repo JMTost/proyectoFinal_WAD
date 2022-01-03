@@ -28,6 +28,7 @@ public class InscripcionCursoDAO {
     private static final String SQL_DELETE = "call spEliminarInscripcion(?,?)";
     private static final String SQL_READ = "select * from seleccionaUnaInscripcion(?,?)";
     private static final String SQL_READ_ALLS = "select * from seleccionaInscripcionCurso()";
+    private static final String SQL_READ_ALL_ESTUDIANTE = "select * from seleccionaCursosInsxEstudiante(?)";
 
     private Connection conexion;
 
@@ -123,6 +124,32 @@ public class InscripcionCursoDAO {
         ResultSet rs = null;
         try {
             ps = conexion.prepareCall(SQL_READ_ALLS);
+            rs = ps.executeQuery();
+            List resultados = obtenerResultados(rs);
+            if (resultados.size() > 0) {
+                return resultados;
+            } else {
+                return null;
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conexion != null) {
+                conexion.close();
+            }
+        }
+    }
+    public List readAlInscripcionporEstudiante(InscripcionCursoDTO dto) throws SQLException{
+        conectar();
+        CallableStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = conexion.prepareCall(SQL_READ_ALL_ESTUDIANTE);
+            ps.setInt(1, dto.getEntidad().getIdEstudiante());
             rs = ps.executeQuery();
             List resultados = obtenerResultados(rs);
             if (resultados.size() > 0) {
