@@ -147,9 +147,7 @@ public class InstructorServlet extends HttpServlet {
         try {
             request.setAttribute("modificar", 0);
             vista.forward(request, response);
-        } catch (ServletException ex) {
-            Logger.getLogger(InstructorServlet.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
+        } catch (ServletException | IOException ex) {
             Logger.getLogger(InstructorServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -158,9 +156,12 @@ public class InstructorServlet extends HttpServlet {
     private void eliminarInstructor(HttpServletRequest request, HttpServletResponse response) {
         InstructorDAO dao = new InstructorDAO();
         InstructorDTO dto = new InstructorDTO();
-        dto.getEntidad().setIdProfesor(Integer.parseInt(request.getParameter("idInstructor")));
+        EnviarMail mail = new EnviarMail();
+        dto.getEntidad().setIdProfesor(Integer.parseInt(request.getParameter("id")));
         try {
             dao.delete(dto);
+            mail.enviarCorreo(dto.getEntidad().getCorreo(), "Usuario eliminado", "Esperamos que tu experiencia al utilizar este sistema haya sido la mejor.");
+            mail.enviarCorreo("max.55@live.com.mx", "Eliminación de usuario Instructor - aviso sistema", "Se ha realizado una eliminación del usuario.\n correo: "+dto.getEntidad().getCorreo());
             listaDeInstructores(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(InstructorServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -170,11 +171,12 @@ public class InstructorServlet extends HttpServlet {
     private void actualizarInstructor(HttpServletRequest request, HttpServletResponse response) {
         InstructorDAO dao = new InstructorDAO();
         InstructorDTO dto = new InstructorDTO();
-        dto.getEntidad().setIdProfesor(Integer.parseInt(request.getParameter("idInstructor")));
+        dto.getEntidad().setIdProfesor(Integer.parseInt(request.getParameter("id")));
         RequestDispatcher vista = request.getRequestDispatcher("/instructores/profesoresFormulario.jsp");
         try {
             dto = dao.read(dto);
             request.setAttribute("instructor", dto);
+            //System.out.println(dto);
             request.setAttribute("modificar", 1);
             vista.forward(request, response);
         } catch (SQLException | ServletException | IOException ex) {
@@ -200,7 +202,7 @@ public class InstructorServlet extends HttpServlet {
             try {
                 dao.create(dto);
                 mail.enviarCorreo(request.getParameter("txtCorreoInstructor"), "Registro de instructor satisfactorio", "Nuevo instructor creado con exito");
-                mail.enviarCorreo("Correo del admin", "Creacion de Instructor - aviso sistema", "Creación de nuevo profesor correo:  " + request.getParameter("txtCorreoInstructor") + " contraseña: " + request.getParameter("txtPassInstructor"));
+                mail.enviarCorreo("max.55@live.com.mx", "Creacion de Instructor - aviso sistema", "Creación de nuevo profesor correo:  " + request.getParameter("txtCorreoInstructor") + " contraseña: " + request.getParameter("txtPassInstructor"));
                 request.setAttribute("mensaje", "Creación de instructor, ¡Exitosa!");
                 listaDeInstructores(request, response);
             } catch (SQLException ex) {
@@ -221,7 +223,7 @@ public class InstructorServlet extends HttpServlet {
             try {
                 dao.update(dto);
                 mail.enviarCorreo(request.getParameter("txtCorreoInstructor"), "Actualización de instructor satisfactorio", "Actualización de datos con exito");
-                mail.enviarCorreo("Correo del admin", "Actualización de Instructor - aviso sistema", "Actualización del usuario-profesor con ID: " + request.getParameter("txtIdProfesor") + " correo:  " + request.getParameter("txtCorreoInstructor") + " contraseña: " + request.getParameter("txtPassInstructor"));
+                mail.enviarCorreo("max.55@live.com.mx", "Actualización de Instructor - aviso sistema", "Actualización del usuario-profesor con ID: " + request.getParameter("txtIdProfesor") + " correo:  " + request.getParameter("txtCorreoInstructor") + " contraseña: " + request.getParameter("txtPassInstructor"));
                 request.setAttribute("mensaje", "Actualización del instructor, ¡Exitosa!");
                 listaDeInstructores(request, response);
             } catch (SQLException ex) {
@@ -233,7 +235,7 @@ public class InstructorServlet extends HttpServlet {
     private void mostrarInstructor(HttpServletRequest request, HttpServletResponse response) {
         InstructorDAO dao = new InstructorDAO();
         InstructorDTO dto = new InstructorDTO();
-        dto.getEntidad().setIdProfesor(Integer.parseInt("txtIdProfesor"));
+        dto.getEntidad().setIdProfesor(Integer.parseInt(request.getParameter("id")));
         RequestDispatcher vista = request.getRequestDispatcher("/instructores/datosInstructor.jsp");
         try {
             dto = dao.read(dto);
