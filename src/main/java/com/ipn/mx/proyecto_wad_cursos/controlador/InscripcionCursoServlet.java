@@ -147,7 +147,8 @@ public class InscripcionCursoServlet extends HttpServlet {
     private void eliminarInscripcionCurso(HttpServletRequest request, HttpServletResponse response) {
         InscripcionCursoDAO dao = new InscripcionCursoDAO();
         InscripcionCursoDTO dto = new InscripcionCursoDTO();
-        dto.getEntidad().setIdInscripcionCurso(Integer.parseInt(request.getParameter("idInscripcionCurso")));
+        dto.getEntidad().setIdCurso(request.getParameter("idCurso"));
+        dto.getEntidad().setIdEstudiante(Integer.parseInt(request.getParameter("idEstudiante")));
         try {
             dao.delete(dto);
             listaDeInscripcionCurso(request, response);

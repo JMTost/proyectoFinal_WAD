@@ -44,7 +44,7 @@
 
             <div class="card border-primary">
                 <div class="card-header text-center">
-                    Lista de horarios del curso <c:out value=${dao.entidad.idCurso}/>
+                    Lista de tus cursos
                 </div>
                 <div class="card-body container-fluid">
                     <h4 class="card-title">
@@ -59,24 +59,14 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>IDHorario</th>
-                                <th>IDProfesor</th>
-                                <th>IDCurso</th>
-                                <th>Horario</th>
-                                <th>Disponible</th>
-                                <th>Nombre de Plataforma de clases</th>
+                                <th>Nombre Curso</th>
+                                
                             </tr>
-                            <c:forEach var="dto" items="${listaDeHorarios}">
+                            <c:forEach var="dto" items="${listaDeInscripcionCurso}">
                             <tbody>
                                 <tr>
-                                    <td><a href="HorariosServlet?accion=mostrarHora&id=<c:out value="${dto.entidad.idHora}"/>" class="btn btn-outline-secondary"><c:out value="${dto.entidad.idHorario}"/></a></td>
-                                    <td><c:out value="${dto.entidad.IdProfesor}"/></td>
-                                    <td><c:out value="${dto.entidad.IdCurso}"/></td>
-                                    <td><c:out value="${dto.entidad.Horario}"/></td>
-                                    <td><c:out value="${dto.entidad.Disponible}"/></td>
-                                    <td><c:out value="${dto.entidad.NombrePlataforma}"/></td>
-                                    <td><a href="HorariosServlet?accion=eliminarHpra&id=<c:out value="${dto.entidad.idHorario}"/>" class="btn btn-outline-danger">Eliminar</a></td>        
-                                    <td><a href="HorariosServlet?accion=actuallizarHora&id=<c:out value="${dto.entidad.idHorario}"/>" class="btn btn-outline-default">Actualizar</a></td>
+                                    <td><c:out value="${dto.entidad.NombreCurso}"/></td>
+                                    <td><a href="InscripcionCursoServlet?accion=eliminarHpra&idCurso=<c:out value="${dto.entidad.idCurso}"/>&idEstudiante=<c:out value="${dto.entidad.idEstudiante}"/>" class="btn btn-outline-danger">Eliminar</a></td>        
                                 </tr>
                             </tbody>
                         </c:forEach>
