@@ -52,31 +52,48 @@ public class InstructorServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
+            boolean var;
             String accion = request.getParameter("accion");
-            if (accion.equals("listaDeInstructores")) {
-                listaDeInstructores(request, response);
+            if(request.getSession().getAttribute("type") == null){
+                 var = true;
+            }else{
+                 var = false;
+            }
+            
+            if (var) {
+                RequestDispatcher vista = request.getRequestDispatcher("/signin/login.jsp");
+                vista.forward(request, response);
             } else {
-                if (accion.equals("nuevoInstr")) {
-                    agregarInstructor(request, response);
+                if (accion.equals("listaDeInstructores")) {
+                    listaDeInstructores(request, response);
                 } else {
-                    if (accion.equals("eliminarInstr")) {
-                        eliminarInstructor(request, response);
+                    if (accion.equals("nuevoInstr")) {
+                        agregarInstructor(request, response);
                     } else {
-                        if (accion.equals("actuallizarInstr")) {
-                            actualizarInstructor(request, response);
+                        if (accion.equals("eliminarInstr")) {
+                            eliminarInstructor(request, response);
                         } else {
-                            if (accion.equals("guardarInstr")) {
-                                almacenarInstructor(request, response);
+                            if (accion.equals("actuallizarInstr")) {
+                                actualizarInstructor(request, response);
                             } else {
-                                if (accion.equals("mostrarInstr")) {
-                                    mostrarInstructor(request, response);
+                                if (accion.equals("guardarInstr")) {
+                                    almacenarInstructor(request, response);
                                 } else {
-                                    if (accion.equals("mostrarReporteInstr")) {
-                                        mostrarReporteInstructor(request, response);
+                                    if (accion.equals("mostrarInstr")) {
+                                        mostrarInstructor(request, response);
                                     } else {
-                                        if (accion.equals("mostrarGraficaInstr")) {
-                                            //mostrarGraficaInstructor(request, response);
+                                        if (accion.equals("mostrarReporteInstr")) {
+                                            mostrarReporteInstructor(request, response);
+                                        } else {
+                                            if (accion.equals("mostrarGraficaInstr")) {
+                                                //mostrarGraficaInstructor(request, response);
+                                            }else{
+                                                if(accion.equals("mostrarBienvenida")){
+                                                mostrarBienvenida(request,response);
+                                                }
+                                                
+                                            }
                                         }
                                     }
                                 }
@@ -85,7 +102,6 @@ public class InstructorServlet extends HttpServlet {
                     }
                 }
             }
-
         }
     }
 
@@ -134,6 +150,7 @@ public class InstructorServlet extends HttpServlet {
         try {
             lista = dao.readAll();
             request.setAttribute("listaDeInstructores", lista);
+            
             RequestDispatcher rd = request.getRequestDispatcher("/instructores/listaprofe.jsp");
             rd.forward(request, response);
         } catch (SQLException | ServletException | IOException ex) {
@@ -141,13 +158,25 @@ public class InstructorServlet extends HttpServlet {
         }
 
     }
+    
+    private void mostrarBienvenida(HttpServletRequest request, HttpServletResponse response) {
+        RequestDispatcher vista = request.getRequestDispatcher("/instructores/bienvenida.jsp");
+        
+        try {
+            vista.forward(request, response);
+        } catch (ServletException | IOException ex) {
+            Logger.getLogger(SesionesServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
     private void agregarInstructor(HttpServletRequest request, HttpServletResponse response) {
         RequestDispatcher vista = request.getRequestDispatcher("/instructores/profesoresFormulario.jsp");
         try {
             request.setAttribute("modificar", 0);
             vista.forward(request, response);
-        } catch (ServletException | IOException ex) {
+        } catch (ServletException ex) {
+            Logger.getLogger(InstructorServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
             Logger.getLogger(InstructorServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -156,12 +185,9 @@ public class InstructorServlet extends HttpServlet {
     private void eliminarInstructor(HttpServletRequest request, HttpServletResponse response) {
         InstructorDAO dao = new InstructorDAO();
         InstructorDTO dto = new InstructorDTO();
-        EnviarMail mail = new EnviarMail();
-        dto.getEntidad().setIdProfesor(Integer.parseInt(request.getParameter("id")));
+        dto.getEntidad().setIdProfesor(Integer.parseInt(request.getParameter("idInstructor")));
         try {
             dao.delete(dto);
-            mail.enviarCorreo(dto.getEntidad().getCorreo(), "Usuario eliminado", "Esperamos que tu experiencia al utilizar este sistema haya sido la mejor.");
-            mail.enviarCorreo("max.55@live.com.mx", "Eliminación de usuario Instructor - aviso sistema", "Se ha realizado una eliminación del usuario.\n correo: "+dto.getEntidad().getCorreo());
             listaDeInstructores(request, response);
         } catch (SQLException ex) {
             Logger.getLogger(InstructorServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -171,12 +197,11 @@ public class InstructorServlet extends HttpServlet {
     private void actualizarInstructor(HttpServletRequest request, HttpServletResponse response) {
         InstructorDAO dao = new InstructorDAO();
         InstructorDTO dto = new InstructorDTO();
-        dto.getEntidad().setIdProfesor(Integer.parseInt(request.getParameter("id")));
+        dto.getEntidad().setIdProfesor(Integer.parseInt(request.getParameter("idInstructor")));
         RequestDispatcher vista = request.getRequestDispatcher("/instructores/profesoresFormulario.jsp");
         try {
             dto = dao.read(dto);
             request.setAttribute("instructor", dto);
-            //System.out.println(dto);
             request.setAttribute("modificar", 1);
             vista.forward(request, response);
         } catch (SQLException | ServletException | IOException ex) {
@@ -202,7 +227,7 @@ public class InstructorServlet extends HttpServlet {
             try {
                 dao.create(dto);
                 mail.enviarCorreo(request.getParameter("txtCorreoInstructor"), "Registro de instructor satisfactorio", "Nuevo instructor creado con exito");
-                mail.enviarCorreo("max.55@live.com.mx", "Creacion de Instructor - aviso sistema", "Creación de nuevo profesor correo:  " + request.getParameter("txtCorreoInstructor") + " contraseña: " + request.getParameter("txtPassInstructor"));
+                mail.enviarCorreo("Correo del admin", "Creacion de Instructor - aviso sistema", "Creación de nuevo profesor correo:  " + request.getParameter("txtCorreoInstructor") + " contraseña: " + request.getParameter("txtPassInstructor"));
                 request.setAttribute("mensaje", "Creación de instructor, ¡Exitosa!");
                 listaDeInstructores(request, response);
             } catch (SQLException ex) {
@@ -223,7 +248,7 @@ public class InstructorServlet extends HttpServlet {
             try {
                 dao.update(dto);
                 mail.enviarCorreo(request.getParameter("txtCorreoInstructor"), "Actualización de instructor satisfactorio", "Actualización de datos con exito");
-                mail.enviarCorreo("max.55@live.com.mx", "Actualización de Instructor - aviso sistema", "Actualización del usuario-profesor con ID: " + request.getParameter("txtIdProfesor") + " correo:  " + request.getParameter("txtCorreoInstructor") + " contraseña: " + request.getParameter("txtPassInstructor"));
+                mail.enviarCorreo("Correo del admin", "Actualización de Instructor - aviso sistema", "Actualización del usuario-profesor con ID: " + request.getParameter("txtIdProfesor") + " correo:  " + request.getParameter("txtCorreoInstructor") + " contraseña: " + request.getParameter("txtPassInstructor"));
                 request.setAttribute("mensaje", "Actualización del instructor, ¡Exitosa!");
                 listaDeInstructores(request, response);
             } catch (SQLException ex) {
@@ -235,7 +260,7 @@ public class InstructorServlet extends HttpServlet {
     private void mostrarInstructor(HttpServletRequest request, HttpServletResponse response) {
         InstructorDAO dao = new InstructorDAO();
         InstructorDTO dto = new InstructorDTO();
-        dto.getEntidad().setIdProfesor(Integer.parseInt(request.getParameter("id")));
+        dto.getEntidad().setIdProfesor(Integer.parseInt("txtIdProfesor"));
         RequestDispatcher vista = request.getRequestDispatcher("/instructores/datosInstructor.jsp");
         try {
             dto = dao.read(dto);
@@ -286,7 +311,7 @@ public class InstructorServlet extends HttpServlet {
             }
         }
     }
-    
+
     /*
     private void mostrarGraficaInstructor(HttpServletRequest request, HttpServletResponse response) {
         JFreeChart grafica = ChartFactory.createPieChart("Cursos por Instructor", obtenerCursosPorInstructor(), true, true, Locale.getDefault());
@@ -316,5 +341,4 @@ public class InstructorServlet extends HttpServlet {
         }
         return dsPie;
     }*/
-
 }
