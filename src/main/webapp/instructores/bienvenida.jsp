@@ -36,7 +36,7 @@
                                 <a class="nav-link" href="">Lista de cursos</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="">Cerrar sesión</a>
+                                <a class="nav-link" href="./../SesionesServlet?accion=cerrarSesion">Cerrar sesión</a>
                             </li>
                         </ul>
                     </div>
