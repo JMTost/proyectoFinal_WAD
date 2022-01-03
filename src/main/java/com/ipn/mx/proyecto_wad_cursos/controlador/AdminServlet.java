@@ -206,7 +206,7 @@ public class AdminServlet extends HttpServlet {
         RequestDispatcher vista = request.getRequestDispatcher("/admins/datosAdministrador.jsp");
         try {
             dto = dao.read(dto);
-            request.setAttribute("instructor", dto);
+            request.setAttribute("admin", dto);
             vista.forward(request, response);
         } catch (SQLException | ServletException | IOException ex) {
             Logger.getLogger(AdminServlet.class.getName()).log(Level.SEVERE, null, ex);
