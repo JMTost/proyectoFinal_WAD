@@ -5,13 +5,34 @@
  */
 package com.ipn.mx.proyecto_wad_cursos.controlador;
 
+import com.ipn.mx.proyecto_wad_cursos.modelo.DAO.InscripcionCursoDAO;
+import com.ipn.mx.proyecto_wad_cursos.modelo.DTO.InscripcionCursoDTO;
+
+import com.ipn.mx.utilerias.EnviarMail;
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperRunManager;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartUtils;
+import org.jfree.chart.JFreeChart;
+import org.jfree.data.general.DefaultPieDataset;
+import org.jfree.data.general.PieDataset;
 
 /**
  *
@@ -33,16 +54,27 @@ public class InscripcionCursoServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet InscripcionCursoServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet InscripcionCursoServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            String accion = request.getParameter("accion");
+            if (accion.equals("listaDeInscripcionCurso")) {
+                listaDeInscripcionCurso(request, response);
+            } else {
+                
+                    if (accion.equals("eliminarHora")) {
+                        eliminarInscripcionCurso(request, response);
+                    } else {
+                        /*if (accion.equals("actuallizarHora")) {
+                            actualizarHorarios(request, response);
+                        } else {
+                            */
+                            if (accion.equals("guardarHora")) {
+                                almacenarInscripcionCurso(request, response);
+                            } 
+                            
+                        }
+                    
+                
+            }
+
         }
     }
 
@@ -84,5 +116,44 @@ public class InscripcionCursoServlet extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
+
+    private void listaDeInscripcionCurso(HttpServletRequest request, HttpServletResponse response) {
+        InscripcionCursoDAO dao = new InscripcionCursoDAO();
+        Collection lista;
+        try {
+            lista = dao.readAll();
+            request.setAttribute("listaDeInscripcionCurso", lista);
+            RequestDispatcher rd = request.getRequestDispatcher("/InscripcionCurso/listaInscripcionCurso.jsp");
+            rd.forward(request, response);
+        } catch (SQLException | ServletException | IOException ex) {
+            Logger.getLogger(InscripcionCursoServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    private void agregarInscripcionCurso(HttpServletRequest request, HttpServletResponse response) {
+        InscripcionCursoDAO dao = new DescripcionCursoDAO();
+        try {
+            dao.create(request.getParameter("idCurso"), request.getParameter("IdEstudiante"));
+            listaDeInscripcionCurso(request,response);
+        } catch (ServletException ex) {
+            Logger.getLogger(InscripcionCursoServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(InscripcionCursoServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    private void eliminarInscripcionCurso(HttpServletRequest request, HttpServletResponse response) {
+        InscripcionCursoDAO dao = new InscripcionCursoDAO();
+        InscripcionCursoDTO dto = new InscripcionCursoDTO();
+        dto.getEntidad().setIdInscripcionCurso(Integer.parseInt(request.getParameter("idInscripcionCurso")));
+        try {
+            dao.delete(dto);
+            listaDeInscripcionCurso(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(InscripcionCursoServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
 }
