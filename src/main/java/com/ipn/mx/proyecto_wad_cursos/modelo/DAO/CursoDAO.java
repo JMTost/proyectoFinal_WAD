@@ -162,17 +162,17 @@ public class CursoDAO {
         }
     }
     
-    public CursoDTO readAllProfe(CursoDTO dto) throws SQLException {
+    public List readAllProfe(int idprofe) throws SQLException {
         conectar();
         CallableStatement ps = null;
         ResultSet rs = null;
         try {
             ps = conexion.prepareCall(SQL_READ_ALL_PROFE);
-            ps.setInt(1, dto.getEntidad().getIdProfesor());
+            ps.setInt(1, idprofe);
             rs = ps.executeQuery();
             List resultados = obtenerResultados(rs);
             if (resultados.size() > 0) {
-                return (CursoDTO) resultados.get(0);
+                return resultados;
             } else {
                 return null;
             }

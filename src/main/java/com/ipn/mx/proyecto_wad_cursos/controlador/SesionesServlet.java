@@ -154,10 +154,11 @@ public class SesionesServlet extends HttpServlet {
        try {
             if (dao.validate(dto)) {
                 dto = dao.readXCorreo(dto);
-                request.getSession().setAttribute("dto", dto);
-                request.getSession().setAttribute("type", "estudiante");
-                request.setAttribute("mensaje", "Creación de instructor, ¡Exitosa!");
-                response.sendRedirect(request.getContextPath() + "/estudiante/dashboardEstudiante.jsp");
+                request.getSession().setAttribute("dto1", dto);
+                request.getSession().setAttribute("type", "estudiante");                                                
+                RequestDispatcher vista = request.getRequestDispatcher("EstudianteServlet?accion=mostrarBienvenida");                              
+                vista.forward(request, response);
+                
             } else {
                 
                 RequestDispatcher vista = request.getRequestDispatcher("/signin/login.jsp");
@@ -178,13 +179,10 @@ public class SesionesServlet extends HttpServlet {
         try {
             if (dao.validate(dto)) {
                 RequestDispatcher vista = request.getRequestDispatcher("InstructorServlet?accion=mostrarBienvenida");
-                dto1 = dao.readXCorreo(dto);
-                System.out.println(dto1);
+                dto1 = dao.readXCorreo(dto);                
                 request.getSession().setAttribute("dto1", dto1);
                 request.getSession().setAttribute("type", "profesor");
                 request.setAttribute("mensaje", "Creación de instructor, ¡Exitosa!");
-                //response.sendRedirect(request.getContextPath() + "/instructores/bienvenida.jsp");
-                //response.sendRedirect("InstructorServlet?accion=mostrarBienvenida");
                 vista.forward(request, response);
             } else {
                 
@@ -218,12 +216,13 @@ public class SesionesServlet extends HttpServlet {
                 RequestDispatcher vista = request.getRequestDispatcher("/signin/registroForm.jsp");
                 vista.forward(request, response);
             } else {
-                dao.create(dto);
-                request.getSession().setAttribute("dto", dto);
+                dao.create(dto);                                
+                RequestDispatcher vista = request.getRequestDispatcher("InstructorServlet?accion=mostrarBienvenida");
+                InstructorDTO dto1 = dao.readXCorreo(dto);                
+                request.getSession().setAttribute("dto1", dto1);
                 request.getSession().setAttribute("type", "profesor");
                 request.setAttribute("mensaje", "Creación de instructor, ¡Exitosa!");
-                response.sendRedirect(request.getContextPath() + "/instructores/bienvenida.jsp");
-
+                vista.forward(request, response);
             }
         } catch (IOException | ServletException | SQLException ex) {
             Logger.getLogger(SesionesServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -248,11 +247,13 @@ public class SesionesServlet extends HttpServlet {
                 request.setAttribute("ifExiste", true);
                 RequestDispatcher vista = request.getRequestDispatcher("/signin/registroForm.jsp");
                 vista.forward(request, response);
-            } else {
-                dao.create(dto);
-                request.getSession().setAttribute("dto", dto);
-                request.getSession().setAttribute("type", "estudiante");
-                response.sendRedirect(request.getContextPath() + "/estudiante/dashboardEstudiante.jsp");
+            } else {                               
+                dao.create(dto);                                
+                RequestDispatcher vista = request.getRequestDispatcher("EstudianteServlet?accion=mostrarBienvenida");
+                EstudianteDTO dto1 = dao.readXCorreo(dto);                
+                request.getSession().setAttribute("dto1", dto1);
+                request.getSession().setAttribute("type", "estudiante");                
+                vista.forward(request, response);
             }
         } catch (IOException | SQLException | ServletException ex) {
             Logger.getLogger(SesionesServlet.class.getName()).log(Level.SEVERE, null, ex);

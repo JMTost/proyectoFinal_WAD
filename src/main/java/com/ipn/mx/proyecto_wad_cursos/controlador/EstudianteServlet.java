@@ -66,6 +66,10 @@ public class EstudianteServlet extends HttpServlet {
                                     } else {
                                         if (accion.equals("mostrarGraficaEstudiante")) {
                                             mostrarGraficaEstudiante(request, response);
+                                        }else{
+                                            if (accion.equals("mostrarBienvenida")) {
+                                            mostrarBienvenida(request, response);
+                                        }
                                         }
                                     }
                                 }
@@ -127,6 +131,21 @@ public class EstudianteServlet extends HttpServlet {
             rd.forward(request, response);
         } catch (SQLException | ServletException | IOException ex) {
             Logger.getLogger(EstudianteServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    private void mostrarBienvenida(HttpServletRequest request, HttpServletResponse response) {
+        RequestDispatcher vista = request.getRequestDispatcher("/estudiante/dashboardEstudiante.jsp");
+        try {                      
+            EstudianteDTO dto = (EstudianteDTO)request.getSession().getAttribute("dto1");
+            
+            request.setAttribute("ID",dto.getEntidad().getIdEstudiante());
+            request.setAttribute("Nombre",dto.getEntidad().getNombre());
+            request.setAttribute("Paterno",dto.getEntidad().getApPatE());
+           
+            vista.forward(request, response);
+        } catch (ServletException | IOException ex) {
+            Logger.getLogger(SesionesServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

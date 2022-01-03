@@ -123,7 +123,9 @@ public class CursosServlet extends HttpServlet {
         CursoDTO dto = new CursoDTO();
         Collection lista;
         try {
-            lista = dao.readAll();
+            InstructorDTO dtoProfe = (InstructorDTO)request.getSession().getAttribute("dto1");
+            int idprofe = dtoProfe.getEntidad().getIdProfesor();            
+            lista = dao.readAllProfe(idprofe);
             request.setAttribute("listaDeCursos", lista);
             RequestDispatcher rd = request.getRequestDispatcher("/cursos/listaCursos.jsp");
             rd.forward(request, response);
@@ -135,8 +137,11 @@ public class CursosServlet extends HttpServlet {
 
     private void agregarCurso(HttpServletRequest request, HttpServletResponse response) {
         RequestDispatcher vista = request.getRequestDispatcher("/cursos/cursosFormulario.jsp");
+        InstructorDTO dto = (InstructorDTO)request.getSession().getAttribute("dto1");
+        int idprofe = dto.getEntidad().getIdProfesor();
         try {
             request.setAttribute("modificar", 0);
+            request.setAttribute("IDProfe",idprofe);
             vista.forward(request, response);
         } catch (ServletException | IOException ex) {
             Logger.getLogger(CursosServlet.class.getName()).log(Level.SEVERE, null, ex);

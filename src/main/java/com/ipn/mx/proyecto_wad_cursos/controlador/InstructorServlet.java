@@ -5,7 +5,15 @@
  */
 package com.ipn.mx.proyecto_wad_cursos.controlador;
 
+import com.ipn.mx.proyecto_wad_cursos.modelo.DAO.CalificacionesFinalDAO;
+import com.ipn.mx.proyecto_wad_cursos.modelo.DAO.CalificacionesPacrialesDAO;
+import com.ipn.mx.proyecto_wad_cursos.modelo.DAO.CursoDAO;
+import com.ipn.mx.proyecto_wad_cursos.modelo.DAO.EstudianteDAO;
 import com.ipn.mx.proyecto_wad_cursos.modelo.DAO.InstructorDAO;
+import com.ipn.mx.proyecto_wad_cursos.modelo.DTO.CalificacionesFinalDTO;
+import com.ipn.mx.proyecto_wad_cursos.modelo.DTO.CalificacionesParcialesDTO;
+import com.ipn.mx.proyecto_wad_cursos.modelo.DTO.CursoDTO;
+import com.ipn.mx.proyecto_wad_cursos.modelo.DTO.EstudianteDTO;
 import com.ipn.mx.proyecto_wad_cursos.modelo.DTO.InstructorDTO;
 import com.ipn.mx.utilerias.EnviarMail;
 import java.io.File;
@@ -201,13 +209,9 @@ public class InstructorServlet extends HttpServlet {
     
     private void mostrarBienvenida(HttpServletRequest request, HttpServletResponse response) {
         RequestDispatcher vista = request.getRequestDispatcher("/instructores/bienvenida.jsp");
-        
-        
-        try {
-            //InstructorDTO dto = new InstructorDTO();
-            
+        try {                      
             InstructorDTO dto = (InstructorDTO)request.getSession().getAttribute("dto1");
-            System.out.println(dto);
+            
             request.setAttribute("ID",dto.getEntidad().getIdProfesor());
             request.setAttribute("Nombre",dto.getEntidad().getNombre());
             request.setAttribute("Paterno",dto.getEntidad().getApPat());
@@ -581,4 +585,4 @@ public class InstructorServlet extends HttpServlet {
         }
     }
 }
-}
+
