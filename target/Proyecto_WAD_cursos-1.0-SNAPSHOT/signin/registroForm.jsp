@@ -38,7 +38,7 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="#" href="#">Home</a>
+                                <a class="nav-link active" aria-current="#" href="index.jsp">Home</a>
                             </li>
                         </ul>
                     </div>
@@ -184,6 +184,12 @@
                                     </form>
                                 </div>
                                 <!-- End -->
+                                <br>
+                                <br>
+                                
+                                <div class="alert alert-primary" role="alert">
+                                    Ya tienes una cuenta? <a href="SesionesServlet?accion=inicioSesion" class="alert-link">Inicia Sesión</a>.
+                                </div>
                             </div>
                             <!-- End -->
                         </div>

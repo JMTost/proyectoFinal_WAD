@@ -71,7 +71,7 @@ public class HorariosServlet extends HttpServlet {
                                 almacenarHorarios(request, response);
                             } else {
                                 if (accion.equals("mostrarHora")) {
-                                    mostrarHorarios(request, response);
+                                    mostrarHora(request, response);
                                 } /*else {
                                     if (accion.equals("mostrarReporteHora")) {
                                         mostrarReporteHorarios(request, response);
@@ -89,7 +89,7 @@ public class HorariosServlet extends HttpServlet {
             }
 
         }
-    }
+    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -134,11 +134,12 @@ public class HorariosServlet extends HttpServlet {
         HorariosDAO dao = new HorariosDAO();
         Collection lista;
         try {
-            lista = dao.readAll(request.getParameter("idCurso"), Integer.ParseInt(request.getParameter("idProfesor")));
+            //lista = dao.readAll(request.getParameter("idCurso"), Integer.parseInt(request.getParameter("idProfesor")));
+            lista = dao.readAll();
             request.setAttribute("listaDeHorarios", lista);
             RequestDispatcher rd = request.getRequestDispatcher("/horarios/listahorarios.jsp");
             rd.forward(request, response);
-        } catch (SQLException | ServletException | IOException ex) {
+        } catch (ServletException | IOException | SQLException ex) {
             Logger.getLogger(HorariosServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
 

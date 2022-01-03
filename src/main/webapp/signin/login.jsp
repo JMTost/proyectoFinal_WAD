@@ -53,7 +53,7 @@
                     <div class="col-lg-8 mx-auto text-center">
                         <h1 class="center">Inicio Sesion</h1>
                     </div>
-                    
+
                 </div>
                 <!-- End -->
                 <div class="row">
@@ -108,11 +108,17 @@
                                             <label for="txtPassInstructor">Contraseña: </label>
                                             <input type="password" name="txtPassInstructor" id="txtPassInstructor" placeholder="Contraseña" required class="form-control" required>
                                         </div>                                        
-                                        <br>                          
+                                        <br>                       
+
                                         <button type="submit" class="subscribe btn btn-primary btn-block shadow-sm"> Iniciar Sesion  </button>
                                     </form>
                                 </div>
+                                <br>
+                                <br>
                                 <!-- End -->
+                                <div class="alert alert-primary" role="alert">
+                                    Unete con nosotros: <a href="SesionesServlet?accion=registro" class="alert-link">Registrate</a>.
+                                </div>
                             </div>
                             <!-- End -->
                         </div>
