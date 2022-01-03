@@ -52,15 +52,15 @@ public class InstructorServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             boolean var;
             String accion = request.getParameter("accion");
-            if(request.getSession().getAttribute("type") == null){
-                 var = true;
-            }else{
-                 var = false;
+            if (request.getSession().getAttribute("type") == null) {
+                var = true;
+            } else {
+                var = false;
             }
-            
+
             if (var) {
                 RequestDispatcher vista = request.getRequestDispatcher("/signin/login.jsp");
                 vista.forward(request, response);
@@ -88,11 +88,51 @@ public class InstructorServlet extends HttpServlet {
                                         } else {
                                             if (accion.equals("mostrarGraficaInstr")) {
                                                 //mostrarGraficaInstructor(request, response);
-                                            }else{
-                                                if(accion.equals("mostrarBienvenida")){
-                                                mostrarBienvenida(request,response);
+                                            } else {
+                                                if (accion.equals("mostrarBienvenida")) {
+                                                    mostrarBienvenida(request, response);
+                                                } else {
+                                                    if (accion.equals("nuevaCalificacionF")) {
+                                                        agregarCalificacionF(request, response);
+                                                    } else {
+                                                        if (accion.equals("eliminarCalificacionF")) {
+                                                            eliminarCalificacionF(request, response);
+                                                        } else {
+                                                            if (accion.equals("actualizarCalificacionF")) {
+                                                                actualizarCalificacionF(request, response);
+                                                            } else {
+                                                                if (accion.equals("guardarCalificacionF")) {
+                                                                    almacenarCalificacionF(request, response);
+                                                                } else {
+                                                                    if (accion.equals("mostrarCalificacionF")) {
+                                                                        mostrarCalificacionF(request, response);
+                                                                    } else {
+                                                                        if (accion.equals("nuevaCalP")) {
+                                                                            agregarCalPar(request, response);
+                                                                        } else {
+                                                                            if (accion.equals("eliminarCalP")) {
+                                                                                eliminarCalPar(request, response);
+                                                                            } else {
+                                                                                if (accion.equals("actualizarCalP")) {
+                                                                                    actualizarCalPar(request, response);
+                                                                                } else {
+                                                                                    if (accion.equals("guardarCalP")) {
+                                                                                        almacenarCalPar(request, response);
+                                                                                    } else {
+                                                                                        if (accion.equals("mostrarCalP")) {
+                                                                                            mostrarCalPar(request, response);
+                                                                                        }
+                                                                                    }
+                                                                                }
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                    }
                                                 }
-                                                
+
                                             }
                                         }
                                     }
@@ -350,4 +390,195 @@ public class InstructorServlet extends HttpServlet {
         }
         return dsPie;
     }*/
+        private void agregarCalificacionF(HttpServletRequest request, HttpServletResponse response) {
+        RequestDispatcher vista = request.getRequestDispatcher("/calF/calificacionesForm.jsp");
+        try {
+            request.setAttribute("modificar", 0);
+            vista.forward(request, response);
+        } catch (ServletException | IOException ex) {
+            Logger.getLogger(CalificacionesFinalServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void eliminarCalificacionF(HttpServletRequest request, HttpServletResponse response) {
+        CalificacionesFinalDAO dao = new CalificacionesFinalDAO();
+        CalificacionesFinalDTO dto = new CalificacionesFinalDTO();
+        EnviarMail mail = new EnviarMail();
+        dto.getEntidad().setIdCalFinal(Integer.parseInt(request.getParameter("id")));
+        try {
+            dao.delete(dto);
+            mail.enviarCorreo("max.55@live.com.mx", "Eliminarción de calificación final - aviso sistema", "Se ha realizado la eliminación de la calificación final id: " + dto.getEntidad().getIdCalFinal());
+            mostrarBienvenida(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(CalificacionesFinalServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void actualizarCalificacionF(HttpServletRequest request, HttpServletResponse response) {
+        CalificacionesFinalDAO dao = new CalificacionesFinalDAO();
+        CalificacionesFinalDTO dto = new CalificacionesFinalDTO();
+        dto.getEntidad().setIdCalFinal(Integer.parseInt(request.getParameter("id")));
+        RequestDispatcher vista = request.getRequestDispatcher("/calF/calificacionesForm.jsp");
+        try {
+            dto = dao.read(dto);
+            request.setAttribute("calF", dto);
+            request.setAttribute("modificar", 1);
+            vista.forward(request, response);
+        } catch (SQLException | ServletException | IOException ex) {
+            Logger.getLogger(CalificacionesFinalServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void almacenarCalificacionF(HttpServletRequest request, HttpServletResponse response) {
+        CalificacionesFinalDAO dao = new CalificacionesFinalDAO();
+        CalificacionesFinalDTO dto = new CalificacionesFinalDTO();
+        EstudianteDAO daoEst = new EstudianteDAO();
+        EstudianteDTO dtoEst = new EstudianteDTO();
+        CursoDTO cursoDTO = new CursoDTO();
+        CursoDAO cursoDAO = new CursoDAO();
+        EnviarMail mail = new EnviarMail();
+        if (Integer.parseInt(request.getParameter("modificar")) == 0) {
+            dto.getEntidad().setIdCurso(request.getParameter("txtIdCurso"));
+            dto.getEntidad().setIdEstudiante(Integer.parseInt(request.getParameter("txtIdEstudiante")));
+            dto.getEntidad().setCalF(Integer.parseInt(request.getParameter("txtCalF")));
+            try {
+                dao.create(dto);
+                dtoEst.getEntidad().setIdEstudiante(dto.getEntidad().getIdEstudiante());
+                dtoEst = daoEst.read(dtoEst);
+                cursoDTO.getEntidad().setIdCurso(dto.getEntidad().getIdCurso());
+                cursoDTO = cursoDAO.read(cursoDTO);
+                mail.enviarCorreo(dtoEst.getEntidad().getCorreo(), "Tienes una nueva calificación", "Tienes una nueva calificación del curso: " + cursoDTO.getEntidad().getNombreCurso() + "\t con una calificación de: " + dto.getEntidad().getCalF());
+                mail.enviarCorreo("max.55@live.com.mx", "Creación de nueva calificación - aviso sistema", "Se ha creado una nueva calificación del curso con id: " + dto.getEntidad().getIdCurso() + "\t con nombre: " + cursoDTO.getEntidad().getNombreCurso() + "\n Para el estudiante con ID: " + dtoEst.getEntidad().getIdEstudiante());
+                request.setAttribute("mensaje", "Creación de calificación final, ¡Exitosa!");
+                mostrarBienvenida(request, response);
+            } catch (SQLException ex) {
+                Logger.getLogger(CalificacionesFinalServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } else {
+            dto.getEntidad().setIdCurso(request.getParameter("txtIdCurso"));
+            dto.getEntidad().setIdEstudiante(Integer.parseInt(request.getParameter("txtIdEstudiante")));
+            dto.getEntidad().setCalF(Integer.parseInt(request.getParameter("txtCalF")));
+            dto.getEntidad().setIdCalFinal(Integer.parseInt(request.getParameter("txtIdCalFinal")));
+            try {
+                dao.update(dto);
+                dtoEst.getEntidad().setIdEstudiante(dto.getEntidad().getIdEstudiante());
+                dtoEst = daoEst.read(dtoEst);
+                cursoDTO.getEntidad().setIdCurso(dto.getEntidad().getIdCurso());
+                cursoDTO = cursoDAO.read(cursoDTO);
+                mail.enviarCorreo("max.55@live.com.mx", "Actualización de nueva calificación - aviso sistema", "Se ha actualizado una calificación del curso con id: " + dto.getEntidad().getIdCurso() + "\t con nombre: " + cursoDTO.getEntidad().getNombreCurso() + "\n Para el estudiante con ID: " + dtoEst.getEntidad().getIdEstudiante());
+                request.setAttribute("mensaje", "Actualización de calificación final, ¡Exitosa!");
+                mostrarBienvenida(request, response);
+            } catch (SQLException ex) {
+                Logger.getLogger(CalificacionesFinalServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+    }
+
+    private void mostrarCalificacionF(HttpServletRequest request, HttpServletResponse response) {
+        CalificacionesFinalDAO dao = new CalificacionesFinalDAO();
+        CalificacionesFinalDTO dto = new CalificacionesFinalDTO();
+        EstudianteDAO daoEst = new EstudianteDAO();
+        EstudianteDTO dtoEst = new EstudianteDTO();
+        CursoDTO cursoDTO = new CursoDTO();
+        CursoDAO cursoDAO = new CursoDAO();
+        dto.getEntidad().setIdCalFinal(Integer.parseInt(request.getParameter("txtIdCalFinal")));
+        RequestDispatcher vista = request.getRequestDispatcher("/calF/datosCalF.jsp");
+        try {
+            dto = dao.read(dto);
+            dtoEst.getEntidad().setIdEstudiante(dto.getEntidad().getIdEstudiante());
+            dtoEst = daoEst.read(dtoEst);
+            cursoDTO.getEntidad().setIdCurso(dto.getEntidad().getIdCurso());
+            cursoDTO = cursoDAO.read(cursoDTO);
+            request.setAttribute("calF", dto);
+            request.setAttribute("curso", cursoDTO);
+            request.setAttribute("est", dtoEst);
+            vista.forward(request, response);
+        } catch (SQLException | ServletException | IOException ex) {
+            Logger.getLogger(CalificacionesFinalServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void agregarCalPar(HttpServletRequest request, HttpServletResponse response) {
+        RequestDispatcher vista = request.getRequestDispatcher("/calPar/calParFormulario.jsp");
+        try {
+            request.setAttribute("modificar", 0);
+            vista.forward(request, response);
+        } catch (ServletException | IOException ex) {
+            Logger.getLogger(CalificacionesParcialesServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void eliminarCalPar(HttpServletRequest request, HttpServletResponse response) {
+        CalificacionesPacrialesDAO dao = new CalificacionesPacrialesDAO();
+        CalificacionesParcialesDTO dto = new CalificacionesParcialesDTO();
+        EnviarMail mail = new EnviarMail();
+        dto.getEntidad().setLlave_califi(Integer.parseInt(request.getParameter("id")));
+        try {
+            dao.delete(dto);
+            mail.enviarCorreo("max.55@live.com.mx", "Eliminación de calificación parcial - aviso sistema", "Se ha realizado una eliminación de Calificación parcial con los siguientes datos. ID: "+dto.getEntidad().getLlave_califi()+"\t descripción: "+dto.getEntidad().getDesc());
+            mostrarBienvenida(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(CalificacionesParcialesServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void actualizarCalPar(HttpServletRequest request, HttpServletResponse response) {
+        CalificacionesPacrialesDAO dao = new CalificacionesPacrialesDAO();
+        CalificacionesParcialesDTO dto = new CalificacionesParcialesDTO();
+        dto.getEntidad().setLlave_califi(Integer.parseInt(request.getParameter("id")));
+        RequestDispatcher vista = request.getRequestDispatcher("/calPar/calParFormulario.jsp");
+        try {
+            dto = dao.read(dto);
+            request.setAttribute("calPar", dto);
+            request.setAttribute("modificar", 1);
+            vista.forward(request, response);
+        } catch (SQLException | ServletException | IOException ex) {
+            Logger.getLogger(CalificacionesParcialesServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void almacenarCalPar(HttpServletRequest request, HttpServletResponse response) {
+        CalificacionesPacrialesDAO dao = new CalificacionesPacrialesDAO();
+        CalificacionesParcialesDTO dto = new CalificacionesParcialesDTO();
+        EnviarMail mail = new EnviarMail();
+        if(Integer.parseInt(request.getParameter("modificar"))==0){
+            dto.getEntidad().setDesc(request.getParameter("txtDescCalPar"));
+            try {
+                dao.create(dto);
+                mail.enviarCorreo("max.55@live.com.mx", "Creación de Calificación parcial - aviso sistema", "Creación de nueva calificación de profesor con datos ID: "+dto.getEntidad().getLlave_califi()+"\t con descripción: "+dto.getEntidad().getDesc());
+                request.setAttribute("mensaje", "Creación de calificación parcial, ¡Exitosa!");
+                mostrarBienvenida(request, response);
+            } catch (SQLException ex) {
+                Logger.getLogger(CalificacionesParcialesServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            dto.getEntidad().setLlave_califi(Integer.parseInt(request.getParameter("txtIdCalPar")));
+            dto.getEntidad().setDesc(request.getParameter("txtDescCalPar"));
+            try {
+                dao.update(dto);
+                mail.enviarCorreo("max.55@live.com.mx", "Actualización de calificación parcial - aviso sistema", "Actualización de nueva calificación");
+                request.setAttribute("mensaje", "Actualización de calificación, ¡Exitosa!");
+                mostrarBienvenida(request, response);
+            } catch (SQLException ex) {
+                Logger.getLogger(CalificacionesParcialesServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    private void mostrarCalPar(HttpServletRequest request, HttpServletResponse response) {
+        CalificacionesPacrialesDAO dao = new CalificacionesPacrialesDAO();
+        CalificacionesParcialesDTO dto = new CalificacionesParcialesDTO();
+        dto.getEntidad().setLlave_califi(Integer.parseInt(request.getParameter("id")));
+        RequestDispatcher vista = request.getRequestDispatcher("/calPar/datosCalPar.jsp");
+        try {
+            dto = dao.read(dto);
+            request.setAttribute("calPar", dto);
+            vista.forward(request, response);
+        } catch (SQLException | ServletException | IOException ex) {
+            Logger.getLogger(CalificacionesParcialesServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+}
 }

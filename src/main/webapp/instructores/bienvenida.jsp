@@ -30,7 +30,7 @@
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link active" href="">Home</a>
+                                <a class="nav-link active" href="./bienvenida.jsp">Home</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="">Lista de cursos</a>
@@ -47,6 +47,13 @@
                 </div>
             </nav>
             <div class="mb-5"></div>
+            <c:if test="${mensaje != null}">
+                <div class="alert alert-dark alert-dismissible fade show" role="alert">
+                    <strong>${mensaje}</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" arial-label="Close"></button>
+                </div>
+                <div class="mb-3"></div>
+            </c:if>
             <div class="card text-dark bg-light mb-3" style="max-width: 100%;">
                 <div class="card-header" style="text-align: center;"><h1>¡Bienvenido!</h1></div>
                 <div class="card-body">
@@ -55,13 +62,17 @@
                     <br>
                     <ul class="list-group list-group-horizontal" >
                         <li style="list-style-type: none;"><a class="list-group-item" href="./../CursosServlet?accion=nuevoCurso">Crear nuevo curso</a></li>
-                        <li style="list-style-type: none;"><a class="list-group-item" href="./../CalificacionesParcialesServlet?accion=nuevaCalP">Subir calificación parcial</a></li>
-                        <li style="list-style-type: none;"><a class="list-group-item" href="./../CalificacionesFinalServlet?accion=nuevaCalificacionF">Subir calificación final</a></li>
+                        <li style="list-style-type: none;"><a class="list-group-item" href="./../InstructorServlet?accion=nuevaCalP">Subir calificación parcial</a></li>
+                        <li style="list-style-type: none;"><a class="list-group-item" href="./../InstructorServlet?accion=nuevaCalificacionF">Subir calificación final</a></li>
                         <li style="list-style-type: none;"><a class="list-group-item" href="./../DireccionCursoServlet?accion=nuevaDireccionC">Crear un nuevo enlace para la videollamada</a></li>
+                    </ul>      
+                    <ul class="list-group list-group-horizontal">
+                        <li style="list-style-type: none;"><a class="list-group-item" href="./../InstructorServlet?accion=mostrarInstr&id=1">Mostar mis datos</a></li>
+                        
                     </ul>      
                     <div class="mb-3"></div>
                     <p>Si desea realizar una modificación de sus datos, favor de realizar un correo a <a class="link-dark" href="mailto:max.55@live.com.mx">max.55@live.com.mx</a>, el cual es el administrador del sistema, en el asunto deberá colocar <span class="" style="text-decoration: underline;">"modificación de datos - Instructor"</span> listando que datos desea modificar y sobre todo mandando su correo en el cual ingresa al sistema.</p>
-                    <p>Gracias pro su comprensión</p>
+                    <p>Gracias por su comprensión</p>
                     <p>
                         <c:out value="${Nombre}"/>
                         <c:out value="${Paterno}"/>
