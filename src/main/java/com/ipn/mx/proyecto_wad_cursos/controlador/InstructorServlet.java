@@ -197,7 +197,7 @@ public class InstructorServlet extends HttpServlet {
     private void actualizarInstructor(HttpServletRequest request, HttpServletResponse response) {
         InstructorDAO dao = new InstructorDAO();
         InstructorDTO dto = new InstructorDTO();
-        dto.getEntidad().setIdProfesor(Integer.parseInt(request.getParameter("idInstructor")));
+        dto.getEntidad().setIdProfesor(Integer.parseInt(request.getParameter("id")));
         RequestDispatcher vista = request.getRequestDispatcher("/instructores/profesoresFormulario.jsp");
         try {
             dto = dao.read(dto);
@@ -260,7 +260,7 @@ public class InstructorServlet extends HttpServlet {
     private void mostrarInstructor(HttpServletRequest request, HttpServletResponse response) {
         InstructorDAO dao = new InstructorDAO();
         InstructorDTO dto = new InstructorDTO();
-        dto.getEntidad().setIdProfesor(Integer.parseInt("txtIdProfesor"));
+        dto.getEntidad().setIdProfesor(Integer.parseInt(request.getParameter("id")));
         RequestDispatcher vista = request.getRequestDispatcher("/instructores/datosInstructor.jsp");
         try {
             dto = dao.read(dto);

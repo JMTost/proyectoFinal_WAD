@@ -59,14 +59,6 @@ public class CalificacionesParcialesServlet extends HttpServlet {
                             }else{
                                 if(accion.equals("mostrarCalP")){
                                     mostrarCalPar(request, response);
-                                }else{
-                                    if(accion.equals("mostrarReporteCalPar")){
-                                        mostrarReporteParcial(request, response);
-                                    }else{
-                                        if(accion.equals("mostrarGraficaCalPar")){
-                                            mostrarGraficaParcial(request, response);
-                                        }
-                                    }
                                 }
                             }
                         }
@@ -208,14 +200,6 @@ public class CalificacionesParcialesServlet extends HttpServlet {
         } catch (SQLException | ServletException | IOException ex) {
             Logger.getLogger(CalificacionesParcialesServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    private void mostrarReporteParcial(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void mostrarGraficaParcial(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

@@ -245,7 +245,8 @@ public class InstructorDAO {
         dto.getEntidad().setIdProfesor(1);
         dto.getEntidad().setCorreo("cofahe1640@ehstock.com2");
         try {
-            boolean var = dao.exist(dto);           
+            System.out.println(dao.readAll());
+            //boolean var = dao.exist(dto);           
         } catch (SQLException ex) {
             Logger.getLogger(AdminDAO.class.getName()).log(Level.SEVERE, null, ex);
         }

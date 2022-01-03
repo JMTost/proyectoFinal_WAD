@@ -64,14 +64,6 @@ public class DireccionCursoServlet extends HttpServlet {
                             } else {
                                 if (accion.equals("mostrarDireccionC")) {
                                     mostrarDireccionC(request, response);
-                                } else {
-                                    if (accion.equals("mostrarReporteDireccionC")) {
-                                        mostrarReporteDirC(request, response);
-                                    } else {
-                                        if (accion.equals("mostrarGraficaDireccionC")) {
-                                            mostrarGraficaDirC(request, response);
-                                        }
-                                    }
                                 }
                             }
                         }
@@ -250,14 +242,6 @@ public class DireccionCursoServlet extends HttpServlet {
         } catch (SQLException | ServletException | IOException ex) {
             Logger.getLogger(DireccionCursoServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
-
-    private void mostrarReporteDirC(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void mostrarGraficaDirC(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

@@ -20,7 +20,7 @@
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">
-                        <img src="../Images/bootstrap-logo.svg" alt="" width="30" height="24" class="d-inline-block align-text-top">
+                        <img src="Images/bootstrap-logo.svg" alt="" width="30" height="24" class="d-inline-block align-text-top">
                         Cursos
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -91,7 +91,7 @@
                                     <td><c:out value="${dto.entidad.correo}"/></td>
                                     <td><c:out value="${dto.entidad.pass}"/></td>
                                     <td><a href="InstructorServlet?accion=eliminarInstr&id=<c:out value="${dto.entidad.idProfesor}"/>" class="btn btn-outline-danger">Eliminar</a></td>        
-                                    <td><a href="InstructorServlet?accion=actuallizarInstr&id=<c:out value="${dto.entidad.idProfesor}"/>" class="btn btn-outline-default">Actualizar</a></td>
+                                    <td><a href="InstructorServlet?accion=actuallizarInstr&id=<c:out value="${dto.entidad.idProfesor}"/>" class="btn btn-outline-default border-dark">Actualizar</a></td>
                                     <td><a href="InstructorServlet?accion=mostrarReporteInstr&individual=1&id=<c:out value="${dto.entidad.idProfesor}"/>" class="btn btn-outline-info" target="_blank">Reporte</a></td>
                                 </tr>
                             </tbody>

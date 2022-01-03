@@ -72,24 +72,15 @@ public class HorariosServlet extends HttpServlet {
                             } else {
                                 if (accion.equals("mostrarHora")) {
                                     mostrarHora(request, response);
-                                } /*else {
-                                    if (accion.equals("mostrarReporteHora")) {
-                                        mostrarReporteHorarios(request, response);
-                                    } else {
-                                        if (accion.equals("mostrarGraficaHora")) {
-                                            //mostrarGraficaInstructor(request, response);
-                                            
-                                        }
-                                    }*/
                                 }
                             }
                         }
                     }
                 }
             }
-
         }
-    
+
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -229,76 +220,6 @@ public class HorariosServlet extends HttpServlet {
             Logger.getLogger(HorariosServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-/*
-    private void mostrarReporteInstructor(HttpServletRequest request, HttpServletResponse response) {
-        InstructorDAO dao = new InstructorDAO();
-        InstructorDTO dto = new InstructorDTO();
-        if (Integer.parseInt(request.getParameter("individual")) == 0) {
-
-            ServletOutputStream sos;
-            try {
-                sos = response.getOutputStream();
-                File reporte = new File(getServletConfig().getServletContext().getRealPath("/reportes/ReporteGeneralInstructor.jasper"));
-                byte[] b = JasperRunManager.runReportToPdf(reporte.getPath(), null, dao.conectar());
-                response.setContentType("application/pdf");
-                response.setContentLength(b.length);
-
-                sos.write(b, 0, b.length);
-                sos.flush();
-                sos.close();
-            } catch (IOException | JRException ex) {
-                Logger.getLogger(InstructorServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-
-        } else {
-            //Quiere ver el reporte de un instructor
-            try {
-                ServletOutputStream sos = response.getOutputStream();
-                File reporte = new File(getServletConfig().getServletContext().getRealPath("/reportes/ReporteInstructoresxID.jasper"));
-                HashMap parametros = new HashMap();
-                parametros.put("idBuscarUsuarios", Integer.parseInt(request.getParameter("id")));
-                byte[] b = JasperRunManager.runReportToPdf(reporte.getPath(), parametros, dao.conectar());
-                response.setContentType("application/pdf");
-                response.setContentLength(b.length);
-
-                sos.write(b, 0, b.length);
-                sos.flush();//flush, aztualización, 
-                sos.close();
-
-            } catch (IOException | JRException ex) {
-                Logger.getLogger(InstructorServlet.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-    }
-    */
-    /*
-    private void mostrarGraficaInstructor(HttpServletRequest request, HttpServletResponse response) {
-        JFreeChart grafica = ChartFactory.createPieChart("Cursos por Instructor", obtenerCursosPorInstructor(), true, true, Locale.getDefault());
-        //Declaración de donde se guardara el archivo
-        String archivo = getServletConfig().getServletContext().getRealPath("/grafica_Instr.png");
-        try {
-            request.setAttribute("grafica", 2);
-            ChartUtils.saveChartAsPNG(new File(archivo), grafica, 500, 500);
-            RequestDispatcher vistas = request.getRequestDispatcher("grafica.jsp");
-            vistas.forward(request, response);
-        } catch (IOException | ServletException ex) {
-            Logger.getLogger(InstructorServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    private PieDataset obtenerCursosPorInstructor() {
-        DefaultPieDataset dsPie = new DefaultPieDataset();
-        InstructorDAO dao = new InstructorDAO();
-        try {
-            List datos = dao.graficarInstructorPorCurso();
-            for (int i = 0; i < datos.size(); i++) {
-                GraficaDTO dto = (GraficaDTO) datos.get(i);
-                dsPie.setValue(dto.getNombreCategoria(), dto.getCantidad());
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(InstructorServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return dsPie;
-    }*/
+    
 
 }

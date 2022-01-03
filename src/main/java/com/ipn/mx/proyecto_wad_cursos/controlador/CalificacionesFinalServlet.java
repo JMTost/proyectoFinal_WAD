@@ -64,15 +64,7 @@ public class CalificacionesFinalServlet extends HttpServlet {
                             } else {
                                 if (accion.equals("mostrarCalificacionF")) {
                                     mostrarCalificacionF(request, response);
-                                } else {
-                                    if (accion.equals("mostrarReporteCalificacionF")) {
-                                        mostrarReporteCalificacionF(request, response);
-                                    } else {
-                                        if (accion.equals("mostrarGraficaCalificacionF")) {
-                                            mostrarGraficaCalificacionF(request, response);
-                                        }
-                                    }
-                                }
+                                } 
                             }
                         }
                     }
@@ -244,12 +236,5 @@ public class CalificacionesFinalServlet extends HttpServlet {
         }
     }
 
-    private void mostrarReporteCalificacionF(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    private void mostrarGraficaCalificacionF(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
+  
 }

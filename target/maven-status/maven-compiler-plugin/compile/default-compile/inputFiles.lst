@@ -1,38 +1,38 @@
-C:\Users\FACTORING\Desktop\proyectoWAD\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\DAO\AdminDAO.java
-C:\Users\FACTORING\Desktop\proyectoWAD\src\main\java\com\ipn\mx\proyecto_wad_cursos\controlador\AdminServlet.java
-C:\Users\FACTORING\Desktop\proyectoWAD\src\main\java\com\ipn\mx\proyecto_wad_cursos\controlador\InstructorServlet.java
-C:\Users\FACTORING\Desktop\proyectoWAD\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\DAO\CalificacionesPacrialesDAO.java
-C:\Users\FACTORING\Desktop\proyectoWAD\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\DAO\CalificacionesFinalDAO.java
-C:\Users\FACTORING\Desktop\proyectoWAD\src\main\java\com\ipn\mx\proyecto_wad_cursos\controlador\CursosServlet.java
-C:\Users\FACTORING\Desktop\proyectoWAD\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\DTO\CalificacionesParcialesDTO.java
-C:\Users\FACTORING\Desktop\proyectoWAD\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\DTO\CalificacionesFinalDTO.java
-C:\Users\FACTORING\Desktop\proyectoWAD\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\DTO\DireccionCursoDTO.java
-C:\Users\FACTORING\Desktop\proyectoWAD\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\entidades\Curso.java
-C:\Users\FACTORING\Desktop\proyectoWAD\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\DTO\HorariosDTO.java
-C:\Users\FACTORING\Desktop\proyectoWAD\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\entidades\DireccionCurso.java
-C:\Users\FACTORING\Desktop\proyectoWAD\src\main\java\com\ipn\mx\proyecto_wad_cursos\controlador\DireccionCursoServlet.java
-C:\Users\FACTORING\Desktop\proyectoWAD\src\main\java\com\ipn\mx\proyecto_wad_cursos\controlador\CalificacionesFinalServlet.java
-C:\Users\FACTORING\Desktop\proyectoWAD\src\main\java\com\ipn\mx\proyecto_wad_cursos\controlador\CalificacionesParcialesServlet.java
-C:\Users\FACTORING\Desktop\proyectoWAD\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\DTO\InstructorDTO.java
-C:\Users\FACTORING\Desktop\proyectoWAD\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\entidades\Instructor.java
-C:\Users\FACTORING\Desktop\proyectoWAD\src\main\java\com\ipn\mx\utilerias\EnviarMail.java
-C:\Users\FACTORING\Desktop\proyectoWAD\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\DAO\EstudianteDAO.java
-C:\Users\FACTORING\Desktop\proyectoWAD\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\DAO\CursoDAO.java
-C:\Users\FACTORING\Desktop\proyectoWAD\src\main\java\com\ipn\mx\proyecto_wad_cursos\controlador\HorariosServlet.java
-C:\Users\FACTORING\Desktop\proyectoWAD\src\main\java\com\ipn\mx\proyecto_wad_cursos\controlador\InscripcionCursoServlet.java
-C:\Users\FACTORING\Desktop\proyectoWAD\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\entidades\InscripcionCurso.java
-C:\Users\FACTORING\Desktop\proyectoWAD\src\main\java\com\ipn\mx\proyecto_wad_cursos\controlador\SesionesServlet.java
-C:\Users\FACTORING\Desktop\proyectoWAD\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\entidades\CalificacionesParciales.java
-C:\Users\FACTORING\Desktop\proyectoWAD\src\main\java\com\ipn\mx\proyecto_wad_cursos\controlador\EstudianteServlet.java
-C:\Users\FACTORING\Desktop\proyectoWAD\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\DAO\InstructorDAO.java
-C:\Users\FACTORING\Desktop\proyectoWAD\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\entidades\Horarios.java
-C:\Users\FACTORING\Desktop\proyectoWAD\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\entidades\Estudiante.java
-C:\Users\FACTORING\Desktop\proyectoWAD\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\DTO\EstudianteDTO.java
-C:\Users\FACTORING\Desktop\proyectoWAD\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\DAO\InscripcionCursoDAO.java
-C:\Users\FACTORING\Desktop\proyectoWAD\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\DAO\DireccionCursoDAO.java
-C:\Users\FACTORING\Desktop\proyectoWAD\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\DTO\AdminDTO.java
-C:\Users\FACTORING\Desktop\proyectoWAD\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\DTO\CursoDTO.java
-C:\Users\FACTORING\Desktop\proyectoWAD\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\DAO\HorariosDAO.java
-C:\Users\FACTORING\Desktop\proyectoWAD\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\entidades\Admin.java
-C:\Users\FACTORING\Desktop\proyectoWAD\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\DTO\InscripcionCursoDTO.java
-C:\Users\FACTORING\Desktop\proyectoWAD\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\entidades\CalificacionesFinal.java
+C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\controlador\AdminServlet.java
+C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\DTO\CalificacionesParcialesDTO.java
+C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\DTO\HorariosDTO.java
+C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\controlador\HorariosServlet.java
+C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\DAO\InstructorDAO.java
+C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\controlador\DireccionCursoServlet.java
+C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\DAO\InscripcionCursoDAO.java
+C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\entidades\Admin.java
+C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\entidades\CalificacionesFinal.java
+C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\controlador\CalificacionesFinalServlet.java
+C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\DTO\AdminDTO.java
+C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\DAO\CursoDAO.java
+C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\entidades\CalificacionesParciales.java
+C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\entidades\Curso.java
+C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\DTO\InscripcionCursoDTO.java
+C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\controlador\InscripcionCursoServlet.java
+C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\utilerias\EnviarMail.java
+C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\controlador\EstudianteServlet.java
+C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\entidades\DireccionCurso.java
+C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\DAO\AdminDAO.java
+C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\DAO\CalificacionesPacrialesDAO.java
+C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\DTO\CursoDTO.java
+C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\DTO\EstudianteDTO.java
+C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\DAO\EstudianteDAO.java
+C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\DAO\CalificacionesFinalDAO.java
+C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\DTO\DireccionCursoDTO.java
+C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\DAO\DireccionCursoDAO.java
+C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\DAO\HorariosDAO.java
+C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\DTO\CalificacionesFinalDTO.java
+C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\entidades\Instructor.java
+C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\entidades\Horarios.java
+C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\entidades\Estudiante.java
+C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\controlador\SesionesServlet.java
+C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\entidades\InscripcionCurso.java
+C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\controlador\CursosServlet.java
+C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\modelo\DTO\InstructorDTO.java
+C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\controlador\InstructorServlet.java
+C:\Users\JMTN\Desktop\SEXTO SEMESTRE\WAD\PROGRAMAS\Proyecto\Proyecto_WAD_cursos\src\main\java\com\ipn\mx\proyecto_wad_cursos\controlador\CalificacionesParcialesServlet.java
