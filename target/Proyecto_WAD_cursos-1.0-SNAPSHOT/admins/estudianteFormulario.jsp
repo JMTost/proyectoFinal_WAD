@@ -48,7 +48,7 @@
                 </div>
                 <div class="card-body">
                     <c:if test="${modificar==1}">
-                        <form method="post" action="EstudianteServlet?accion=guardarEstudiante&modificar=1">
+                        <form method="post" action="AdminServlet?accion=guardarEstudiante&modificar=1">
                             <fieldset>
                                 <legend>Información del estudiante</legend>
                                 <div class="mb-3">
@@ -90,7 +90,7 @@
                         </form>
                     </c:if>
                     <c:if test="${modificar == 0}">
-                        <form method="post" action="EstudianteServlet?accion=guardarEstudiante&modificar=0">
+                        <form method="post" action="AdminServlet?accion=guardarEstudiante&modificar=0">
                             <fieldset>
                                 <legend>Información del estudiante</legend>
                                 <<div class="mb-3">

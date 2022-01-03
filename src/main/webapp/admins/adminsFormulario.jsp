@@ -43,7 +43,7 @@
                     </div>
                 </div>
             </nav>
-            
+            <div class="mb-3"></div>
             <div class="card">
                 <div class="card-header">
                     <h1 class="text-center">Datos de instructor</h1>

@@ -41,7 +41,7 @@
                     </div>
                 </div>
             </nav>
-            
+            <div class="mb-3"></div>
             <div class="card border-primary">
                 <div class="card-header text-center">
                     Lista de estudaintes

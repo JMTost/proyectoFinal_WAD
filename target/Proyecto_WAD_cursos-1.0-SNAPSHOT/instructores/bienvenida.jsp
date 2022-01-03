@@ -35,11 +35,14 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="">Lista de cursos</a>
                             </li>                           
+                            <li class="nav-item"><a class="nav-link" href="./../CursosServlet?accion=nuevoCurso">Crear curso</a></li>
+                            <li class="nav-item"><a class="nav-link" href="./../CalificacionesParcialesServlet?accion=nuevaCalP">Subir calificación p</a></li>
+                            <li class="nav-item"><a class="nav-link" href="./../CalificacionesFinalServlet?accion=nuevaCalificacionF">Subir calificación f</a></li>
+                            <li class="nav-item"><a class="nav-link" href="./../DireccionCursoServlet?accion=nuevaDireccionC">Crear un nuevo enlace</a></li>
                         </ul>
                     </div>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">                        
                         <button class="btn btn-danger" type="btn " href="./../SesionesServlet?accion=cerrarSesion">Cerrar Sesión</button>
-
                     </div>
                 </div>
             </nav>
@@ -51,15 +54,19 @@
                     <p class="card-text">Aquí se mostrarán los enlaces a los partados donde usted podrá realizar sus operaciones: </p>
                     <br>
                     <ul class="list-group list-group-horizontal" >
-                        <li><a class="list-group-item" href="#">Crear nuevo curso</a></li>
-                        <li><a class="list-group-item" href="#">Lista de mis cursos</a></li>
-                        <li><a class="list-group-item" href="#">Actualizar mis datos</a></li>
-                    </ul>                   
+                        <li style="list-style-type: none;"><a class="list-group-item" href="./../CursosServlet?accion=nuevoCurso">Crear nuevo curso</a></li>
+                        <li style="list-style-type: none;"><a class="list-group-item" href="./../CalificacionesParcialesServlet?accion=nuevaCalP">Subir calificación parcial</a></li>
+                        <li style="list-style-type: none;"><a class="list-group-item" href="./../CalificacionesFinalServlet?accion=nuevaCalificacionF">Subir calificación final</a></li>
+                        <li style="list-style-type: none;"><a class="list-group-item" href="./../DireccionCursoServlet?accion=nuevaDireccionC">Crear un nuevo enlace para la videollamada</a></li>
+                    </ul>      
+                    <div class="mb-3"></div>
+                    <p>Si desea realizar una modificación de sus datos, favor de realizar un correo a <a class="link-dark" href="mailto:max.55@live.com.mx">max.55@live.com.mx</a>, el cual es el administrador del sistema, en el asunto deberá colocar <span class="" style="text-decoration: underline;">"modificación de datos - Instructor"</span> listando que datos desea modificar y sobre todo mandando su correo en el cual ingresa al sistema.</p>
+                    <p>Gracias pro su comprensión</p>
                 </div>
             </div>
-
+            <!--
             <a href="./../InstructorServlet?accion=listaDeInstructores" class="btn btn-outline-secondary">Prueba</a>
-
+            -->
 
         </div>
     </body>

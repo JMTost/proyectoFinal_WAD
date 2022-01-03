@@ -1,6 +1,6 @@
 <%-- 
-    Document   : listaCalPar
-    Created on : 2 ene 2022, 19:20:22
+    Document   : listaprofe
+    Created on : 31 dic 2021, 17:12:29
     Author     : JMTN
 --%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Lista de calificaciones parciales</title>
+        <title>Lista de instructores</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js" ></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js" ></script>
@@ -41,16 +41,14 @@
                     </div>
                 </div>
             </nav>
-            <div class="mb-3"></div>
+
             <div class="card border-primary">
                 <div class="card-header text-center">
-                    Lista de calificaciones parciales
+                    Lista de instructores
                 </div>
                 <div class="card-body container-fluid">
                     <h4 class="card-title">
-                        <a href="CalificacionesParcialesServlet?accion=nuevaCalP" class="btn btn-outline-primary">Crear nueva calificación parcial</a>
-                        <a href="CalificacionesParcialesServlet?accion=mostrarGraficaCalPar" class="btn btn-outline-primary">Mostrar grafica</a>
-                        <a href="CalificacionesParcialesServlet?accion=mostrarReporteCalPar" class="btn btn-outline-primary">Mostrar reporte</a>
+                        <a href="AdminServlet?accion=nuevoInstr" class="btn btn-outline-primary">Crear nuevo instructor</a>
                     </h4>
                     <c:if test="${mensaje != null}">
                         <div class="alert alert-dark alert-dismissible fade show" role="alert">
@@ -62,19 +60,35 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Descripción</th>
+                                <th>Nombre</th>
+                                <th>Apellido paterno</th>
+                                <th>Apeliido materno</th>
+                                <th>Calle</th>
+                                <th>Número exterior</th>
+                                <th>Código postal</th>
+                                <th>Delegación</th>
+                                <th>Teléfono</th>
+                                <th>Correo electrónico</th>
+                                <th>Contraseña</th>
                                 <th>Eliminar</th>
                                 <th>Actualizar</th>
-                                <th>Reporte</th>
                             </tr>
-                            <c:forEach var="dto" items="${listaDeCalPar}">
+                            <c:forEach var="dto" items="${listaDeInstructores}">
                             <tbody>
                                 <tr>
-                                    <td><a href="CalificacionesParcialesServlet?accion=mostrarCalP&id=<c:out value="${dto.entidad.llave_califi}"/>" class="btn btn-outline-secondary"><c:out value="${dto.entidad.llave_califi}"/></a></td>
-                                    <td><c:out value="${dto.entidad.desc}"/></td>
-                                    <td><a href="CalificacionesParcialesServlet?accion=eliminarCalP&id=<c:out value="${dto.entidad.llave_califi}"/>" class="btn btn-outline-danger">Eliminar</a></td>        
-                                    <td><a href="CalificacionesParcialesServlet?accion=actualizarCalP&id=<c:out value="${dto.entidad.llave_califi}"/>" class="btn btn-outline-default">Actualizar</a></td>
-                                    <td><a href="CalificacionesParcialesServlet?accion=mostrarReporteCalPar&individual=1&id=<c:out value="${dto.entidad.llave_califi}"/>" class="btn btn-outline-info" target="_blank">Reporte</a></td>
+                                    <td><a href="AdminServlet?accion=mostrarInstr&id=<c:out value="${dto.entidad.idProfesor}"/>" class="btn btn-outline-secondary"><c:out value="${dto.entidad.idProfesor}"/></a></td>
+                                    <td><c:out value="${dto.entidad.nombre}"/></td>
+                                    <td><c:out value="${dto.entidad.apPat}"/></td>
+                                    <td><c:out value="${dto.entidad.apMat}"/></td>
+                                    <td><c:out value="${dto.entidad.calle}"/></td>
+                                    <td><c:out value="${dto.entidad.numExt}"/></td>
+                                    <td><c:out value="${dto.entidad.codPost}"/></td>
+                                    <td><c:out value="${dto.entidad.delegacion}"/></td>
+                                    <td><c:out value="${dto.entidad.telefono}"/></td>
+                                    <td><c:out value="${dto.entidad.correo}"/></td>
+                                    <td><c:out value="${dto.entidad.pass}"/></td>
+                                    <td><a href="AdminServlet?accion=eliminarInstr&id=<c:out value="${dto.entidad.idProfesor}"/>" class="btn btn-outline-danger">Eliminar</a></td>        
+                                    <td><a href="AdminServlet?accion=actuallizarInstr&id=<c:out value="${dto.entidad.idProfesor}"/>" class="btn btn-outline-default border-dark">Actualizar</a></td>
                                 </tr>
                             </tbody>
                         </c:forEach>
@@ -82,7 +96,7 @@
                     </table>
                 </div>
             </div>
-            
         </div>
     </body>
 </html>
+
