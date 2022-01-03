@@ -35,13 +35,13 @@
                                 <a class="nav-link active" aria-current="#" href="#">Home</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="">Lista de cursos</a>
+                                <a class="nav-link" href="SesionesServlet?accion=inicioSesion">Inicio de sesion</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="">Inicio de sesion</a>
+                                <a class="nav-link" href="InstructorServlet?accion=mostrarBienvenida">Index instructor</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="./instructores/bienvenida.jsp">Index instructor</a>
+                                <a class="nav-link" href="SesionesServlet?accion=registro">Registrate</a>
                             </li>
                         </ul>
                     </div>
