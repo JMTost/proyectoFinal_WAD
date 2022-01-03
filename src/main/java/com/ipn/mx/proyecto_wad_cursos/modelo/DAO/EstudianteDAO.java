@@ -26,7 +26,8 @@ public class EstudianteDAO {
     private static final String SQL_DELETE = "call spEliminarEstudiante(?)";
     private static final String SQL_READ = "select * from LeerEstudiante(?)";
     private static final String SQL_READ_ALLS = "select * from seleccionaEstudiantes()";
-
+    private static final String SQL_EXIST = "select 1 from estudiante where correo = ? ";
+    private static final String SQL_VALIDATE = "select 1 from estudiante where correo = ? and passestudiante = ? ";
     
     private Connection conexion;
 
@@ -181,7 +182,54 @@ public class EstudianteDAO {
         }
         return resultados;
     }
-        
+    
+    public boolean exist(EstudianteDTO dto) throws SQLException {
+        conectar();
+        CallableStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = conexion.prepareCall(SQL_EXIST);
+            ps.setString(1, dto.getEntidad().getCorreo());
+            rs = ps.executeQuery();
+            return  rs.next();
+            
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conexion != null) {
+                conexion.close();
+            }
+        }
+    }
+    
+    public boolean validate(EstudianteDTO dto) throws SQLException {
+        conectar();
+        CallableStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = conexion.prepareCall(SQL_VALIDATE);
+            ps.setString(1, dto.getEntidad().getCorreo());
+            ps.setString(2, dto.getEntidad().getPassEstudiante());
+            rs = ps.executeQuery();
+            return  rs.next();
+            
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conexion != null) {
+                conexion.close();
+            }
+        }
+    }
+    
     public static void main(String[] args) {
         EstudianteDAO dao = new EstudianteDAO();
         EstudianteDTO dto = new EstudianteDTO();
