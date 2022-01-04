@@ -1,6 +1,6 @@
 <%-- 
-    Document   : listaAlumnos
-    Created on : 3 ene. 2022, 15:45:24
+    Document   : calificarAlumno
+    Created on : 3 ene. 2022, 19:04:41
     Author     : FACTORING
 --%>
 
@@ -53,37 +53,28 @@
                         
                     </h4>
                     
-                    <table class="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nombre</th>
-                                <th>Apellido P.</th>
-                                <th>Apellido M. </th>
-                                <th>Correo</th>
-                                <th>Calificacion</th>
-                                                                                                
-                            </tr>
-                            <c:out value="${dto}"/>
-                            <c:forEach var="dto" items="${ListaAlumnos}">
-                            <tbody>                                                      
-                                <tr>                 
-                                    <td><c:out value="${dto.entidad.idEstudiante}"/></td>
-                                    <td><c:out value="${dto.entidad.nombre}"/></td>
-                                    <td><c:out value="${dto.entidad.apPatE}"/></td>
-                                    <td><c:out value="${dto.entidad.apMatE}"/></td>
-                                    <td><c:out value="${dto.entidad.correo}"/></td>
-                                    <td>
-                                        <form action="CursosServlet?accion=calificarEstudiante&id=<c:out value="${dto.entidad.idEstudiante}"/>&curso=<c:out value="${IDCurso}"/>"  method="post" >
-                                            <button type="submit" class="btn btn-outline-success">Calificar</a>  
-                                        </form>     
-                                    </td>                                     
-                                </tr>
-                            </tbody>
-                        </c:forEach>
-                        
-                        </thead>
-                    </table>
+                    <form method="post" action="CursosServlet?accion=guardarcalificarEstudiante">
+                            <fieldset>
+                                <legend>Información de la calificación final</legend>
+                                <div class="mb-3">
+                                    <label class="form-label">Id calificación final</label>
+                                    <input type="number" name="txtIdCalFinal" id="txtIdCalFinal" placeholder="Valor del ID" value="<c:out value="${idCalF}"/>" class="form-control" readonly="readonly"/>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Id del curso</label>
+                                    <input type="text" name="txtIdCurso" id="txtIdCurso" placeholder="Id del curso" value="<c:out value="${IdCurso}"/>" class="form-control" required="required"  readonly/>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Id del estudiante</label>
+                                    <input type="text" name="txtIdEstudiante" id="txtIdEstudiante"  value="<c:out value="${IdEstudiante}"/>" class="form-control" required="required"  readonly/>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Calificación final</label>
+                                    <input type="text" name="txtCalF" id="txtCalF"  value="<c:out value="${CaliF}"/>" class="form-control" required="required"  />
+                                </div>
+                                <button type="submit" class="btn btn-outline-primary">Guardar calificación final</button>
+                            </fieldset>
+                    </form>
                 </div>
             </div>
 

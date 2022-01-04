@@ -74,10 +74,10 @@
                                     <td><c:out value="${dto.entidad.apMatE}"/></td>
                                     <td><c:out value="${dto.entidad.correo}"/></td>
                                     <td>
-                                        <form action="CursosServlet?accion=mostrarListaCurso&id=<c:out value="${dto.entidad.idEstudiante}"/>&curso=<c:out value="${IDCurso}"/>"  method="post" >
+                                        <form action="CursosServlet?accion=calificarEstudiante&id=<c:out value="${dto.entidad.idEstudiante}"/>&curso=<c:out value="${IDCurso}"/>"  method="post" >
                                             <button type="submit" class="btn btn-outline-success">Calificar</a>  
                                         </form>     
-                                    </td> 
+                                    </td>                                     
                                 </tr>
                             </tbody>
                         </c:forEach>

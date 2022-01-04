@@ -5,10 +5,12 @@
  */
 package com.ipn.mx.proyecto_wad_cursos.controlador;
 
+import com.ipn.mx.proyecto_wad_cursos.modelo.DAO.CalificacionesFinalDAO;
 import com.ipn.mx.proyecto_wad_cursos.modelo.DAO.CursoDAO;
 import com.ipn.mx.proyecto_wad_cursos.modelo.DAO.EstudianteDAO;
 import com.ipn.mx.proyecto_wad_cursos.modelo.DAO.InscripcionCursoDAO;
 import com.ipn.mx.proyecto_wad_cursos.modelo.DAO.InstructorDAO;
+import com.ipn.mx.proyecto_wad_cursos.modelo.DTO.CalificacionesFinalDTO;
 import com.ipn.mx.proyecto_wad_cursos.modelo.DTO.CursoDTO;
 import com.ipn.mx.proyecto_wad_cursos.modelo.DTO.EstudianteDTO;
 import com.ipn.mx.proyecto_wad_cursos.modelo.DTO.InscripcionCursoDTO;
@@ -48,7 +50,7 @@ public class CursosServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
+        try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             String accion = request.getParameter("accion");
             if (accion.equals("listaDeCursos")) {
@@ -69,11 +71,15 @@ public class CursosServlet extends HttpServlet {
                                 if (accion.equals("mostrarCurso")) {
                                     mostrarCurso(request, response);
                                 } else {
-                                    if (accion.equals("mostrarReporteCurso")) {
-                                        mostrarReporteCurso(request, response);
+                                    if (accion.equals("guardarcalificarEstudiante")) {
+                                        guardarcalificarEstudiante(request, response);
                                     } else {
                                         if (accion.equals("mostrarListaCurso")) {
                                             mostrarListaCurso(request, response);
+                                        } else {
+                                            if (accion.equals("calificarEstudiante")) {
+                                                calificarEstudiante(request, response);
+                                            }
                                         }
                                     }
                                 }
@@ -129,11 +135,11 @@ public class CursosServlet extends HttpServlet {
         CursoDTO dto = new CursoDTO();
         Collection lista;
         try {
-            InstructorDTO dtoProfe = (InstructorDTO)request.getSession().getAttribute("dto1");
-            int idprofe = dtoProfe.getEntidad().getIdProfesor();            
+            InstructorDTO dtoProfe = (InstructorDTO) request.getSession().getAttribute("dto1");
+            int idprofe = dtoProfe.getEntidad().getIdProfesor();
             lista = dao.readAllProfe(idprofe);
             request.getSession().setAttribute("dto1", dtoProfe);
-             request.getSession().setAttribute("type", "profesor");
+            request.getSession().setAttribute("type", "profesor");
             request.setAttribute("listaDeCursos", lista);
             RequestDispatcher rd = request.getRequestDispatcher("/cursos/listaCursos.jsp");
             rd.forward(request, response);
@@ -145,11 +151,11 @@ public class CursosServlet extends HttpServlet {
 
     private void agregarCurso(HttpServletRequest request, HttpServletResponse response) {
         RequestDispatcher vista = request.getRequestDispatcher("/cursos/cursosFormulario.jsp");
-        InstructorDTO dto = (InstructorDTO)request.getSession().getAttribute("dto1");
+        InstructorDTO dto = (InstructorDTO) request.getSession().getAttribute("dto1");
         int idprofe = dto.getEntidad().getIdProfesor();
         try {
             request.setAttribute("modificar", 0);
-            request.setAttribute("IDProfe",idprofe);
+            request.setAttribute("IDProfe", idprofe);
             vista.forward(request, response);
         } catch (ServletException | IOException ex) {
             Logger.getLogger(CursosServlet.class.getName()).log(Level.SEVERE, null, ex);
@@ -221,9 +227,9 @@ public class CursosServlet extends HttpServlet {
                 dao.update(dto);
                 profeDTO.getEntidad().setIdProfesor(dto.getEntidad().getIdProfesor());
                 profeDTO = profeDAO.read(profeDTO);
-                mail.enviarCorreo(profeDTO.getEntidad().getCorreo(), "Actualización del curso al que eres instructor", "Actualización de datos.\nDatos.\nNombre: "+dto.getEntidad().getNombreCurso()+"\t descripción: "+dto.getEntidad().getDescripcion());
-                mail.enviarCorreo("max.55@live.com.mx", "Actualización de curso - aviso sistema", "Se realizó la actualización al curso con ID: "+dto.getEntidad().getIdCurso()+"\t con nombre: "+dto.getEntidad().getNombreCurso());
-                RequestDispatcher vista = request.getRequestDispatcher("/cursos/listaCursos.jsp");                
+                mail.enviarCorreo(profeDTO.getEntidad().getCorreo(), "Actualización del curso al que eres instructor", "Actualización de datos.\nDatos.\nNombre: " + dto.getEntidad().getNombreCurso() + "\t descripción: " + dto.getEntidad().getDescripcion());
+                mail.enviarCorreo("max.55@live.com.mx", "Actualización de curso - aviso sistema", "Se realizó la actualización al curso con ID: " + dto.getEntidad().getIdCurso() + "\t con nombre: " + dto.getEntidad().getNombreCurso());
+                RequestDispatcher vista = request.getRequestDispatcher("/cursos/listaCursos.jsp");
                 request.getSession().setAttribute("dto1", profeDTO);
                 vista.forward(request, response);
             } catch (SQLException | ServletException | IOException ex) {
@@ -263,25 +269,83 @@ public class CursosServlet extends HttpServlet {
             CursoDTO dtoCurso = new CursoDTO();
             dtoCurso.getEntidad().setIdCurso(idCurso);
             CursoDTO dtoCurso1 = dao.read(dtoCurso);
-            
+
             InscripcionCursoDTO dtoI = new InscripcionCursoDTO();
             InscripcionCursoDAO daoI = new InscripcionCursoDAO();
             dtoI.getEntidad().setIdCurso(idCurso);
-            lista = daoI.readXCurso(dtoI);                        
+            lista = daoI.readXCurso(dtoI);
             EstudianteDTO dtoE = new EstudianteDTO();
             EstudianteDAO daoE = new EstudianteDAO();
-            for(int i = 0; i < lista.size(); i++ ){                
-                dtoI = (InscripcionCursoDTO)lista.get(i);                
-                int idEstudiante = dtoI.getEntidad().getIdEstudiante();                
+            for (int i = 0; i < lista.size(); i++) {
+                dtoI = (InscripcionCursoDTO) lista.get(i);
+                int idEstudiante = dtoI.getEntidad().getIdEstudiante();
                 dtoE.getEntidad().setIdEstudiante(idEstudiante);
-                EstudianteDTO dtoEE = daoE.read(dtoE);                
-                listaAlumnos.add(dtoEE);                
-            }            
-            request.setAttribute("IDCurso", dtoCurso1.getEntidad().getIdCurso());            
-            request.setAttribute("ListaAlumnos", listaAlumnos);            
-            vista.forward(request, response);                                             
+                EstudianteDTO dtoEE = daoE.read(dtoE);
+                listaAlumnos.add(dtoEE);
+            }
+            request.setAttribute("IDCurso", dtoCurso1.getEntidad().getIdCurso());
+            request.setAttribute("ListaAlumnos", listaAlumnos);
+            vista.forward(request, response);
         } catch (SQLException | ServletException | IOException ex) {
             Logger.getLogger(CursosServlet.class.getName()).log(Level.SEVERE, null, ex);
-        }                        
+        }
+    }
+
+    private void calificarEstudiante(HttpServletRequest request, HttpServletResponse response) {
+        RequestDispatcher vista = request.getRequestDispatcher("/cursos/calificarAlumno.jsp");
+        InstructorDTO dto = (InstructorDTO) request.getSession().getAttribute("dto1");
+        int idprofe = dto.getEntidad().getIdProfesor();
+        int idestudiante = Integer.parseInt(request.getParameter("id"));
+        String idCurso = request.getParameter("curso");
+        try {
+            CalificacionesFinalDTO dtoCF = new CalificacionesFinalDTO();
+
+            CalificacionesFinalDAO daoCF = new CalificacionesFinalDAO();
+            dtoCF.getEntidad().setIdCurso(idCurso);
+            dtoCF.getEntidad().setIdEstudiante(idestudiante);
+            CalificacionesFinalDTO dtoCF3 = daoCF.readID(dtoCF);
+            int idcalfinal = dtoCF3.getEntidad().getIdCalFinal();
+            int calfinal = dtoCF3.getEntidad().getCalF();
+            request.setAttribute("idCalF", idcalfinal);
+            request.setAttribute("IdEstudiante", idestudiante);
+            request.setAttribute("IdCurso", idCurso);
+            request.setAttribute("CaliF", calfinal);
+            vista.forward(request, response);
+        } catch (ServletException | IOException ex) {
+            Logger.getLogger(CursosServlet.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException ex) {
+            Logger.getLogger(CursosServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void guardarcalificarEstudiante(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            Collection lista;
+            RequestDispatcher vista = request.getRequestDispatcher("/cursos/listaCursos.jsp");
+            CalificacionesFinalDAO dao = new CalificacionesFinalDAO();
+            CalificacionesFinalDTO dto = new CalificacionesFinalDTO();
+            dto.getEntidad().setIdCurso(request.getParameter("txtIdCurso"));
+            dto.getEntidad().setIdEstudiante(Integer.parseInt(request.getParameter("txtIdEstudiante")));
+            dto.getEntidad().setIdCalFinal(Integer.parseInt(request.getParameter("txtIdCalFinal")));
+            dto.getEntidad().setCalF(Integer.parseInt(request.getParameter("txtCalF")));
+            InstructorDTO dtoProfe = (InstructorDTO) request.getSession().getAttribute("dto1");
+            CursoDAO dao1 = new CursoDAO();
+            int idprofe = dtoProfe.getEntidad().getIdProfesor();
+            lista = dao1.readAllProfe(idprofe);
+            request.getSession().setAttribute("dto1", dtoProfe);
+            request.getSession().setAttribute("type", "profesor");
+            request.setAttribute("listaDeCursos", lista);
+            try {
+                System.out.println(dto);
+                dao.update(dto);
+                vista.forward(request, response);
+            } catch (SQLException ex) {
+                Logger.getLogger(CalificacionesFinalServlet.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (ServletException | IOException ex) {
+                Logger.getLogger(CursosServlet.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(CursosServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }

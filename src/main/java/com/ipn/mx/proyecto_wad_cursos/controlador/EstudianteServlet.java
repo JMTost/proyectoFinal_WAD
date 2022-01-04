@@ -5,9 +5,11 @@
  */
 package com.ipn.mx.proyecto_wad_cursos.controlador;
 
+import com.ipn.mx.proyecto_wad_cursos.modelo.DAO.CalificacionesFinalDAO;
 import com.ipn.mx.proyecto_wad_cursos.modelo.DAO.CursoDAO;
 import com.ipn.mx.proyecto_wad_cursos.modelo.DAO.EstudianteDAO;
 import com.ipn.mx.proyecto_wad_cursos.modelo.DAO.InscripcionCursoDAO;
+import com.ipn.mx.proyecto_wad_cursos.modelo.DTO.CalificacionesFinalDTO;
 import com.ipn.mx.proyecto_wad_cursos.modelo.DTO.CursoDTO;
 import com.ipn.mx.proyecto_wad_cursos.modelo.DTO.EstudianteDTO;
 import com.ipn.mx.proyecto_wad_cursos.modelo.DTO.InscripcionCursoDTO;
@@ -316,6 +318,12 @@ public class EstudianteServlet extends HttpServlet {
             estDTO.getEntidad().setIdEstudiante(dto.getEntidad().getIdEstudiante());
             cursoDto.getEntidad().setIdCurso(dto.getEntidad().getIdCurso());
             try {
+                CalificacionesFinalDAO dao2 = new CalificacionesFinalDAO();
+                CalificacionesFinalDTO dto2 = new CalificacionesFinalDTO();
+                dto2.getEntidad().setIdCurso(request.getParameter("txtIdCurso"));
+                dto2.getEntidad().setIdEstudiante(Integer.parseInt(request.getParameter("txtIdEstudiante")));
+                dto2.getEntidad().setCalF(0);
+                dao2.create(dto2);
                 dao.create(dto);
                 estDTO = estDAO.read(estDTO);
                 cursoDto = cursoDao.read(cursoDto);

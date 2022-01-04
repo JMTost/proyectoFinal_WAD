@@ -27,6 +27,8 @@ public class CalificacionesFinalDAO {
     private static final String SQL_DELETE = "call spEliminarCalFinal(?)";
     private static final String SQL_READ = "select * from seleccionaCalFinal(?)";
     private static final String SQL_READ_ALLS = "select * from seleccionaCalFinales()";
+    private static final String SQL_READ_ID = "select * from calificacionesfinales where idcurso = ? and idestudiante = ?";
+     
     
     private Connection conexion;
     
@@ -131,6 +133,36 @@ public class CalificacionesFinalDAO {
         }
     }
     
+    public CalificacionesFinalDTO readID(CalificacionesFinalDTO dto) throws SQLException{
+        conectar();
+        CallableStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = conexion.prepareCall(SQL_READ_ID);
+            ps.setString(1, dto.getEntidad().getIdCurso());
+            ps.setInt(2, dto.getEntidad().getIdEstudiante());
+            rs = ps.executeQuery();
+            rs = ps.executeQuery();
+            List resultados = obtenerResultados(rs);
+            if(resultados.size() > 0){
+                return (CalificacionesFinalDTO) resultados.get(0);
+                
+            }else{
+                return null;
+            }
+        } finally {
+            if(rs != null){
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conexion != null) {
+                conexion.close();
+            }
+        }
+    }
+        
     public List readAll() throws  SQLException{
         conectar();
         CallableStatement ps = null;
