@@ -18,26 +18,25 @@
     <body>
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
-                    <a class="navbar-brand" href="#">
+                <div class="container-fluid">                   
                         <img src="Images/bootstrap-logo.svg" alt="" width="30" height="24" class="d-inline-block align-text-top">
-                        Cursos
-                    </a>
+                        Cursos                    
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="#" href="#">Home</a>
+                                <a class="nav-link active" href="EstudianteServlet?accion=mostrarBienvenida">Home</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="">Lista de cursos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="">Cerrar sesión</a>
-                            </li>
+                            <li  class="nav-item">
+                                <a class="nav-link" href="EstudianteServlet?accion=inscribirseCurso">Inscribir Curso</a>
+                            </li>                        
+                        
                         </ul>
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">                        
+                        <a class="btn btn-danger"  href="SesionesServlet?accion=cerrarSesion">Cerrar Sesión</a>
                     </div>
                 </div>
             </nav>

@@ -48,7 +48,18 @@ public class EstudianteServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
+            boolean var;
             String accion = request.getParameter("accion");
+            if (request.getSession().getAttribute("type") == null) {
+                var = true;
+            } else {
+                var = false;
+            }
+
+            if (var) {
+                RequestDispatcher vista = request.getRequestDispatcher("/signin/login.jsp");
+                vista.forward(request, response);
+            } else {
             if (accion.equals("listaDeEstudiantes")) {
                 listaDeEstudiantes(request, response);
             } else {
@@ -105,6 +116,7 @@ public class EstudianteServlet extends HttpServlet {
                         }
                     }
                 }
+            }
             }
         }
     }

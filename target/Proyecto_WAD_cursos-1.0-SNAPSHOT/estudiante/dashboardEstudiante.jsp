@@ -18,24 +18,21 @@
     <body>
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container-fluid">
-                   
+                <div class="container-fluid">                   
                         <img src="Images/bootstrap-logo.svg" alt="" width="30" height="24" class="d-inline-block align-text-top">
-                        Cursos
-                    
+                        Cursos                    
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link active" href="InstructorServlet?accion=mostrarBienvenida">Home</a>
+                                <a class="nav-link active" href="EstudianteServlet?accion=mostrarBienvenida">Home</a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="CursosServlet?accion=listaDeCursos">Lista de cursos</a>
-                            </li>                           
-                            <li class="nav-item"><a class="nav-link" href="CursosServlet?accion=nuevoCurso">Crear curso</a></li>
-                            <li class="nav-item"><a class="nav-link" href="DireccionCursoServlet?accion=nuevaDireccionC">Crear un nuevo enlace</a></li>
+                            <li  class="nav-item">
+                                <a class="nav-link" href="EstudianteServlet?accion=inscribirseCurso">Inscribir Curso</a>
+                            </li>                        
+                        
                         </ul>
                     </div>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">                        
