@@ -198,34 +198,7 @@ public class InscripcionCursoDAO {
             }
         }
     }
-    
-    public List readAlInscripcionporEstudiante(InscripcionCursoDTO dto) throws SQLException{
-        conectar();
-        CallableStatement ps = null;
-        ResultSet rs = null;
-        try {
-            ps = conexion.prepareCall(SQL_READ_ALL_ESTUDIANTE);
-            ps.setInt(1, dto.getEntidad().getIdEstudiante());
-            rs = ps.executeQuery();
-            List resultados = obtenerResultados(rs);
-            if (resultados.size() > 0) {
-                return resultados;
-            } else {
-                return null;
-            }
-        } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (ps != null) {
-                ps.close();
-            }
-            if (conexion != null) {
-                conexion.close();
-            }
-        }
-    }
-    
+        
     private List obtenerResultados(ResultSet rs) throws SQLException{
         List resultados = new ArrayList();
         while(rs.next()){
