@@ -356,7 +356,7 @@ $$
 CREATE OR REPLACE FUNCTION LeerInstructor(in idProfe int) RETURNS Table(
 	idprofesor int,
     	correo varchar,
-    	pass varchar,
+    	contraseña varchar,
 	nombre varchar,
 	apPat varchar,
 	apMat varchar,
@@ -373,7 +373,7 @@ $$ LANGUAGE sql
 CREATE OR REPLACE FUNCTION seleccionaTodosIntructor() RETURNS Table(
 	idprofesor int,
     	correo varchar,
-    	pass varchar,
+    	contraseña varchar,
 	nombre varchar,
 	apPat varchar,
 	apMat varchar,

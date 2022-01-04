@@ -41,13 +41,11 @@
             <div class="mb-3"></div>
             <div class="card border-primary">
                 <div class="card-header text-center">
-                    Lista de cursos
+                    Lista de cursos   
                 </div>
                 <div class="card-body container-fluid">
                     <h4 class="card-title">
-                        <a href="CursosServlet?accion=nuevoCurso" class="btn btn-outline-primary">Crear lista de cursos</a>
-                        <a href="CursosServlet?accion=mostrarGraficaCurso" class="btn btn-outline-primary">Mostrar grafica</a>
-                        <a href="CursosServlet?accion=mostrarReporteCurso" class="btn btn-outline-primary">Mostrar reporte</a>
+
                     </h4>
                     <c:if test="${mensaje != null}">
                         <div class="alert alert-dark alert-dismissible fade show" role="alert">
@@ -58,24 +56,30 @@
                     <table class="table table-hover">
                         <thead>
                             <tr>
-                                <th>ID del curso</th>
+                                <th>Codigo del curso</th>
                                 <th>Nombre del curso</th>
                                 <th>ID del profesor</th>
                                 <th>Descripción</th>
                                 <th>Eliminar</th>
-                                <th>Actualizar</th>
-                                <th>Reporte</th>
+                                <th>Actualizar</th>                            
+                                <th>Lista de Alumnos</th>
                             </tr>
                             <c:forEach var="dto" items="${listaDeCursos}">
-                            <tbody>
-                                <tr>                                    
+                            <tbody>                                                      
+                                <tr>      
+
                                     <td><a href="CursosServlet?accion=mostrarCalP&id=<c:out value="${dto.entidad.idCurso}"/>" class="btn btn-outline-secondary"><c:out value="${dto.entidad.idCurso}"/></a></td>
                                     <td><c:out value="${dto.entidad.nombreCurso}"/></td>
                                     <td><c:out value="${dto.entidad.idProfesor}"/></td>
                                     <td><c:out value="${dto.entidad.descripcion}"/></td>
                                     <td><a href="CursosServlet?accion=eliminarCurso&id=<c:out value="${dto.entidad.idCurso}"/>" class="btn btn-outline-danger">Eliminar</a></td>        
-                                    <td><a href="CursosServlet?accion=actualizarCurso&id=<c:out value="${dto.entidad.idCurso}"/>" class="btn btn-outline-default">Actualizar</a></td>
-                                    <td><a href="CursosServlet?accion=mostrarReporteCurso&individual=1&id=<c:out value="${dto.entidad.idCurso}"/>" class="btn btn-outline-info" target="_blank">Reporte</a></td>                                    
+                                    <td><a href="CursosServlet?accion=actualizarCurso&id=<c:out value="${dto.entidad.idCurso}"/>" class="btn btn-outline-warning">Actualizar</a></td>                                                                        
+
+                                    <td>
+                                        <form action="CursosServlet?accion=mostrarListaCurso&id=<c:out value="${dto.entidad.idCurso}"/>&profe=<c:out value="${dto.entidad.idProfesor}"/>" method="post" >
+                                            <button type="submit" class="btn btn-outline-success">Ver Lista</a>  
+                                        </form>     
+                                    </td> 
                                 </tr>
                             </tbody>
                         </c:forEach>

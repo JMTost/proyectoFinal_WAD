@@ -215,6 +215,7 @@ public class InstructorServlet extends HttpServlet {
             request.setAttribute("ID",dto.getEntidad().getIdProfesor());
             request.setAttribute("Nombre",dto.getEntidad().getNombre());
             request.setAttribute("Paterno",dto.getEntidad().getApPat());
+            request.setAttribute("dtoP",dto);
            
             vista.forward(request, response);
         } catch (ServletException | IOException ex) {
@@ -313,6 +314,13 @@ public class InstructorServlet extends HttpServlet {
     private void mostrarInstructor(HttpServletRequest request, HttpServletResponse response) {
         InstructorDAO dao = new InstructorDAO();
         InstructorDTO dto = new InstructorDTO();
+        InstructorDTO dto1 = (InstructorDTO)request.getSession().getAttribute("dto1");
+            
+            request.setAttribute("ID",dto.getEntidad().getIdProfesor());
+            request.setAttribute("Nombre",dto.getEntidad().getNombre());
+            request.setAttribute("Paterno",dto.getEntidad().getApPat());
+            request.setAttribute("dtoP",dto1);
+
         dto.getEntidad().setIdProfesor(Integer.parseInt(request.getParameter("id")));
         RequestDispatcher vista = request.getRequestDispatcher("/instructores/datosInstructor.jsp");
         try {
@@ -570,7 +578,7 @@ public class InstructorServlet extends HttpServlet {
             }
         }
     }
-
+    
     private void mostrarCalPar(HttpServletRequest request, HttpServletResponse response) {
         CalificacionesPacrialesDAO dao = new CalificacionesPacrialesDAO();
         CalificacionesParcialesDTO dto = new CalificacionesParcialesDTO();

@@ -6,14 +6,20 @@
 package com.ipn.mx.proyecto_wad_cursos.controlador;
 
 import com.ipn.mx.proyecto_wad_cursos.modelo.DAO.CursoDAO;
+import com.ipn.mx.proyecto_wad_cursos.modelo.DAO.EstudianteDAO;
+import com.ipn.mx.proyecto_wad_cursos.modelo.DAO.InscripcionCursoDAO;
 import com.ipn.mx.proyecto_wad_cursos.modelo.DAO.InstructorDAO;
 import com.ipn.mx.proyecto_wad_cursos.modelo.DTO.CursoDTO;
+import com.ipn.mx.proyecto_wad_cursos.modelo.DTO.EstudianteDTO;
+import com.ipn.mx.proyecto_wad_cursos.modelo.DTO.InscripcionCursoDTO;
 import com.ipn.mx.proyecto_wad_cursos.modelo.DTO.InstructorDTO;
 import com.ipn.mx.utilerias.EnviarMail;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
@@ -66,8 +72,8 @@ public class CursosServlet extends HttpServlet {
                                     if (accion.equals("mostrarReporteCurso")) {
                                         mostrarReporteCurso(request, response);
                                     } else {
-                                        if (accion.equals("mostrarGraficaCurso")) {
-                                            mostrarGraficaCurso(request, response);
+                                        if (accion.equals("mostrarListaCurso")) {
+                                            mostrarListaCurso(request, response);
                                         }
                                     }
                                 }
@@ -126,6 +132,8 @@ public class CursosServlet extends HttpServlet {
             InstructorDTO dtoProfe = (InstructorDTO)request.getSession().getAttribute("dto1");
             int idprofe = dtoProfe.getEntidad().getIdProfesor();            
             lista = dao.readAllProfe(idprofe);
+            request.getSession().setAttribute("dto1", dtoProfe);
+             request.getSession().setAttribute("type", "profesor");
             request.setAttribute("listaDeCursos", lista);
             RequestDispatcher rd = request.getRequestDispatcher("/cursos/listaCursos.jsp");
             rd.forward(request, response);
@@ -215,8 +223,10 @@ public class CursosServlet extends HttpServlet {
                 profeDTO = profeDAO.read(profeDTO);
                 mail.enviarCorreo(profeDTO.getEntidad().getCorreo(), "Actualización del curso al que eres instructor", "Actualización de datos.\nDatos.\nNombre: "+dto.getEntidad().getNombreCurso()+"\t descripción: "+dto.getEntidad().getDescripcion());
                 mail.enviarCorreo("max.55@live.com.mx", "Actualización de curso - aviso sistema", "Se realizó la actualización al curso con ID: "+dto.getEntidad().getIdCurso()+"\t con nombre: "+dto.getEntidad().getNombreCurso());
-                listaDeCursos(request, response);
-            } catch (SQLException ex) {
+                RequestDispatcher vista = request.getRequestDispatcher("/cursos/listaCursos.jsp");                
+                request.getSession().setAttribute("dto1", profeDTO);
+                vista.forward(request, response);
+            } catch (SQLException | ServletException | IOException ex) {
                 Logger.getLogger(CursosServlet.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
@@ -242,8 +252,36 @@ public class CursosServlet extends HttpServlet {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private void mostrarGraficaCurso(HttpServletRequest request, HttpServletResponse response) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void mostrarListaCurso(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            List lista;
+            List listaAlumnos = new ArrayList();
+            RequestDispatcher vista = request.getRequestDispatcher("/cursos/listaAlumnos.jsp");
+            String idprofe = request.getParameter("profe");
+            String idCurso = request.getParameter("id");
+            CursoDAO dao = new CursoDAO();
+            CursoDTO dtoCurso = new CursoDTO();
+            dtoCurso.getEntidad().setIdCurso(idCurso);
+            CursoDTO dtoCurso1 = dao.read(dtoCurso);
+            
+            InscripcionCursoDTO dtoI = new InscripcionCursoDTO();
+            InscripcionCursoDAO daoI = new InscripcionCursoDAO();
+            dtoI.getEntidad().setIdCurso(idCurso);
+            lista = daoI.readXCurso(dtoI);                        
+            EstudianteDTO dtoE = new EstudianteDTO();
+            EstudianteDAO daoE = new EstudianteDAO();
+            for(int i = 0; i < lista.size(); i++ ){                
+                dtoI = (InscripcionCursoDTO)lista.get(i);                
+                int idEstudiante = dtoI.getEntidad().getIdEstudiante();                
+                dtoE.getEntidad().setIdEstudiante(idEstudiante);
+                EstudianteDTO dtoEE = daoE.read(dtoE);                
+                listaAlumnos.add(dtoEE);                
+            }            
+            request.setAttribute("IDCurso", dtoCurso1.getEntidad().getIdCurso());            
+            request.setAttribute("ListaAlumnos", listaAlumnos);            
+            vista.forward(request, response);                                             
+        } catch (SQLException | ServletException | IOException ex) {
+            Logger.getLogger(CursosServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }                        
     }
-
 }

@@ -21,25 +21,25 @@
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">
+                   
                         <img src="Images/bootstrap-logo.svg" alt="" width="30" height="24" class="d-inline-block align-text-top">
                         Cursos
-                    </a>
+                    
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="navbarNav">
                         <ul class="navbar-nav">
                             <li class="nav-item">
-                                <a class="nav-link active" aria-current="#" href="./bienvenida.jsp">Home</a>
-                            </li>
+                                <a class="nav-link active" href="InstructorServlet?accion=mostrarBienvenida">Home</a>
+                            </li>     
                             <li class="nav-item">
-                                <a class="nav-link" href="">Lista de cursos</a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="">Cerrar sesión</a>
-                            </li>
+                                <a class="nav-link" href="CursosServlet?accion=listaDeCursos">Lista de cursos</a>
+                            </li>   
                         </ul>
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">                        
+                        <a class="btn btn-danger"  href="SesionesServlet?accion=cerrarSesion">Cerrar Sesión</a>
                     </div>
                 </div>
             </nav>
@@ -52,51 +52,54 @@
                 <div class="card-body">
                     <ul class="list-group">
                         <li class="list-group-item">
-                            Id profesor: 
+                            <strong>Id profesor: </strong>
                             <c:out value="${instructor.entidad.idProfesor}"/>
                         </li>
                         <li class="list-group-item">
-                            Nombre: 
+                            <strong>Nombre: </strong>
                             <c:out value="${instructor.entidad.nombre}"/>
                         </li>
                         <li class="list-group-item">
-                            Apellido Paterno:
+                            <strong>Apellido Paterno:</strong>
                             <c:out value="${instructor.entidad.apPat}"/>
                         </li>
                         <li class="list-group-item">
-                            Apellido Materno:
+                            <strong>Apellido Materno:</strong>
                             <c:out value="${instructor.entidad.apMat}"/>
                         </li>
                         <li class="list-group-item">
-                            Calle:
+                            <strong>Calle:</strong>
                             <c:out value="${instructor.entidad.calle}"/>
                         </li>
                         <li class="list-group-item">
-                            Número exterior:
+                            <strong>Número exterior:</strong>
                             <c:out value="${instructor.entidad.numExt}"/>
                         </li>
                         <li class="list-group-item">
-                            Código postal:
+                            <strong>Código postal:</strong>
                             <c:out value="${instructor.entidad.codPost}"/>
                         </li>
                         <li class="list-group-item">
-                            Delegación: 
+                            <strong>Delegación: </strong>
                             <c:out value="${instructor.entidad.delegacion}"/>
                         </li>
                         <li class="list-group-item">
-                            Teléfono:
+                            <strong>Teléfono:</strong>
                             <c:out value="${instructor.entidad.telefono}"/>
                         </li>
                         <li class="list-group-item">
-                            Correo:
+                            <strong>Correo:</strong>
                             <c:out value="${instructor.entidad.correo}"/>
                         </li>
                         <li class="list-group-item">
-                            Constraseña:
+                            <strong>Constraseña:</strong>
                             <c:out value="${instructor.entidad.pass}"/>
                         </li>
                     </ul>
                 </div>
+                        <div class="d-grid gap-2 d-md-flex justify-content-md-center">                        
+                        <a class="btn btn-warning"  href="#">Actualizar</a>
+                    </div>
             </center>
 
 

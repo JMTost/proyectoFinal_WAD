@@ -34,8 +34,7 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="CursosServlet?accion=listaDeCursos">Lista de cursos</a>
                             </li>                           
-                            <li class="nav-item"><a class="nav-link" href="CursosServlet?accion=nuevoCurso">Crear curso</a></li>
-                            <li class="nav-item"><a class="nav-link" href="DireccionCursoServlet?accion=nuevaDireccionC">Crear un nuevo enlace</a></li>
+                            <li class="nav-item"><a class="nav-link" href="CursosServlet?accion=nuevoCurso">Crear curso</a></li>                            
                         </ul>
                     </div>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">                        
@@ -60,10 +59,10 @@
                     <br>
                     <ul class="list-group list-group-horizontal" >
                         <li style="list-style-type: none;"><a class="list-group-item" href="CursosServlet?accion=nuevoCurso">Crear nuevo curso</a></li>
-                        <li style="list-style-type: none;"><a class="list-group-item" href="InstructorServlet?accion=nuevaCalP">Subir calificación parcial</a></li>
-                        <li style="list-style-type: none;"><a class="list-group-item" href="InstructorServlet?accion=nuevaCalificacionF">Subir calificación final</a></li>
-                        <li style="list-style-type: none;"><a class="list-group-item" href="/DireccionCursoServlet?accion=nuevaDireccionC">Crear un nuevo enlace para la videollamada</a></li>
+                        <li style="list-style-type: none;"><a class="list-group-item" href="CursosServlet?accion=listaDeCursos">Lista Cursos</a></li>
                     </ul>      
+                    <br>
+                    <br>
                     <ul class="list-group list-group-horizontal">
                         <li style="list-style-type: none;"><a class="list-group-item" href="InstructorServlet?accion=mostrarInstr&id=1">Mostar mis datos</a></li>
                         

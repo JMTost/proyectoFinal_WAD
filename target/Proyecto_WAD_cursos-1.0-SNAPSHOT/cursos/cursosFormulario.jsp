@@ -30,7 +30,10 @@
                         <ul class="navbar-nav">
                             <li class="nav-item">
                                 <a class="nav-link active" href="InstructorServlet?accion=mostrarBienvenida">Home</a>
-                            </li>                            
+                            </li>     
+                            <li class="nav-item">
+                                <a class="nav-link" href="CursosServlet?accion=listaDeCursos">Lista de cursos</a>
+                            </li>   
                         </ul>
                     </div>
                     <div class="d-grid gap-2 d-md-flex justify-content-md-end">                        

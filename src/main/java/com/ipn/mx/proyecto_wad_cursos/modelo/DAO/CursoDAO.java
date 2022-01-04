@@ -73,7 +73,7 @@ public class CursoDAO {
         
     public void update(CursoDTO dto) throws SQLException {
         conectar();
-        CallableStatement ps = null;
+        CallableStatement ps = null;        
         try {
             ps = conexion.prepareCall(SQL_UPDATE);
             ps.setString(1, dto.getEntidad().getIdCurso());
