@@ -21,6 +21,7 @@ import java.util.logging.Logger;
  * @author JMTN
  */
 public class CalificacionesFinalDAO {
+
     /*Scripts para las operaciones de CRUD*/
     private static final String SQL_INSERT = "call spInsertaCalFinal(?,?,?)";
     private static final String SQL_UPDATE = "call spActualizarCalFinal(?,?,?,?)";
@@ -28,10 +29,9 @@ public class CalificacionesFinalDAO {
     private static final String SQL_READ = "select * from seleccionaCalFinal(?)";
     private static final String SQL_READ_ALLS = "select * from seleccionaCalFinales()";
     private static final String SQL_READ_ID = "select * from calificacionesfinales where idcurso = ? and idestudiante = ?";
-     
-    
+    private static final String SQL_READ_ALLxEstudiante = "select * from seleccionaCalFinalXestudiante(?)";
     private Connection conexion;
-    
+
     //METODO DE CONEXION
     public Connection conectar() {
         String user = "wzevyustxebjfm";
@@ -48,8 +48,8 @@ public class CalificacionesFinalDAO {
         }
         return conexion;
     }
-    
-    public void create(CalificacionesFinalDTO dto) throws SQLException{
+
+    public void create(CalificacionesFinalDTO dto) throws SQLException {
         conectar();
         CallableStatement ps = null;
         try {
@@ -67,8 +67,8 @@ public class CalificacionesFinalDAO {
             }
         }
     }
-    
-    public void update(CalificacionesFinalDTO dto) throws SQLException{
+
+    public void update(CalificacionesFinalDTO dto) throws SQLException {
         conectar();
         CallableStatement ps = null;
         try {
@@ -87,8 +87,8 @@ public class CalificacionesFinalDAO {
             }
         }
     }
-    
-    public void delete(CalificacionesFinalDTO dto)throws SQLException{
+
+    public void delete(CalificacionesFinalDTO dto) throws SQLException {
         conectar();
         CallableStatement ps = null;
         try {
@@ -104,8 +104,8 @@ public class CalificacionesFinalDAO {
             }
         }
     }
-    
-    public CalificacionesFinalDTO read(CalificacionesFinalDTO dto) throws SQLException{
+
+    public CalificacionesFinalDTO read(CalificacionesFinalDTO dto) throws SQLException {
         conectar();
         CallableStatement ps = null;
         ResultSet rs = null;
@@ -114,14 +114,14 @@ public class CalificacionesFinalDAO {
             ps.setInt(1, dto.getEntidad().getIdCalFinal());
             rs = ps.executeQuery();
             List resultados = obtenerResultados(rs);
-            if(resultados.size() > 0){
+            if (resultados.size() > 0) {
                 return (CalificacionesFinalDTO) resultados.get(0);
-                
-            }else{
+
+            } else {
                 return null;
             }
         } finally {
-            if(rs != null){
+            if (rs != null) {
                 rs.close();
             }
             if (ps != null) {
@@ -132,6 +132,7 @@ public class CalificacionesFinalDAO {
             }
         }
     }
+
     
     public CalificacionesFinalDTO readID(CalificacionesFinalDTO dto) throws SQLException{
         conectar();
@@ -171,14 +172,14 @@ public class CalificacionesFinalDAO {
             ps = conexion.prepareCall(SQL_READ_ALLS);
             rs = ps.executeQuery();
             List resultados = obtenerResultados(rs);
-            if(resultados.size() > 0){
+            if (resultados.size() > 0) {
                 return resultados;
-                
-            }else{
+
+            } else {
                 return null;
             }
         } finally {
-            if(rs != null){
+            if (rs != null) {
                 rs.close();
             }
             if (ps != null) {
@@ -189,10 +190,38 @@ public class CalificacionesFinalDAO {
             }
         }
     }
-    
-    private List obtenerResultados(ResultSet rs) throws SQLException{
+
+    public List readALLxEstudiantes(CalificacionesFinalDTO dto) throws SQLException {
+        conectar();
+        CallableStatement ps = null;
+        ResultSet rs = null;
+        try {
+            ps = conexion.prepareCall(SQL_READ_ALLxEstudiante);
+            ps.setInt(1, dto.getEntidad().getIdEstudiante());
+            rs = ps.executeQuery();
+            List resultados = obtenerResultados(rs);
+            if (resultados.size() > 0) {
+                return resultados;
+
+            } else {
+                return null;
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ps != null) {
+                ps.close();
+            }
+            if (conexion != null) {
+                conexion.close();
+            }
+        }
+    }
+
+    private List obtenerResultados(ResultSet rs) throws SQLException {
         List resultados = new ArrayList();
-        while(rs.next()){
+        while (rs.next()) {
             CalificacionesFinalDTO dto = new CalificacionesFinalDTO();
             dto.getEntidad().setIdCalFinal(rs.getInt("idCalFinal"));
             dto.getEntidad().setIdEstudiante(rs.getInt("idEstudiante"));
@@ -202,13 +231,14 @@ public class CalificacionesFinalDAO {
         }
         return resultados;
     }
-    
+
     public static void main(String[] args) {
         CalificacionesFinalDAO dao = new CalificacionesFinalDAO();
         CalificacionesFinalDTO dto = new CalificacionesFinalDTO();
-        
+        dto.getEntidad().setIdEstudiante(3);
         try {
-            System.out.println(dao.readAll());
+            //System.out.println(dao.readAll());
+            System.out.println(dao.readALLxEstudiantes(dto));
         } catch (SQLException ex) {
             Logger.getLogger(CalificacionesFinalDAO.class.getName()).log(Level.SEVERE, null, ex);
         }
