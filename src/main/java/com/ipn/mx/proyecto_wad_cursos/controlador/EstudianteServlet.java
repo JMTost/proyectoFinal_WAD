@@ -5,9 +5,11 @@
  */
 package com.ipn.mx.proyecto_wad_cursos.controlador;
 
+import com.ipn.mx.proyecto_wad_cursos.modelo.DAO.CalificacionesFinalDAO;
 import com.ipn.mx.proyecto_wad_cursos.modelo.DAO.CursoDAO;
 import com.ipn.mx.proyecto_wad_cursos.modelo.DAO.EstudianteDAO;
 import com.ipn.mx.proyecto_wad_cursos.modelo.DAO.InscripcionCursoDAO;
+import com.ipn.mx.proyecto_wad_cursos.modelo.DTO.CalificacionesFinalDTO;
 import com.ipn.mx.proyecto_wad_cursos.modelo.DTO.CursoDTO;
 import com.ipn.mx.proyecto_wad_cursos.modelo.DTO.EstudianteDTO;
 import com.ipn.mx.proyecto_wad_cursos.modelo.DTO.InscripcionCursoDTO;
@@ -87,6 +89,10 @@ public class EstudianteServlet extends HttpServlet {
                                                         }else{
                                                             if(accion.equals("eliminarInscripcion")){
                                                                 eliminarInscripcionEstudiante(request, response);
+                                                            }else{
+                                                                if(accion.equals("mostrarCalFinal")){
+                                                                    mostrarCalFinal(request, response);
+                                                                }
                                                             }
                                                         }
                                                     }
@@ -343,6 +349,22 @@ public class EstudianteServlet extends HttpServlet {
             dao.delete(dto);
             listaDeCursosEstudiante(request, response);
         } catch (SQLException ex) {
+            Logger.getLogger(EstudianteServlet.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void mostrarCalFinal(HttpServletRequest request, HttpServletResponse response) {
+        CalificacionesFinalDAO dao = new CalificacionesFinalDAO();
+        CalificacionesFinalDTO dto = new CalificacionesFinalDTO();
+        Collection lista;
+        dto.getEntidad().setIdEstudiante(Integer.parseInt(request.getParameter("id")));
+        //System.out.println(dto);
+        try {
+            lista = dao.readALLxEstudiantes(dto);
+            request.setAttribute("listaCalificacionesFinal", lista);
+            RequestDispatcher rd = request.getRequestDispatcher("/estudiante/listaCalFinales.jsp");
+            rd.forward(request, response);
+        } catch (SQLException | ServletException | IOException ex) {
             Logger.getLogger(EstudianteServlet.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

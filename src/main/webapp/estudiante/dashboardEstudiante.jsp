@@ -62,6 +62,7 @@
                         <li style="list-style-type: none;"><a class="list-group-item" href="EstudianteServlet?accion=inscribirseCurso">Inscribir se ha un curso</a></li>
                         <li style="list-style-type: none;"><a class="list-group-item" href="EstudianteServlet?accion=listaDeCursos&id=<c:out value="${ID}"/>">Cursos inscrito</a></li>
                         <li style="list-style-type: none;"><a class="list-group-item" href="EstudianteServlet?accion=mostrarEstudiante&id=<c:out value="${ID}" />">Mostar mis datos</a></li>
+                        <li style="list-style-type: none;"><a class="list-group-item" href="EstudianteServlet?accion=mostrarCalFinal&id=<c:out value="${ID}" />">Mostar mis calificaciones</a></li>
                     </ul>            
                     <div class="mb-3"></div>
                     <p>Si desea realizar una modificación de sus datos, favor de realizar un correo a <a class="link-dark" href="mailto:max.55@live.com.mx">max.55@live.com.mx</a>, el cual es el administrador del sistema, en el asunto deberá colocar <span class="" style="text-decoration: underline;">"modificación de datos - Estudiante"</span> listando que datos desea modificar y sobre todo mandando su correo en el cual ingresa al sistema.</p>

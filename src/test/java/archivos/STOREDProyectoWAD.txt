@@ -530,3 +530,13 @@ CREATE OR REPLACE FUNCTION seleccionaCursosInsxEstudiante(in idEst int) RETURNS 
 )AS
 $$ SELECT * FROM inscripcionCurso WHERE idEstudiante = idEst;
 $$ LANGUAGE sql
+
+--Selecciona calificaciones finales por ID estudiante
+CREATE OR REPLACE FUNCTION seleccionaCalFinalXestudiante(in idEst int) RETURNS Table(
+	idCalFinal int,
+    	idEstudiante int,
+        idCurso varchar,
+        calF int
+)AS
+$$ SELECT * FROM calificacionesfinales WHERE idEstudiante = idEst;
+$$ LANGUAGE sql
