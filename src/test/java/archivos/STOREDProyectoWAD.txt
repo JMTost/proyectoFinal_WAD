@@ -521,3 +521,12 @@ CREATE OR REPLACE FUNCTION seleccionaCursosProfe( in idProfe int ) RETURNS Table
 $$ SELECT * FROM Curso WHERE idprofesor = idProfe;
 $$ LANGUAGE sql
 -------------------------------
+
+
+---------Leer Todos los Cursos inscripcion x Estudiante----------
+CREATE OR REPLACE FUNCTION seleccionaCursosInsxEstudiante(in idEst int) RETURNS Table(
+	idcurso varchar,
+    	idestudiante int
+)AS
+$$ SELECT * FROM inscripcionCurso WHERE idEstudiante = idEst;
+$$ LANGUAGE sql
